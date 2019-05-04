@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Login</title>
+    <base href="<?php echo base_url();?>"/>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -77,5 +78,9 @@
     <script src="./assets/vendor/chart.js/Chart.min.js"></script>
     <script src="./assets/vendor/jquery-validation/jquery.validate.min.js"></script>
     <script src="./assets/js/front.js"></script>
+
+    <script type="text/javascript">
+      
+    </script>
   </body>
 </html>
