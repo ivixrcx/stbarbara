@@ -20,6 +20,15 @@ class Home extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('login');
+		// check if user logged in
+		if(!$this->session->has_userdata('login_data')){
+			redirect(base_url() . 'account/login', 'refresh');
+		}
+
+		$this->load->view( 'page-header' );
+		$this->load->view( 'page-navbar' );
+		$this->load->view( 'page-title' );
+		$this->load->view( 'home' );
+		$this->load->view( 'page-footer' );
 	}
 }
