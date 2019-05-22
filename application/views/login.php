@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="./assets/vendor/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome CSS-->
     <link rel="stylesheet" href="./assets/vendor/font-awesome/css/font-awesome.min.css">
+    <!-- Sweet Alert 2 CSS-->
+    <link rel="stylesheet" href="./assets/vendor/sweetalert2/sweetalert2.min.css">
     <!-- Custom Font Icons CSS-->
     <link rel="stylesheet" href="./assets/css/font.css">
     <!-- Google fonts - Muli-->
@@ -46,13 +48,13 @@
             <div class="col-lg-6">
               <div class="form d-flex align-items-center">
                 <div class="content">
-                  <form method="get" class="form-validate mb-4">
+                  <form method="post" id="form_login" class="form-validate mb-4">
                     <div class="form-group">
-                      <input id="login-username" type="text" name="loginUsername" required data-msg="Please enter your username" class="input-material">
+                      <input id="login-username" type="text" name="user_name" value="livil" required data-msg="Please enter your username" class="input-material">
                       <label for="login-username" class="label-material">User Name</label>
                     </div>
                     <div class="form-group">
-                      <input id="login-password" type="password" name="loginPassword" required data-msg="Please enter your password" class="input-material">
+                      <input id="login-password" type="password" name="password" value="password" required data-msg="Please enter your password" class="input-material">
                       <label for="login-password" class="label-material">Password</label>
                     </div>
                     <button type="submit" class="btn btn-primary">Login</button>
@@ -66,7 +68,7 @@
         </div>
       </div>
       <div class="copyrights text-center">
-        <p>Powered by <a href="https://www.arttechcebu.com" class="external">Art Tech Media & I.T. Solutions</a></p>
+        <p>Powered by <a href="https://www.arttechcebu.com/" class="external">Art Tech Media & I.T. Solutions</a></p>
         <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
       </div>
     </div>
@@ -77,10 +79,35 @@
     <script src="./assets/vendor/jquery.cookie/jquery.cookie.js"> </script>
     <script src="./assets/vendor/chart.js/Chart.min.js"></script>
     <script src="./assets/vendor/jquery-validation/jquery.validate.min.js"></script>
+    <script src="./assets/vendor/sweetalert2/sweetalert2.min.js"></script>
     <script src="./assets/js/front.js"></script>
 
     <script type="text/javascript">
-      
+      $(function(){
+
+        const base = $('base').attr('href');
+
+        $('#form_login').submit(function(e){
+          e.preventDefault();
+
+          $.ajax({
+            type: 'post',
+            url: base + 'account/login_process',
+            data: $(this).serialize(),
+            success: (res)=>{
+              console.log(res)
+              if(res.has_data){
+                window.location.href=base + 'home'
+              }
+              else{
+                Swal.fire('Invalid Login.');
+              }
+            }
+          });
+
+        });
+
+      });
     </script>
   </body>
 </html>
