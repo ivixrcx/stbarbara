@@ -25,8 +25,11 @@ class Home extends CI_Controller {
 			redirect(base_url() . 'account/login', 'refresh');
 		}
 
+		$data = array();
+		$data['login_data'] = $this->session->userdata('login_data');
+
 		$this->load->view( 'page-header' );
-		$this->load->view( 'page-navbar' );
+		$this->load->view( 'page-navbar', $data['login_data'] );
 		$this->load->view( 'page-title' );
 		$this->load->view( 'home' );
 		$this->load->view( 'page-footer' );
