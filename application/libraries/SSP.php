@@ -34,6 +34,14 @@ class SSP
 	private $record_total = 0;
 	private $records_filtered = 0;
 
+
+	private $__table	= "";
+	private $__column	= array();
+	private $__columns	= array();
+	private $__join 	= array();
+	private $__where 	= array();
+	private $__filter 	= array();
+
 	/** 
 	* @var string $sql
 	*/
@@ -133,8 +141,7 @@ class SSP
 	*
 	* 	@return array
 	*/
-	// protected function result($sql)
-	public function result($sql)
+	protected function result($sql)
 	{
 		// make query using callback
 		$response = $this->query($sql);
@@ -243,6 +250,7 @@ class SSP
 		header('content-type:application/json; charset=utf-8');
 		echo json_encode(
 			array(
+	            "sql"            => $this->sql,
 	            "draw"            => $this->request['draw'],
 	            "recordsTotal"    => $this->records_total,
 	            "recordsFiltered" => $this->records_filtered,
@@ -255,7 +263,7 @@ class SSP
 	/**
 	* @return string
 	*/
-	public function SQL_DISPLAY()
+	public function display()
 	{
 		if(!empty($this->__table))
 			return $this->output(true);
@@ -446,13 +454,6 @@ class SSP
 		}
 	}
 
-	private $__table	= "";
-	private $__column	= array();
-	private $__columns	= array();
-	private $__join 	= array();
-	private $__where 	= array();
-	private $__filter 	= array();
-
 	public function table($table)
 	{
 		$this->__table = " `$table` ";
@@ -481,18 +482,18 @@ class SSP
 
 	public function where($column_name, $value)
 	{
-		$this->__where[] = " `$column_name` = '$value' ";
+		$this->__where[] = " `" . str_replace('.', '`.`', $column_name) . "`  = '$value' ";
 		return $this;
 	}
 
 	protected function filter()
 	{
-		$search = $this->request['search'];
+		$search = $this->request['search']['value'];
 
 		if(empty($search)) return;
 
-		foreach ($this->__columns as $key => $column) {
-			$this->__filter[] = " `$column` LIKE '%$search%' ";
+		foreach ($this->__columns as $key => $column_name) {
+			$this->__filter[] = " `" . str_replace('.', '`.`', $column_name) . "`  LIKE '%$search%' ";
 		}
 	}
 
@@ -500,23 +501,53 @@ class SSP
 	{
 		$this->sql = 'SELECT' . implode(',', $this->__column) . 'FROM' . $this->__table . implode('', $this->__join);
 
-		$this->records_total($this->sql);
-		if(!empty($this->__where)){
+		// set filter
+		$this->filter();
+
+		// where and filter
+		if(!empty($this->__where) || !empty($this->__filter)){
+
 			$this->sql .= 'WHERE' . implode('AND', $this->__where);
+
+			// set total records fetched
+			$this->records_total($this->sql);
+
+			if(!empty($this->__filter)){
+				if(!empty($this->__where)){
+					$this->sql .= 'AND' . implode('OR', $this->__filter);
+				}
+				else{
+					$this->sql .= implode('OR', $this->__filter);
+				}
+			}
+			else{
+				$this->sql .= implode('OR', $this->__filter);
+			}
 		}
 
-		if(!empty($this->__filter)){
-			$this->sql .= implode('OR', $this->filter);
-		}
-			$this->records_filtered($this->sql);
+		// set filtered records
+		$this->records_filtered($this->sql);
+
+		// get limit
 		$this->_limit();
+
+		// set limit
 		$this->sql .= $this->limit;
+
 
 		if($display){
 			return $this->sql;
 		}
 
 		$this->_output();
+	}
+
+	/**
+	* 	@var callable $callback
+	*/
+	public function then(callable $callback)
+	{
+		$callback($this);
 	}
 }
 
