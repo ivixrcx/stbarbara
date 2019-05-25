@@ -3,8 +3,6 @@
 /**
 *	Server Side Processing for DataTables ~1.10^
 *	compatible with Codeigniter 3
-*
-* 	@version 0.0.2
 */
 class SSP 
 {
