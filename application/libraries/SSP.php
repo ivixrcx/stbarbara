@@ -39,6 +39,7 @@ class SSP
 	private $__join 	= array();
 	private $__where 	= array();
 	private $__filter 	= array();
+	private $__allias 	= array();
 
 	/** 
 	* @var string $sql
@@ -465,6 +466,7 @@ class SSP
 			$this->__column[] = " `" . str_replace('.', '`.`', $column_name) . "` ";
 		}
 		else{
+			$this->__allias[] = $allias;
 			$this->__columns[] = $allias;
 			$this->__column[] = " `" . str_replace('.', '`.`', $column_name) . "` AS '$allias' ";
 		}
@@ -491,7 +493,12 @@ class SSP
 		if(empty($search)) return;
 
 		foreach ($this->__columns as $key => $column_name) {
-			$this->__filter[] = " `" . str_replace('.', '`.`', $column_name) . "`  LIKE '%$search%' ";
+			if(in_array($column_name, $this->__allias)){
+				$this->__filter[] = " '" . str_replace('.', '\'.\'', $column_name) . "'  LIKE '%$search%' ";
+			}
+			else{
+				$this->__filter[] = " `" . str_replace('.', '`.`', $column_name) . "`  LIKE '%$search%' ";				
+			}
 		}
 	}
 
