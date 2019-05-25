@@ -39,7 +39,7 @@ class SSP
 	private $__join 	= array();
 	private $__where 	= array();
 	private $__filter 	= array();
-	private $__allias 	= array();
+	private $__alias 	= array();
 
 	/** 
 	* @var string $sql
@@ -429,19 +429,19 @@ class SSP
 
 			for ($i=0; $i < count($array); $i++) {
 
-				// column allias
+				// column alias
 				if($array[$i] > 1) {
 
 					$d = array();
 					$d['_column'] = '`' . str_replace('.', '`.`', $array[$i][0]) . '`';
-					$d['_allias'] = '\'' . $array[$i][1] . '\'';
+					$d['_alias'] = '\'' . $array[$i][1] . '\'';
 
 					extract($d);
 
 					// update $_columns
-					$this->_columns[$i] = $_allias;
+					$this->_columns[$i] = $_alias;
 
-					$columns[] = $_column . ' AS ' . $_allias;
+					$columns[] = $_column . ' AS ' . $_alias;
 				}
 				// normal columns
 				else{
@@ -459,16 +459,16 @@ class SSP
 		return $this;
 	}
 
-	public function column($column_name, $allias="")
+	public function column($column_name, $alias="")
 	{
-		if(empty($allias)){
+		if(empty($alias)){
 			$this->__columns[] = $column_name;
 			$this->__column[] = " `" . str_replace('.', '`.`', $column_name) . "` ";
 		}
 		else{
-			$this->__allias[] = $allias;
-			$this->__columns[] = $allias;
-			$this->__column[] = " `" . str_replace('.', '`.`', $column_name) . "` AS '$allias' ";
+			$this->__alias[] = $alias;
+			$this->__columns[] = $alias;
+			$this->__column[] = " `" . str_replace('.', '`.`', $column_name) . "` AS '$alias' ";
 		}
 
 		return $this;
@@ -493,7 +493,7 @@ class SSP
 		if(empty($search)) return;
 
 		foreach ($this->__columns as $key => $column_name) {
-			if(in_array($column_name, $this->__allias)){
+			if(in_array($column_name, $this->__alias)){
 				$this->__filter[] = " '" . str_replace('.', '\'.\'', $column_name) . "'  LIKE '%$search%' ";
 			}
 			else{
