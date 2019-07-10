@@ -19,6 +19,12 @@ leftovers
 ----------------------------
 DATABASE
 ----------------------------
+Warehouse
+  warehouse_id  pk int
+  name          var 20
+  location      var 20
+  contact_no    var 20
+  status_id     fk int
 
 material_issuance
   material_issuance_id  pk int
@@ -43,14 +49,16 @@ material
   last_stock_date       date null
   stock_level           int 2 def 10 (1-10) (5)
   material_category_id  fk  int
+  status_id             fk int
 
 stock
   stock_id      pk int
-  stock_in fk   int (material_id)
-  stock_out     fk int (material_id)
-  date          !null
+  stock_in_id   fk int (material_id) null
+  stock_out_id  fk int (material_id) null
+  date          date
   quantity      int
   remarks       var 150 null
+  warehouse_id  fk int
   status_id     fk int
 
 user_module
@@ -62,6 +70,7 @@ user
   first_name      var 20
   last_name       var 20
   user_name       var 20
+  full_name       var 40  null
   password        var 20
   user_modules    var 100 null
   user_type_id    fk int
@@ -109,7 +118,7 @@ person_contact
 status (active, inactive, void, pending, on going, out going, dormant, )
   status_id   pk int
   name        var 20
-  color       var 10
+  color       var 30
 
 house
   house_id          pk int
@@ -166,14 +175,18 @@ amenity_type
 purchase_order
   purchase_order_id   pk int
   project_id          fk int
-  invoice_no          var 20
-  grand_total         dec 18,2
-  requested_by        fk int (person_id) 
+  supplier_id         fk int
+  invoice_no          var 20 null
+  grand_total         dec 18,2 def 0
+  requested_by        fk int (person_id)
   requested_date      date
   prepared_by         fk int (person_id) 
   prepared_date       date
-  approved_by         fk int (person_id) 
-  approved_date       date
+  approved_by         fk int (person_id)  null
+  approved_date       date                null
+  user_note           varchar (200)       null
+  deletion_note       varchar (200)       null
+  admin_note          varchar (200)       null
   status_id           fk int
 
 purchase_order_item
@@ -183,7 +196,6 @@ purchase_order_item
   description             var 200 null
   unit_price              dec 18,2
   total                   dec 18,2
-  supplier_id             fk int
   status_id               fk int
 
 supplier
@@ -235,3 +247,19 @@ payment_type
 
 payment_mode
   payment_mode_id
+
+
+
+
+status
+  1 active
+  2 inactive
+  3 activated
+  4 deactivated
+  5 void
+  6 approved
+  7 disapproved
+  8 pending
+  9 for approval
+  10 for deletion
+  11 finance department
