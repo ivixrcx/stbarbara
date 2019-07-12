@@ -15,9 +15,16 @@ use Dompdf\Options;
 
 class Dompdf_api extends Dompdf
 {
-	function __construct($config=array())
-	{	
-		parent::__construct($config);
+	function __construct($config="")
+	{
+		$options = new Options();
+		$options->set('defaultFont', 'courier, sans-serif');
+
+		if(!empty($config)){
+			
+		}
+
+		parent::__construct($options);
 	}
 }
 
