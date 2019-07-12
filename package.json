@@ -6,6 +6,8 @@
         "sweetalert2": "8.11.7",
         "bootstrap": "4.0.0",
         "popper.js": "^1.12.3",
-        "chart.js": "2.8.0"
+        "chart.js": "2.8.0",
+        "datatables.net-dt": "^1.10.19",
+        "datatables.net-responsive-dt": "^2.2.3"
     }
 }
