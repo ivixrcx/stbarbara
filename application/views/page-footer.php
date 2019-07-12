@@ -20,10 +20,12 @@
     <script src="./node_modules/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
     <script src="./node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
     <script src="./vendor/iviarco/jquery-touch/jquery-touch.js"></script>
+    <script src="./vendor/iviarco/jquery-autocomplete/autocomplete.js"></script>
     <script src="./assets/js/charts-home.js"></script>
     <script src="./assets/js/front.js"></script>
-    <?php 
 
+    <?php 
+    
     if(isset($script)){
       if(is_array($script)){
         foreach ($script as $file_path) {

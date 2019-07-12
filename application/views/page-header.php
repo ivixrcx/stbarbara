@@ -17,7 +17,9 @@
     <!-- Font Awesome CSS-->
     <link rel="stylesheet" href="./node_modules/font-awesome/css/font-awesome.min.css">
     <!-- sweetalert2 stylesheet-->
-    <link rel="stylesheet" href="./node_modules/sweetalert2/dist/sweetalert2.min.css>
+    <link rel="stylesheet" href="./node_modules/sweetalert2/dist/sweetalert2.min.css">
+    <!-- autocomplete stylesheet-->
+    <link rel="stylesheet" href="./vendor/iviarco/jquery-autocomplete/autocomplete.css">
     <!-- Google fonts - Muli-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:300,400,700">
     <!-- Custom Font Icons CSS-->
