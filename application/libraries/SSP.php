@@ -71,7 +71,7 @@ class SSP
 	function __construct($hostname, $username="", $password="", $database="")
 	{
 		// check for $_REQUEST
-		if(empty($_REQUEST)) die('requires $_POST.');
+		// if(empty($_REQUEST)) die('requires $_POST.');
 
 		$this->request = $_POST;
 
@@ -474,15 +474,66 @@ class SSP
 		return $this;
 	}
 
-	public function join($join_table, $column_name, $table)
+	public function join($join_table, $column_name, $table="")
 	{
-		$this->__join[] = " LEFT JOIN `$join_table` ON `$join_table`.`$column_name` = `$table`.`$column_name` ";
+		// alias
+
+		if(strpos($join_table, ' as ') !== false){
+			$e = explode(' as ', $join_table);
+			$join_table = "`$e[0]` as $e[1]";
+		}
+		else{
+			$join_table = "`$join_table`";
+		}
+
+		/**
+		* $column_name has 2 options as follows:
+		* 1. 	'user_type_id'
+		* 2.	`user`.`user_type_id` = `user_type`.`user_type_id`
+		*/
+
+
+		$join = "$join_table.`$column_name` = `$table`.`$column_name`";
+
+		if(strpos($column_name, '=') !== false){
+			$join = $column_name;
+		}
+
+		$this->__join[] = " LEFT JOIN $join_table ON $join ";
 		return $this;
 	}
 
 	public function where($column_name, $value)
 	{
 		$this->__where[] = " `" . str_replace('.', '`.`', $column_name) . "`  = '$value' ";
+		return $this;
+	}
+
+	public function where_not($column_name, $value)
+	{
+		$this->__where[] = " `" . str_replace('.', '`.`', $column_name) . "`  != '$value' ";
+		return $this;
+	}
+
+	public function where_not_in($column_name, $value)
+	{
+		// $value should be array
+		if(gettype($value) == 'array'){
+			$where_not_in = implode(',', $value);
+			$this->__where[] = " `" . str_replace('.', '`.`', $column_name) . "` NOT IN ('$where_not_in') ";
+		}
+
+		return $this;
+	}
+
+	public function where_in($column_name, $value)
+	{
+		// $value should be array
+		if(gettype($value) == 'array'){
+			$where_in = implode(',', $value);
+			$this->__where[] = " `" . str_replace('.', '`.`', $column_name) . "` IN ($where_in) ";
+		}
+
 		return $this;
 	}
 
@@ -510,25 +561,25 @@ class SSP
 		$this->filter();
 
 		// where and filter
+
 		if(!empty($this->__where) || !empty($this->__filter)){
-
-			$this->sql .= 'WHERE' . implode('AND', $this->__where);
-
-			// set total records fetched
-			$this->records_total($this->sql);
-
-			if(!empty($this->__filter)){
-				if(!empty($this->__where)){
-					$this->sql .= 'AND' . implode('OR', $this->__filter);
-				}
-				else{
-					$this->sql .= implode('OR', $this->__filter);
-				}
-			}
-			else{
-				$this->sql .= implode('OR', $this->__filter);
-			}
+			$this->sql .= 'WHERE';
 		}
+
+		if(!empty($this->__filter)){
+			$this->sql .= ' (' . implode('OR', $this->__filter) . ') ';
+		}
+
+		if(!empty($this->__where)){
+			if(!empty($this->__filter)){
+				$this->sql .= 'AND';
+			}
+			
+			$this->sql .= implode('AND', $this->__where);
+		}
+
+		// set total records fetched
+		$this->records_total($this->sql);
 
 		// set filtered records
 		$this->records_filtered($this->sql);
