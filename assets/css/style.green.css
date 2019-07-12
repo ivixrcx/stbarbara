@@ -2070,34 +2070,34 @@ input.input-material ~ label.is-invalid ~ label {
 
 .table td,
 .table th {
-  border-color: #343a40;
+  border-color: #343a40 !important;
 }
 
 .table thead th {
-  border: none;
+  border: none !important;
 }
 
 .table-striped tbody tr {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
+  -webkit-transition: all 0.3s !important;
+  transition: all 0.3s !important;
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
-  background-color: #282b2f;
+  background-color: #282b2f !important;
 }
 
 .table-striped tbody tr:nth-of-type(odd):hover {
-  background-color: #26292d;
+  background-color: #26292d !important;
 }
 
 .table-bordered td,
 .table-bordered th {
-  border-color: #343a40;
+  border-color: #343a40 !important;
 }
 
 @media (max-width: 991px) {
   section.tables {
-    padding: 0;
+    padding: 0 !important;
   }
 }
 
