@@ -6,10 +6,14 @@
     <title>St. Barbara</title>
     <base href="<?php echo base_url() ?>"/>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="robots" content="all,follow">
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="./assets/vendor/bootstrap/css/bootstrap.min.css">
+    <!-- DataTables Bootstrap 4 stylesheet-->
+    <link rel="stylesheet" href="./assets/vendor/jquery.dataTables/dataTables.bootstrap4.min.css">
+    <!-- DataTables Responsive stylesheet-->
+    <link rel="stylesheet" href="./assets/vendor/jquery.dataTables/responsive.bootstrap4.min.css">
     <!-- Font Awesome CSS-->
     <link rel="stylesheet" href="./assets/vendor/font-awesome/css/font-awesome.min.css">
     <!-- Custom Font Icons CSS-->
@@ -18,8 +22,25 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:300,400,700">
     <!-- theme stylesheet-->
     <link rel="stylesheet" href="./assets/css/style.green.css" id="theme-stylesheet">
-    <!-- Custom stylesheet - for your changes-->
+    <!-- sweetalert2 stylesheet-->
+    <link rel="stylesheet" href="./assets/vendor/sweetalert2/sweetalert2.min.css" id="theme-stylesheet">
+    <!-- Custom stylesheet -->
     <link rel="stylesheet" href="./assets/css/custom.css">
+    <!-- Custom Media stylesheet -->
+    <link rel="stylesheet" href="./assets/css/custom_media.css">
+    <?php 
+    if(isset($style)){
+      if(is_array($style)){
+        foreach ($style as $k => $path) {
+          echo "<link rel='stylesheet' href='$path'/>";
+        }
+      }
+      else{
+          echo "<link rel='stylesheet' href='$style'/>";
+      }
+    }
+    ?>
+    </head>
     <!-- Favicon-->
     <!-- <link rel="shortcut icon" href="./assets/img/favicon.ico"> -->
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
@@ -44,7 +65,7 @@
           <div class="navbar-header">
             <!-- Navbar Header--><a href="index.html" class="navbar-brand">
               <div class="brand-text brand-big visible text-uppercase"><strong class="text-primary">St.</strong><strong>Barbara</strong></div>
-              <div class="brand-text brand-sm"><strong class="text-primary">D</strong><strong>A</strong></div></a>
+              <div class="brand-text brand-sm"><strong class="text-primary">S</strong><strong>B</strong></div></a>
             <!-- Sidebar Toggle Btn-->
             <button class="sidebar-toggle"><i class="fa fa-long-arrow-left"></i></button>
           </div>
