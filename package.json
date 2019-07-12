@@ -1,0 +1,11 @@
+{
+    "dependencies": {
+        "font-awesome": "4.7.0",
+        "jquery": "3.4.1",
+        "jquery-validation": "1.19.1",
+        "sweetalert2": "8.11.7",
+        "bootstrap": "4.0.0",
+        "popper.js": "^1.12.3",
+        "chart.js": "2.8.0"
+    }
+}
