@@ -3,6 +3,9 @@ application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
 
+# db dump
+db_stbarbara.sql
+
 # db structure
 project.txt
 
@@ -11,3 +14,6 @@ vendor
 node_modules
 package-lock.json
 composer.lock
+
+#temporary ignore
+# assets/vendor/*
