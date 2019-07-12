@@ -9,18 +9,17 @@
       </div>
     </div>
     <!-- JavaScript files-->
-    <script src="./assets/vendor/jquery/jquery.min.js"></script>
-    <script src="./assets/vendor/popper.js/umd/popper.min.js"> </script>
-    <script src="./assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="./assets/vendor/jquery.cookie/jquery.cookie.js"> </script>
-    <script src="./assets/vendor/chart.js/Chart.min.js"></script>
-    <script src="./assets/vendor/jquery-validation/jquery.validate.min.js"></script>
-    <script src="./assets/vendor/sweetalert2/sweetalert2.min.js"></script>
-    <script src="./assets/vendor/jquery.touch/jquery.touch.min.js"></script>
-    <script src="./assets/vendor/jquery.dataTables/jquery.dataTables.min.js"></script>
-    <script src="./assets/vendor/jquery.dataTables/dataTables.bootstrap4.min.js"></script>
-    <script src="./assets/vendor/jquery.dataTables/dataTables.responsive.min.js"></script>
-    <script src="./assets/vendor/jquery.dataTables/responsive.bootstrap4.min.js"></script>
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./node_modules/popper.js/dist/popper.min.js"> </script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./node_modules/chart.js/dist/Chart.min.js"></script>
+    <script src="./node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="./node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+    <script src="./node_modules/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="./node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="./node_modules/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="./node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+    <script src="./vendor/iviarco/jquery-touch/jquery-touch.js"></script>
     <script src="./assets/js/charts-home.js"></script>
     <script src="./assets/js/front.js"></script>
     <?php 

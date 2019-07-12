@@ -9,21 +9,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="robots" content="all,follow">
     <!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="./assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <!-- DataTables Bootstrap 4 stylesheet-->
-    <link rel="stylesheet" href="./assets/vendor/jquery.dataTables/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="./node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
     <!-- DataTables Responsive stylesheet-->
-    <link rel="stylesheet" href="./assets/vendor/jquery.dataTables/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="./node_modules/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css">
     <!-- Font Awesome CSS-->
-    <link rel="stylesheet" href="./assets/vendor/font-awesome/css/font-awesome.min.css">
-    <!-- Custom Font Icons CSS-->
-    <link rel="stylesheet" href="./assets/css/font.css">
+    <link rel="stylesheet" href="./node_modules/font-awesome/css/font-awesome.min.css">
+    <!-- sweetalert2 stylesheet-->
+    <link rel="stylesheet" href="./node_modules/sweetalert2/dist/sweetalert2.min.css>
     <!-- Google fonts - Muli-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:300,400,700">
+    <!-- Custom Font Icons CSS-->
+    <link rel="stylesheet" href="./assets/css/font.css">
     <!-- theme stylesheet-->
-    <link rel="stylesheet" href="./assets/css/style.green.css" id="theme-stylesheet">
-    <!-- sweetalert2 stylesheet-->
-    <link rel="stylesheet" href="./assets/vendor/sweetalert2/sweetalert2.min.css" id="theme-stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.green.css">
     <!-- Custom stylesheet -->
     <link rel="stylesheet" href="./assets/css/custom.css">
     <!-- Custom Media stylesheet -->
