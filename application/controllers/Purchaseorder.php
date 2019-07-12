@@ -83,11 +83,7 @@ class Purchaseorder extends CI_Controller {
 		$data['title'] = 'Create Purchase Order';
 		$data['nav_po'] = 'active';
 		$data['login_data'] = $this->session->userdata('login_data');
-		$data['style'] = './assets/css/autocomplete.css';
-		$data['script'] = array(
-			'./assets/js/autocomplete1.js',
-			'./scripts/create_purchase_order.js',
-		);
+		$data['script'] = "./scripts/create_purchase_order.js";
 
 		$this->load->view( 'page-header', $data );
 		$this->load->view( 'page-navbar', $data );

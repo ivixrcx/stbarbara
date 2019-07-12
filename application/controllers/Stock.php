@@ -137,11 +137,7 @@ class Stock extends CI_Controller {
 		$data['nav_warehouses'] = 'active';
 		$data['login_data'] = $this->session->userdata('login_data');
 		$data['warehouse_id'] = $warehouse_id;
-		$data['style'] = './assets/css/autocomplete.css';
-		$data['script'] = array(
-			'./assets/js/autocomplete1.js',
-			'./scripts/create_stock_in.js',
-		);
+		$data['script'] = './scripts/create_stock_in.js';
 
 		$this->load->view( 'page-header', $data );
 		$this->load->view( 'page-navbar', $data );
