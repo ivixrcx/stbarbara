@@ -26,12 +26,13 @@ class Home extends CI_Controller {
 		}
 
 		$data = array();
+		$data['nav_home'] = 'active';
 		$data['login_data'] = $this->session->userdata('login_data');
 
 		$this->load->view( 'page-header' );
-		$this->load->view( 'page-navbar', $data['login_data'] );
+		$this->load->view( 'page-navbar', $data );
 		$this->load->view( 'page-title' );
 		$this->load->view( 'home' );
-		$this->load->view( 'page-footer' );
+		$this->load->view( 'page-footer' ); 
 	}
 }
