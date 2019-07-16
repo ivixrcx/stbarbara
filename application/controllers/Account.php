@@ -75,11 +75,9 @@ class Account extends CI_Controller {
 		$data['login_data'] = $this->session->userdata('login_data');
 		$data['script'] = './scripts/user.js';
 
-		$this->load->view( 'page-header', $data );
-		$this->load->view( 'page-navbar', $data );
-		$this->load->view( 'page-title', $data  );
+		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'user' );
-		$this->load->view( 'page-footer', $data );
+		$this->load->view( 'page-frame-footer', $data );
 	}
 
 	public function list_of_active_users()
@@ -107,12 +105,10 @@ class Account extends CI_Controller {
 		$data['nav_users'] = 'active';
 		$data['login_data'] = $this->session->userdata('login_data');
 		$data['script'] = './scripts/create_user.js';
-
-		$this->load->view( 'page-header', $data );
-		$this->load->view( 'page-navbar', $data );
-		$this->load->view( 'page-title', $data  );
+		
+		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'create_user', $data );
-		$this->load->view( 'page-footer', $data );
+		$this->load->view( 'page-frame-footer', $data );
 	}
 
 	public function create_user_process()

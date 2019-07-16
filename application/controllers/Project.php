@@ -23,12 +23,10 @@ class Project extends CI_Controller {
 		$data['nav_projects'] = 'active';
 		$data['login_data'] = $this->session->userdata('login_data');
 		$data['script'] = './scripts/project.js';
-
-		$this->load->view( 'page-header', $data );
-		$this->load->view( 'page-navbar', $data );
-		$this->load->view( 'page-title', $data  );
+		
+		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'project', $data );
-		$this->load->view( 'page-footer', $data );
+		$this->load->view( 'page-frame-footer', $data );
 	}
 
 	public function list()
@@ -58,12 +56,10 @@ class Project extends CI_Controller {
 		$data['nav_projects'] = 'active';
 		$data['login_data'] = $this->session->userdata('login_data');
 		$data['script'] = './scripts/create_project.js';
-
-		$this->load->view( 'page-header', $data );
-		$this->load->view( 'page-navbar', $data );
-		$this->load->view( 'page-title', $data  );
+		
+		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'create_project' );
-		$this->load->view( 'page-footer', $data );
+		$this->load->view( 'page-frame-footer', $data );
 	}
 
 	public function create()
@@ -92,12 +88,10 @@ class Project extends CI_Controller {
 		$data['nav_projects'] = 'active';
 		$data['login_data'] = $this->session->userdata('login_data');
 		$data['script'] = './scripts/update_project.js';
-
-		$this->load->view( 'page-header', $data );
-		$this->load->view( 'page-navbar', $data );
-		$this->load->view( 'page-title', $data  );
+		
+		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'update_project' );
-		$this->load->view( 'page-footer', $data );
+		$this->load->view( 'page-frame-footer', $data );
 	}
 
 	public function update()

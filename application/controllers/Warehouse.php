@@ -33,11 +33,9 @@ class Warehouse extends CI_Controller {
 		$data['login_data'] = $this->session->userdata('login_data');
 		$data['script'] = './scripts/warehouse.js';
 
-		$this->load->view( 'page-header', $data );
-		$this->load->view( 'page-navbar', $data );
-		$this->load->view( 'page-title', $data  );
+		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'warehouse', $data );
-		$this->load->view( 'page-footer', $data );
+		$this->load->view( 'page-frame-footer', $data );
 	}
 
 	public function get( $warehouse_id )
@@ -57,11 +55,9 @@ class Warehouse extends CI_Controller {
 		$data['warehouse'] 	= $this->warehouse_model->get( $warehouse_id );
 		$data['title'] = ucwords($data['warehouse'][0]->name) . ' warehouses';
 
-		$this->load->view( 'page-header', $data );
-		$this->load->view( 'page-navbar', $data );
-		$this->load->view( 'page-title', $data  );
+		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'warehouse_view', $data );
-		$this->load->view( 'page-footer', $data );
+		$this->load->view( 'page-frame-footer', $data );
 	}
 
 	public function create_view()
@@ -72,11 +68,9 @@ class Warehouse extends CI_Controller {
 		$data['login_data'] = $this->session->userdata('login_data');
 		$data['script'] = './scripts/create_warehouse.js';
 
-		$this->load->view( 'page-header', $data );
-		$this->load->view( 'page-navbar', $data );
-		$this->load->view( 'page-title', $data  );
+		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'create_warehouse' );
-		$this->load->view( 'page-footer', $data );
+		$this->load->view( 'page-frame-footer', $data );
 	}
 
 	public function create()
@@ -106,11 +100,9 @@ class Warehouse extends CI_Controller {
 		$data['script'] = './scripts/update_warehouse.js';
 		$data['warehouse_id'] = $warehouse_id;
 
-		$this->load->view( 'page-header', $data );
-		$this->load->view( 'page-navbar', $data );
-		$this->load->view( 'page-title', $data  );
+		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'update_warehouse', $data );
-		$this->load->view( 'page-footer', $data );
+		$this->load->view( 'page-frame-footer', $data );
 	}
 
 	public function update()

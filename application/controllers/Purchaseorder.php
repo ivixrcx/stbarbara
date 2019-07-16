@@ -29,11 +29,9 @@ class Purchaseorder extends CI_Controller {
 		$data['login_data'] = $this->session->userdata('login_data');
 		$data['script'] = './scripts/purchase_order.js';
 
-		$this->load->view( 'page-header', $data );
-		$this->load->view( 'page-navbar', $data );
-		$this->load->view( 'page-title'  );
+		$this->load->view( 'page-frame', $data );
 		$this->load->view( 'purchase_order' );
-		$this->load->view( 'page-footer', $data );
+		$this->load->view( 'page-frame-footer', $data );
 	}
 
 	public function purchase_orders($status_id=6)
@@ -85,11 +83,9 @@ class Purchaseorder extends CI_Controller {
 		$data['login_data'] = $this->session->userdata('login_data');
 		$data['script'] = "./scripts/create_purchase_order.js";
 
-		$this->load->view( 'page-header', $data );
-		$this->load->view( 'page-navbar', $data );
-		$this->load->view( 'page-title', $data  );
+		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'create_purchase_order' );
-		$this->load->view( 'page-footer', $data );
+		$this->load->view( 'page-frame-footer', $data );
 	}
 
 	public function create_purchase_order()
@@ -151,12 +147,9 @@ class Purchaseorder extends CI_Controller {
 		$data['purchase_order'] = $this->purchaseorder_model->get_purchase_order( $purchase_order_id );
 		$data['purchase_order_id'] = $purchase_order_id;
 
-
-		$this->load->view( 'page-header', $data );
-		$this->load->view( 'page-navbar', $data );
-		$this->load->view( 'page-title', $data  );
+		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'purchase_order_item', $data );
-		$this->load->view( 'page-footer', $data );
+		$this->load->view( 'page-frame-footer', $data );
 	}
 
 	public function set_session_userdata()
@@ -193,11 +186,9 @@ class Purchaseorder extends CI_Controller {
 		$data['script'] = './scripts/create_purchase_order_item.js';
 		$data['purchase_order_id'] = $purchase_order_id;
 
-		$this->load->view( 'page-header', $data );
-		$this->load->view( 'page-navbar', $data );
-		$this->load->view( 'page-title', $data  );
+		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'create_purchase_order_item', $data );
-		$this->load->view( 'page-footer', $data );
+		$this->load->view( 'page-frame-footer', $data );
 	}
 
 	public function create_purchase_order_item()

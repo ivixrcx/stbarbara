@@ -24,11 +24,9 @@ class Supplier extends CI_Controller {
 		$data['login_data'] = $this->session->userdata('login_data');
 		$data['script'] = './scripts/supplier.js';
 
-		$this->load->view( 'page-header', $data );
-		$this->load->view( 'page-navbar', $data );
-		$this->load->view( 'page-title', $data  );
+		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'supplier', $data );
-		$this->load->view( 'page-footer', $data );
+		$this->load->view( 'page-frame-footer', $data );
 	}
 
 	public function list()
@@ -58,12 +56,10 @@ class Supplier extends CI_Controller {
 		$data['nav_suppliers'] = 'active';
 		$data['login_data'] = $this->session->userdata('login_data');
 		$data['script'] = './scripts/create_supplier.js';
-
-		$this->load->view( 'page-header', $data );
-		$this->load->view( 'page-navbar', $data );
-		$this->load->view( 'page-title', $data  );
+		
+		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'create_supplier' );
-		$this->load->view( 'page-footer', $data );
+		$this->load->view( 'page-frame-footer', $data );
 	}
 
 	public function create()

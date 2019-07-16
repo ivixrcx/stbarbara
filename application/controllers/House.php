@@ -23,12 +23,10 @@ class House extends CI_Controller {
 		$data['nav_houses'] = 'active';
 		$data['login_data'] = $this->session->userdata('login_data');
 		$data['script'] = './scripts/house.js';
-
-		$this->load->view( 'page-header', $data );
-		$this->load->view( 'page-navbar', $data );
-		$this->load->view( 'page-title', $data  );
+		
+		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'house', $data );
-		$this->load->view( 'page-footer', $data );
+		$this->load->view( 'page-frame-footer', $data );
 	}
 
 	public function list()
@@ -47,12 +45,10 @@ class House extends CI_Controller {
 		$data['nav_houses'] = 'active';
 		$data['login_data'] = $this->session->userdata('login_data');
 		$data['script'] = './scripts/create_house.js';
-
-		$this->load->view( 'page-header', $data );
-		$this->load->view( 'page-navbar', $data );
-		$this->load->view( 'page-title', $data  );
+		
+		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'create_house' );
-		$this->load->view( 'page-footer', $data );
+		$this->load->view( 'page-frame-footer', $data );
 	}
 
 	public function create()
@@ -82,12 +78,10 @@ class House extends CI_Controller {
 		$data['login_data'] = $this->session->userdata('login_data');
 		$data['script'] = './scripts/update_house.js';
 		$data['house_id'] = $house_id;
-
-		$this->load->view( 'page-header', $data );
-		$this->load->view( 'page-navbar', $data );
-		$this->load->view( 'page-title', $data  );
+		
+		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'update_house', $data );
-		$this->load->view( 'page-footer', $data );
+		$this->load->view( 'page-frame-footer', $data );
 	}
 
 	public function update()

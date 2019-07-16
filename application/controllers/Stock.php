@@ -122,12 +122,9 @@ class Stock extends CI_Controller {
 		$data['warehouse'] = $this->warehouse_model->get( $warehouse_id );
 		$data['title'] = "Stocks in " . ucwords($data['warehouse'][0]->name) . " warehouse";
 
-
-		$this->load->view( 'page-header', $data );
-		$this->load->view( 'page-navbar', $data );
-		$this->load->view( 'page-title', $data  );
+		$this->load->view( 'page-frame', $data );
 		$this->load->view( 'stock', $data );
-		$this->load->view( 'page-footer', $data );
+		$this->load->view( 'page-frame-footer', $data );
 	}
 
 	public function create_stock_in_view( $warehouse_id )
@@ -139,11 +136,9 @@ class Stock extends CI_Controller {
 		$data['warehouse_id'] = $warehouse_id;
 		$data['script'] = './scripts/create_stock_in.js';
 
-		$this->load->view( 'page-header', $data );
-		$this->load->view( 'page-navbar', $data );
-		$this->load->view( 'page-title', $data  );
+		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'create_stock_in', $data );
-		$this->load->view( 'page-footer', $data );
+		$this->load->view( 'page-frame-footer', $data );
 	}
 
 	public function create_stock_out_view( $warehouse_id )
@@ -159,11 +154,9 @@ class Stock extends CI_Controller {
 			'./scripts/create_stock_out.js',
 		);
 
-		$this->load->view( 'page-header', $data );
-		$this->load->view( 'page-navbar', $data );
-		$this->load->view( 'page-title', $data  );
+		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'create_stock_out', $data );
-		$this->load->view( 'page-footer', $data );
+		$this->load->view( 'page-frame-footer', $data );
 	}
 
 	public function create_stock_in()
