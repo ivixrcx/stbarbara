@@ -9,43 +9,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
     <!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="./assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <!-- Font Awesome CSS-->
-    <link rel="stylesheet" href="./assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./node_modules/font-awesome/css/font-awesome.min.css">
     <!-- Sweet Alert 2 CSS-->
-    <link rel="stylesheet" href="./assets/vendor/sweetalert2/sweetalert2.min.css">
+    <link rel="stylesheet" href="./node_modules/sweetalert2/dist/sweetalert2.min.css">
     <!-- Custom Font Icons CSS-->
     <link rel="stylesheet" href="./assets/css/font.css">
     <!-- Google fonts - Muli-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:300,400,700">
     <!-- theme stylesheet-->
+    <link rel="stylesheet" href="./assets/css/style.default.css" id="theme-stylesheet">
     <link rel="stylesheet" href="./assets/css/style.sea.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="./assets/css/custom.css">
+    <link rel="stylesheet" href="./assets/css/custom_media.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="./assets/img/favicon.ico">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
   </head>
-  <body>
+  <body style="height: 100vh !important">
     <div class="login-page">
-      <div class="container d-flex align-items-center">
-        <div class="form-holder has-shadow">
+      <div class="container-fluid align-items-center">
+        <div class="row">
+        <div class="form-holder">
           <div class="row">
             <!-- Logo & Information Panel-->
-            <div class="col-lg-6">
+            <div class="col-lg-6 dashboard-panel">
               <div class="info d-flex align-items-center">
                 <div class="content">
                   <div class="logo">
                     <h1>Dashboard</h1>
                   </div>
-                  <p>St. Barbara's Builders & Supply</p>
+                  <p>St. Barbara Builders Civil Engineering Construction</p>
                 </div>
               </div>
             </div>
             <!-- Form Panel    -->
-            <div class="col-lg-6">
+            <div class="col-lg-6 login-panel">
               <div class="form d-flex align-items-center">
                 <div class="content">
                   <form method="post" id="form_login" class="form-validate mb-4">
@@ -65,21 +68,25 @@
               </div>
             </div>
           </div>
+          <!-- <div class="row">
+            <div class="col-lg-12">
+              <div class="copyrights text-center">
+                <p>Powered by <a href="https://www.arttechcebu.com/" class="external">Art Tech Media & I.T. Solutions</a></p>
+              </div>
+            </div>
+          </div> -->
         </div>
-      </div>
-      <div class="copyrights text-center">
-        <p>Powered by <a href="https://www.arttechcebu.com/" class="external">Art Tech Media & I.T. Solutions</a></p>
-        <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+        </div>
       </div>
     </div>
     <!-- JavaScript files-->
-    <script src="./assets/vendor/jquery/jquery.min.js"></script>
-    <script src="./assets/vendor/popper.js/umd/popper.min.js"> </script>
-    <script src="./assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="./assets/vendor/jquery.cookie/jquery.cookie.js"> </script>
-    <script src="./assets/vendor/chart.js/Chart.min.js"></script>
-    <script src="./assets/vendor/jquery-validation/jquery.validate.min.js"></script>
-    <script src="./assets/vendor/sweetalert2/sweetalert2.min.js"></script>
+
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./node_modules/popper.js/dist/popper.min.js"> </script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./node_modules/chart.js/dist/Chart.min.js"></script>
+    <script src="./node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="./node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
     <script src="./assets/js/front.js"></script>
 
     <script type="text/javascript">
