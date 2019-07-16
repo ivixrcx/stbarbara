@@ -1,5 +1,11 @@
 /* your styles go here */
 
+/* main theme */
+.login-page .form-holder {
+  margin: 0 !important;
+  border-radius: 0 !important;
+}
+
 /* datatables */
 .table tr {
   	background: #2d3035 !important;
