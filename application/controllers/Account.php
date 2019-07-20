@@ -78,7 +78,13 @@ class Account extends CI_Controller {
 
 	public function logout()
 	{
+		// unset session of login
 		$this->session->unset_userdata('login_data');
+
+		// unset session of User Permissions
+		$this->useraccess->unset_permission();
+
+		// redirect to login page
 		redirect(base_url() . 'account/login', 'refresh');
 	}
 
