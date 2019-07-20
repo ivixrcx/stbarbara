@@ -7,7 +7,9 @@ class Account extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model( 'account_model' );
+		$this->load->model( 'usermodule_model' );
 		$this->load->library( 'API', NULL, 'API' );
+		$this->load->library( 'UserAccess', array( $this ) );
 	}
 
 	public function index()
@@ -36,15 +38,42 @@ class Account extends CI_Controller {
 		$password 	= $this->input->post('password');
 
 		$auth_login = 	$this->account_model->auth_login($user_name, $password);
-
 		if(empty($auth_login->data)){
 			$this->API->emit_json( false );
 		}
 		else{
 			$user_data = $this->account_model->current_user_data();
+			
+			$pluck_modules = explode( ',', $user_data->user_modules ); 
+
+			$permissions = $this->usermodule_model->get_user_permissions( $pluck_modules );
+
+			$this->register_permissions( $permissions );
+
 			$this->session->set_userdata('login_data', $user_data);
 			$this->API->emit_json( true );
 		}
+	}
+
+	/**
+	 * @return 	void
+	 */
+	protected function register_permissions( $permissions )
+	{
+		foreach( $permissions as $permission ){
+			//shorten variable
+			$module_link = $permission->user_module_link;
+			// if it has comma ',' then pluck
+			if( strpos( $module_link, ',' ) !== false ){
+				$_module_links = explode( ',', $module_link );
+				foreach($_module_links as $_module_link) $modules[] = trim($_module_link);
+			}
+			else{
+				$modules[] = $permission->user_module_link;
+			}
+		}
+
+		$this->useraccess->set_permission( $modules );
 	}
 
 	public function logout()
@@ -113,10 +142,6 @@ class Account extends CI_Controller {
 
 	public function create_user_process()
 	{
-		/**
-		* @return json
-		*
-		*/
 
 		$this->API->ajax_only();
 
@@ -147,10 +172,6 @@ class Account extends CI_Controller {
 
 	public function update_user_process()
 	{
-		/**
-		* @return json
-		*
-		*/
 
 		$this->API->ajax_only();
 
@@ -172,12 +193,7 @@ class Account extends CI_Controller {
 	}
 
 	public function delete_user_process()
-	{
-		/**
-		* @return json
-		*
-		*/
-		
+	{		
 		$this->API->ajax_only();
 
 		$user_id = $this->input->post('user_id');
