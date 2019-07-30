@@ -75,25 +75,6 @@
           </div>
           <div class="right-menu list-inline no-margin-bottom">    
             <div class="list-inline-item"><a href="#" class="search-open nav-link"><i class="icon-magnifying-glass-browser"></i></a></div>
-            <div class="list-inline-item dropdown"><a id="navbarDropdownMenuLink1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link messages-toggle"><i class="icon-email"></i><span class="badge dashbg-1">5</span></a>
-              <div aria-labelledby="navbarDropdownMenuLink1" class="dropdown-menu messages"><a href="#" class="dropdown-item message d-flex align-items-center">
-                  <div class="profile"><img src="img/avatar-3.jpg" alt="..." class="img-fluid">
-                    <div class="status online"></div>
-                  </div>
-                  <div class="content">   <strong class="d-block">Nadia Halsey</strong><span class="d-block">lorem ipsum dolor sit amit</span><small class="date d-block">9:30am</small></div></a><a href="#" class="dropdown-item message d-flex align-items-center">
-                  <div class="profile"><img src="img/avatar-2.jpg" alt="..." class="img-fluid">
-                    <div class="status away"></div>
-                  </div>
-                  <div class="content">   <strong class="d-block">Peter Ramsy</strong><span class="d-block">lorem ipsum dolor sit amit</span><small class="date d-block">7:40am</small></div></a><a href="#" class="dropdown-item message d-flex align-items-center">
-                  <div class="profile"><img src="img/avatar-1.jpg" alt="..." class="img-fluid">
-                    <div class="status busy"></div>
-                  </div>
-                  <div class="content">   <strong class="d-block">Sam Kaheil</strong><span class="d-block">lorem ipsum dolor sit amit</span><small class="date d-block">6:55am</small></div></a><a href="#" class="dropdown-item message d-flex align-items-center">
-                  <div class="profile"><img src="img/avatar-5.jpg" alt="..." class="img-fluid">
-                    <div class="status offline"></div>
-                  </div>
-                  <div class="content">   <strong class="d-block">Sara Wood</strong><span class="d-block">lorem ipsum dolor sit amit</span><small class="date d-block">10:30pm</small></div></a><a href="#" class="dropdown-item text-center message"> <strong>See All Messages <i class="fa fa-angle-right"></i></strong></a></div>
-            </div>
             <!-- Log out               -->
             <div class="list-inline-item logout">
               <a id="logout" href="<?php echo base_url() . 'account/logout'?>" class="nav-link"> <span class="d-none d-sm-inline">Logout </span><i class="icon-logout"></i></a>
@@ -107,7 +88,7 @@
         <nav id="sidebar">
             <!-- Sidebar Header-->
             <div class="sidebar-header d-flex align-items-center">
-                <div class="avatar"><img src="./assets/img/default-user.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                <div class="avatar"><img src="./assets/images/default-user.jpg" alt="..." class="img-fluid rounded-circle"></div>
                 <div class="title">
                 <h1 class="h5"><?php echo ucwords($login_data->full_name) ?></h1>
                 <p><?php echo ucwords($login_data->user_type) ?></p>
@@ -116,12 +97,13 @@
             <!-- Sidebar Navidation Menus-->
             <ul class="list-unstyled">
                 <li class="<?php if(isset($nav_home)) echo $nav_home; ?>"><a href="home"></i>Home </a></li>
-                <li class="<?php if(isset($nav_po)) echo $nav_po; ?>"><a href="purchaseorder/purchase_order_view">Purchase Orders</a></li>
-                <li class="<?php if(isset($nav_users)) echo $nav_users; ?>"><a href="account/users">Users</a></li>
-                <li class="<?php if(isset($nav_projects)) echo $nav_projects; ?>"><a href="project/list_view">Project</a></li>
-                <li class="<?php if(isset($nav_suppliers)) echo $nav_suppliers; ?>"><a href="supplier/list_view">Supplier</a></li>
-                <li class="<?php if(isset($nav_houses)) echo $nav_houses; ?>"><a href="house/list_view">House</a></li>
-                <li class="<?php if(isset($nav_warehouses)) echo $nav_warehouses; ?>"><a href="warehouse/list_view">Warehouses</a></li>
+                <li class="<?php if(isset($nav_po)) echo $nav_po; ?> system-module" style="display:none"><a href="purchase-orders" data-module="purchaseorder/purchase_order_view">Purchase Orders</a></li>
+                <li class="<?php if(isset($nav_users)) echo $nav_users; ?> system-module" style="display:none"><a href="users" data-module="account/users">Users</a></li>
+                <li class="<?php if(isset($nav_usermodule)) echo $nav_usermodule; ?> system-module" style="display:none"><a href="module-category" data-module="usermodulecategory/list_view">Modules</a></li>
+                <li class="<?php if(isset($nav_projects)) echo $nav_projects; ?> system-module" style="display:none"><a href="projects" data-module="project/list_view">Project</a></li>
+                <li class="<?php if(isset($nav_suppliers)) echo $nav_suppliers; ?> system-module" style="display:none"><a href="suppliers" data-module="supplier/list_view">Supplier</a></li>
+                <li class="<?php if(isset($nav_houses)) echo $nav_houses; ?> system-module" style="display:none"><a href="houses" data-module="house/list_view">House</a></li>
+                <li class="<?php if(isset($nav_warehouses)) echo $nav_warehouses; ?> system-module" style="display:none"><a href="warehouses" data-module="warehouse/list_view">Warehouses</a></li>
                 <!-- <li><a href="charts.html"> <i class="fa fa-bar-chart"></i>Charts </a></li>
                 <li><a href="forms.html"> <i class="icon-padnote"></i>Forms </a></li>
                 <li><a href="#exampledropdownDropdown" aria-expanded="true" data-toggle="collapse"> <i class="icon-windows"></i>Example dropdown </a>
