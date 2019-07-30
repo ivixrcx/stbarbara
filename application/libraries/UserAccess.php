@@ -18,12 +18,66 @@ class UserAccess {
     {
         $this->ci = $params[0];
         $this->session_name = "permissions";
+
+        if( !isset($_SESSION[$this->session_name]) ){
+            $_SESSION[$this->session_name] = array();
+        }
     }
 
-    public function has_access()
+    public function check_permissions()
     {
         // return has permission flag
+        $request = $this->ci->router->class . '/' . $this->ci->router->method;
+        $permissions = $this->ci->session->userdata( $this->session_name );
+
+        if( $this->is_permission_set() ){
+            if( !in_array( $request, $permissions ) ){
+                ob_clean();
+                ob_start();
+                
+                if( $this->is_ajax() ){
+
+                    $array = array(
+                        'code'      => '101',
+                        'module'    => $request,
+                        'error'     => 'Access Denied on module "' . $request . '"',
+                        'error_html'=> 'Access Denied on module <code class="text-warning">' . $request . '</code>'
+                    );
+
+                    $this->emit_json( $array, 'No permission' ); // permission denied
+                }
+                else{
+                    $this->ci->load->view( '101.html' ); exit;
+                }
+            }
+        }
     }
+
+    /**
+     * @return  string
+     */
+    public function get_session_permissions()
+    {
+        $permissions = $this->ci->session->userdata( $this->session_name );
+        $this->emit_json( $permissions );
+    }
+
+    /**
+     * @return  string
+     */
+	protected function emit_json( $data, $error="" )
+	{
+		header('content-type: application/json; charset=utf-8;');
+		echo json_encode(
+            (object)array(
+                'has_data' 	=> !empty($data) ?: false,
+                'data' 		=> $data,
+                'error' 	=> $error
+            )
+        );
+
+        die;
+	}
 
     /**
      * @return  bool
@@ -42,13 +96,40 @@ class UserAccess {
     }
 
     /**
+     * @return  bool
+     */
+    public function is_permission_set()
+    {
+        // check session
+        $session = $this->ci->session->userdata( $this->session_name );
+        if( !empty($session) ){
+            return true;
+        }
+        
+        return false;
+    }
+
+    /**
      * @param   $data 
      * @return  void
      */
-    public function set_permission( $data )
+    public function set_permission( $modules )
     {
         // set user modules to session
-        $this->ci->session->set_userdata( $this->session_name, $data );
+        $session = $_SESSION[$this->session_name];
+
+        if( is_array($modules) ){
+            foreach($modules as $module){
+                if( !in_array($module, $session) ){
+                    $_SESSION[$this->session_name][] = $module;
+                }
+            }
+        }
+        else{
+            if( !in_array($modules, $session) ){
+                $_SESSION[$this->session_name][] = $modules;
+            }
+        }
     }
 
     /**
