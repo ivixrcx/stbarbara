@@ -10,6 +10,16 @@ class Account extends CI_Controller {
 		$this->load->model( 'usermodule_model' );
 		$this->load->library( 'API', NULL, 'API' );
 		$this->load->library( 'UserAccess', array( $this ) );
+
+		// default permissions
+		$this->useraccess->set_permission('account/index');
+		$this->useraccess->set_permission('account/login');
+		$this->useraccess->set_permission('account/login_process');
+		$this->useraccess->set_permission('account/logout');
+		$this->useraccess->set_permission('account/get_session_permissions');
+		$this->useraccess->set_permission('account/list_of_user_types');
+
+		$this->useraccess->check_permissions();
 	}
 
 	public function index()
@@ -39,11 +49,14 @@ class Account extends CI_Controller {
 
 		$auth_login = 	$this->account_model->auth_login($user_name, $password);
 		if(empty($auth_login->data)){
+			// login failed
 			$this->API->emit_json( false );
 		}
 		else{
+			// login success
 			$user_data = $this->account_model->current_user_data();
 			
+			// permission section
 			$pluck_modules = explode( ',', $user_data->user_modules ); 
 
 			$permissions = $this->usermodule_model->get_user_permissions( $pluck_modules );
@@ -55,11 +68,19 @@ class Account extends CI_Controller {
 		}
 	}
 
+	public function get_session_permissions()
+	{
+		$this->API->ajax_only();
+		$this->API->emit_json( $this->useraccess->get_session_permissions() );
+		
+	}
+
 	/**
 	 * @return 	void
 	 */
 	protected function register_permissions( $permissions )
 	{
+		$modules = '';
 		foreach( $permissions as $permission ){
 			//shorten variable
 			$module_link = $permission->user_module_link;
@@ -111,7 +132,27 @@ class Account extends CI_Controller {
 		$data['script'] = './scripts/user.js';
 
 		$this->load->view( 'page-frame', $data  );
-		$this->load->view( 'user' );
+		$this->load->view( 'user', $data );
+		$this->load->view( 'page-frame-footer', $data );
+	}
+
+	public function get_user_view( $user_id )
+	{
+		// check if user logged in
+		if(!$this->session->has_userdata('login_data')){
+			redirect(base_url() . 'account/login', 'refresh');
+		}
+
+		$data = array();
+		$data['title'] = 'Account';
+		$data['nav_users'] = 'active';
+		$data['login_data'] = $this->session->userdata('login_data');
+		$data['user'] = $this->account_model->get_user( $user_id );
+		$data['usermodules'] = $this->usermodule_model->get_user_modules( $user_id );
+		$data['user_id'] = $user_id;
+
+		$this->load->view( 'page-frame', $data  );
+		$this->load->view( 'get_user', $data );
 		$this->load->view( 'page-frame-footer', $data );
 	}
 
