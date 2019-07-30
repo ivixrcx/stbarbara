@@ -6,7 +6,7 @@
           <div class="d-flex pull-right">
             <a class="pr-2 pb-2 pt-2" href="project/create_view"><button class="btn btn-primary">Add Project</button></a>
           </div>
-          <div class="table-responsive pt-3">
+          <div class="table-responsive pt-3" style="overflow-y: hidden">
             <table class="table" style="width:100%"> 
               <thead> 
                 <tr> 
