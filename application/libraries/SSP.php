@@ -27,6 +27,7 @@ class SSP
 	private $join 		= "";
 	private $where 		= "";
 	private $filter 	= "";
+	private $order_by 	= "";
 	private $limit 		= "";
 	private $search 	= "";
 	private $record_total = 0;
@@ -553,6 +554,21 @@ class SSP
 		}
 	}
 
+	public function order_by( $column_name, $sort )
+	{
+		if( empty($this->order_by) ){
+			$this->order_by .= ' ORDER BY ';
+			$this->order_by .= " `" . str_replace('.', '`.`', $column_name) . "` " . $sort . "";
+		}
+		else{
+			$this->order_by .= ", `" . str_replace('.', '`.`', $column_name) . "` " . $sort . "";
+		}
+
+		$this->sql .= $this->order_by;
+
+		return $this;
+	}
+
 	public function output($display=false)
 	{
 		$this->sql = 'SELECT' . implode(',', $this->__column) . 'FROM' . $this->__table . implode('', $this->__join);
@@ -584,12 +600,14 @@ class SSP
 		// set filtered records
 		$this->records_filtered($this->sql);
 
+		// set order by
+		$this->sql .= $this->order_by;
+
 		// get limit
 		$this->_limit();
 
 		// set limit
 		$this->sql .= $this->limit;
-
 
 		if($display){
 			return $this->sql;
