@@ -11,8 +11,7 @@ class Usermodule extends CI_Controller {
 		$this->load->model( 'account_model' );
 		$this->load->library( 'API', NULL, 'API' );
 		$this->load->library( 'UserAccess', array( $this ) );
-		// header('content-type: application/json');
-		// print_r($this->router->class . '/' . $this->router->method);exit;
+		// $this->useraccess->check_permissions();
 	}
 
 	public function index()
@@ -69,14 +68,19 @@ class Usermodule extends CI_Controller {
 		$this->API->ajax_only();
 
 		$user_module_name = $this->input->post( 'user_module_name' );
+		$user_module_link = $this->input->post( 'user_module_link' );
+		$user_module_description = $this->input->post( 'user_module_description' );
 		$user_module_category_id  = $this->input->post( 'user_module_category_id' );
 
-		$create = $this->usermodule_model->create( $user_module_name, $user_module_category_id );
-
-		// update module count 
-		$this->usermodulecategory_model->update_module_count( $user_module_category_id );
+		$create = $this->usermodule_model->create( $user_module_name, $user_module_link, $user_module_description, $user_module_category_id );
 
 		if($create){
+			// update module count 
+			$this->usermodulecategory_model->update_module_count( $user_module_category_id );
+
+			// register user module link to session
+			$this->useraccess->set_permission( $user_module_link );
+
 			$this->API->emit_json( true );
 		}
 		else{
@@ -134,6 +138,36 @@ class Usermodule extends CI_Controller {
 		else{
 			$this->API->emit_json( false, 'Error: delete');	
 		}
+	}
 
+	public function assign_user_module_view( $user_id )
+	{
+		$data = array();
+		$data['title'] = 'Assign Modules';
+		$data['nav_module'] = 'active';
+		$data['login_data'] = $this->session->userdata('login_data');
+		// print_r($_SESSION);exit;
+		$data['usermodules'] = $this->usermodule_model->get_user_modules();
+		$data['user_id'] = $user_id;
+		$data['script'] = './scripts/assign_usermodule.js';
+		
+		$this->load->view( 'page-frame', $data  );
+		$this->load->view( 'assign_usermodule', $data );
+		$this->load->view( 'page-frame-footer', $data );
+	}
+
+	public function assign_user_modules()
+	{
+		$user_id = $this->input->post( 'user_id' );
+		$user_modules = $this->input->post( 'user_modules' );
+
+		$assign = $this->usermodule_model->assign_user_modules( $user_id, $user_modules );
+
+		if($assign){
+			$this->API->emit_json( true );
+		}
+		else{
+			$this->API->emit_json( false, 'Error: update');	
+		}
 	}
 }

@@ -9,6 +9,8 @@ class Supplier extends CI_Controller {
 		$this->load->model( 'supplier_model' );
 		$this->load->model( 'account_model' );
 		$this->load->library( 'API', NULL, 'API' );
+		$this->load->library( 'UserAccess', array( $this ) );
+		$this->useraccess->check_permissions();
 	}
 
 	public function index()
@@ -81,7 +83,7 @@ class Supplier extends CI_Controller {
 		}
 	}
 
-	public function update_supplier_view( $supplier_id )
+	public function update_view( $supplier_id )
 	{
 
 	}

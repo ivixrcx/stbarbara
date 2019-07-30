@@ -10,6 +10,8 @@ class Stock extends CI_Controller {
 		$this->load->model( 'warehouse_model' );
 		$this->load->model( 'account_model' );
 		$this->load->library( 'API', NULL, 'API' );
+		$this->load->library( 'UserAccess', array( $this ) );
+		$this->useraccess->check_permissions();
 	}
 
 	public function index()
