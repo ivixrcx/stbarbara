@@ -20,14 +20,14 @@
           <!-- approved -->
           <div class="tab-pane fade show" id="approved-purchase-order" role="tabpanel" aria-labelledby="approved-purchase-order-tab">
             <div class="table-responsive">
-              <table id="list_of_active_purchase_orders" class="table responsive nowrap" style="width:100%"> 
+              <table id="list_of_approved_purchase_orders" class="table responsive nowrap" style="width:100%"> 
                 <thead> 
                   <tr> 
-                    <th>#</th>
-                    <th>Req. by</th>
-                    <th>Req. date</th>
-                    <th>Prep. by</th>
-                    <th>Prep. date</th>
+                    <!-- <th>#</th> -->
+                    <th>Request by</th>
+                    <th>Date</th>
+                    <!-- <th>Prep. by</th> -->
+                    <!-- <th>Prep. date</th> -->
                     <th>Note</th>
                     <th>Status</th>
                     <th></th>
@@ -43,11 +43,11 @@
               <table id="list_of_approval_purchase_orders" class="table responsive nowrap" style="width:100%"> 
                 <thead> 
                   <tr> 
-                    <th>#</th>
-                    <th>Req. by</th>
-                    <th>Req. date</th>
-                    <th>Prep. by</th>
-                    <th>Prep. date</th>
+                    <!-- <th>#</th> -->
+                    <th>Request by</th>
+                    <th>Date</th>
+                    <!-- <th>Prep. by</th> -->
+                    <!-- <th>Prep. date</th> -->
                     <th>Note</th>
                     <th>Status</th>
                     <th></th>
