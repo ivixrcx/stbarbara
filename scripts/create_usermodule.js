@@ -60,7 +60,7 @@ $('#form_submit').validate({
             showConfirmButton: false,
             timer: 1500,
           }).then(function () {
-            window.location.href = 'usermodule/list_view/' + user_module_category_id;
+            window.location.href = 'module-category/' + user_module_category_id;
           });
         }
       },
