@@ -10,7 +10,7 @@
     </div>
     <!-- JavaScript files-->
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="./node_modules/popper.js/dist/popper.min.js"> </script>
+    <script src="./node_modules/popper.js/dist/umd/popper.min.js"> </script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="./node_modules/chart.js/dist/Chart.min.js"></script>
     <script src="./node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
@@ -21,8 +21,9 @@
     <script src="./node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
     <script src="./vendor/iviarco/jquery-touch/jquery-touch.js"></script>
     <script src="./vendor/iviarco/jquery-autocomplete/autocomplete.js"></script>
-    <script src="./assets/js/charts-home.js"></script>
+    <!-- <script src="./assets/js/charts-home.js"></script> -->
     <script src="./assets/js/front.js"></script>
+    <script src="./scripts/useraccess.js"></script>
 
     <?php 
     
