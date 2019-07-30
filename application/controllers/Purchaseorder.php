@@ -11,6 +11,9 @@ class Purchaseorder extends CI_Controller {
 		$this->load->model( 'account_model' );
 		$this->load->library( 'API', NULL, 'API' );
 		$this->load->library( 'dompdf/Dompdf_api', '', 'dompdf' );
+		$this->load->library( 'UserAccess', array( $this ) );
+		$this->useraccess->check_permissions();
+
 		$this->index();
 	}
 
@@ -34,7 +37,7 @@ class Purchaseorder extends CI_Controller {
 		$this->load->view( 'page-frame-footer', $data );
 	}
 
-	public function purchase_orders($status_id=6)
+	public function approved_purchase_orders()
 	{
 		$this->API->ajax_only();
 
@@ -59,8 +62,40 @@ class Purchaseorder extends CI_Controller {
 		->join( 'user as prep', 'prep.user_id = purchase_order.prepared_by' )
 		->join( 'user as appr', 'appr.user_id = purchase_order.approved_by' )
 		->join( 'status', 'status_id', 'purchase_order' )
-		->where( 'purchase_order.status_id', $status_id )
+		->where( 'purchase_order.status_id', 6 ) // status
 		->where_in( 'purchase_order.status_id', array( 1, 6, 9 ) ) //active, approved, for approval
+		->order_by( 'purchase_order.purchase_order_id', 'DESC' )
+		->output();
+	}
+
+	public function approval_purchase_orders()
+	{
+		$this->API->ajax_only();
+
+		$this->SSP->table( 'purchase_order' )
+		->column( 'purchase_order_id' )
+		->column( 'project_id' )
+		->column( 'invoice_no' )
+		->column( 'grand_total' )
+		->column( 'req.full_name', 'requested_by' )
+		->column( 'requested_date' )
+		->column( 'prep.full_name', 'prepared_by' )
+		->column( 'prepared_date' )
+		->column( 'user_note' )
+		->column( 'deletion_note' )
+		->column( 'admin_note' )
+		->column( 'appr.full_name', 'approved_by' )
+		->column( 'approved_date' )
+		->column( 'status.status_id' )
+		->column( 'status.name', 'status_name' )
+		->column( 'status.color', 'status_color' )
+		->join( 'user as req', 'req.user_id = purchase_order.requested_by' )
+		->join( 'user as prep', 'prep.user_id = purchase_order.prepared_by' )
+		->join( 'user as appr', 'appr.user_id = purchase_order.approved_by' )
+		->join( 'status', 'status_id', 'purchase_order' )
+		->where( 'purchase_order.status_id', 9 ) // status
+		->where_in( 'purchase_order.status_id', array( 1, 6, 9 ) ) //active, approved, for approval
+		->order_by( 'purchase_order.purchase_order_id', 'DESC' )
 		->output();
 	}
 
