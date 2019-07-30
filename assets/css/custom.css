@@ -6,6 +6,17 @@
   border-radius: 0 !important;
 }
 
+code.module-link:hover {
+  cursor: pointer;
+}
+
+code.selected {
+  background-color: #429244 !important;
+  color: #222 !important;
+  font-family: Courier, Consolas !important;
+  font-weight: bold;
+}
+
 /* datatables */
 .table tr {
   	background: #2d3035 !important;
