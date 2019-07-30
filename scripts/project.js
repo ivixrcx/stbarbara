@@ -8,20 +8,25 @@ $.ajax({
   url: 'project/list',
   type: 'post',
   success: function(res){
-    console.log(res)
-    $(project).html('');
-    if(res.has_data === true){
-      $.each(res.data, function(key, data){
-        html = '<tr>';
-        html += '<td>' + data.project_id + '</td>';
-        html += '<td>' + data.name + '</td>';
-        html += '<td colspan="2">' + data.total_area + '</td>';
-        html += '<td colspan="3">' + data.total_units + '</td>';
-        html += '<td>' + data.location + '</td>';
-        html += '<td></td>';
-        html += '</tr>';
-        $(project).append(html);
-      });
+    let access = res.data;
+    if(access.code == 101){ // no permission
+        $('table').html(access.error_html);
+    }
+    else{
+      $(project).html('');
+      if(res.has_data === true){
+        $.each(res.data, function(key, data){
+          html = '<tr>';
+          html += '<td>' + data.project_id + '</td>';
+          html += '<td>' + data.name + '</td>';
+          html += '<td colspan="2">' + data.total_area + '</td>';
+          html += '<td colspan="3">' + data.total_units + '</td>';
+          html += '<td>' + data.location + '</td>';
+          html += '<td></td>';
+          html += '</tr>';
+          $(project).append(html);
+        });
+      }
     }
   },
   error: function(error){
