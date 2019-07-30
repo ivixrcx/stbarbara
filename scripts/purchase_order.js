@@ -1,66 +1,23 @@
-$('#list_of_active_purchase_orders').DataTable({
+// disables error for user permission
+$.fn.dataTable.ext.errMode = 'none';
+
+$('#list_of_approved_purchase_orders').DataTable({
   processing: true,
   serverSide: true,
   ajax: {
-    url: 'purchaseorder/purchase_orders',
+    url: 'purchaseorder/approved_purchase_orders',
     type: 'post',
     complete: function(res){
-      $('.btn-delete').click(function(){
-        let id = $(this).data('id');
-
-        Swal.fire({
-          title: 'Are you sure?',
-          text: "You won't be able to revert this!",
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#367838',
-          // cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-          if (result.value) {
-
-            // delete user
-            $.ajax({
-              url: 'account/delete_user_process',
-              type: 'post',
-              data: { user_id: id },
-              complete: function(res){
-                // successfully deleted
-                if(res.responseJSON.data){
-                  Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
-                  )
-                }
-                else{
-                  console.log(res);
-                  Swal.fire({
-                    title: 'Error',
-                    text: res.responseJSON.data,
-                    type: 'error',
-                  })
-                }
-              },
-              error: function(error){
-                // Swal.fire(error.responseText);
-                console.log('error');
-                console.log(error.responseText);
-                alert(error.responseText);
-              },
-            });
-
-            
-          }
-        })
-      })
+      let access = res.responseJSON.data;
+      if(access.code == 101){ // no permission
+          $('#approved-purchase-order').html(access.error_html);
+      }
     },
     error: function(error){
-
       // Swal.fire(error.responseText);
       console.log('error');
       console.log(error.responseText);
-      alert(error.responseText);
+      // alert(error.responseText);
     },
   },
   createdRow: function(row, data, dataIndex){
@@ -74,11 +31,11 @@ $('#list_of_active_purchase_orders').DataTable({
     }
   },
   columns: [
-    {data: 'purchase_order_id'},
+    // {data: 'purchase_order_id'},
     {data: 'requested_by'},
     {data: 'requested_date'},
-    {data: 'prepared_by'},
-    {data: 'prepared_date'},
+    // {data: 'prepared_by'},
+    // {data: 'prepared_date'},
     {data: 'user_note'},
     {
       data: null,
@@ -100,71 +57,24 @@ $('#list_of_active_purchase_orders').DataTable({
   ],
 });
 
-
 $('#list_of_approval_purchase_orders').DataTable({
   responsive: true,
   processing: true,
   serverSide: true,
   ajax: {
-    url: 'purchaseorder/purchase_orders/9',
+    url: 'purchaseorder/approval_purchase_orders',
     type: 'post',
     complete: function(res){
-      $('.btn-delete').click(function(){
-        let id = $(this).data('id');
-
-        Swal.fire({
-          title: 'Are you sure?',
-          text: "You won't be able to revert this!",
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#367838',
-          // cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-          if (result.value) {
-
-            // delete user
-            $.ajax({
-              url: 'account/delete_user_process',
-              type: 'post',
-              data: { user_id: id },
-              complete: function(res){
-                // successfully deleted
-                if(res.responseJSON.data){
-                  Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
-                  )
-                }
-                else{
-                  console.log(res);
-                  Swal.fire({
-                    title: 'Error',
-                    text: res.responseJSON.data,
-                    type: 'error',
-                  })
-                }
-              },
-              error: function(error){
-                // Swal.fire(error.responseText);
-                console.log('error');
-                console.log(error.responseText);
-                alert(error.responseText);
-              },
-            });
-
-            
-          }
-        })
-      })
-    },
+      let access = res.responseJSON.data;
+      if(access.code == 101){ // no permission
+          $('#approval-purchase-order').html(access.error_html);
+      }
+    }, 
     error: function(error){
-
       // Swal.fire(error.responseText);
       console.log('error');
       console.log(error.responseText);
-      alert(error.responseText);
+      // alert(error.responseText);
     },
   },
   createdRow: function(row, data, dataIndex){
@@ -178,11 +88,11 @@ $('#list_of_approval_purchase_orders').DataTable({
     }
   },
   columns: [
-    {data: 'purchase_order_id'},
+    // {data: 'purchase_order_id'},
     {data: 'requested_by'},
     {data: 'requested_date'},
-    {data: 'prepared_by'},
-    {data: 'prepared_date'},
+    // {data: 'prepared_by'},
+    // {data: 'prepared_date'},
     {data: 'user_note'},
     {
       data: null,
