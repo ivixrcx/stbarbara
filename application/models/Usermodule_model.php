@@ -27,10 +27,20 @@ class Usermodule_model extends CI_Model {
 		return $list->get()->result();
 	}
 
-	public function create( $user_module_name, $user_module_category_id )
+	public function get_user_permissions($modules)
+	{
+		return $this->db->select( 'user_module.user_module_link' )
+		->from( 'user_module' )
+		->where_in( 'user_module.user_module_id', $modules )
+		->get()->result();
+	}
+
+	public function create( $user_module_name, $user_module_link, $user_module_description, $user_module_category_id )
 	{
 		$data = array(
 			'user_module_name' 		  	=> $user_module_name,
+			'user_module_link' 		  	=> $user_module_link,
+			'user_module_description' 	=> $user_module_description,
 			'user_module_category_id' 	=> $user_module_category_id,
 			'status_id'   	            => 1 // active
 		);
@@ -58,6 +68,41 @@ class Usermodule_model extends CI_Model {
 		$where = array( 'user_module_id' => $user_module_id);
 
 		$this->db->update( 'user_module', $data, $where );
+		return $this->db->affected_rows();
+	}
+
+	public function get_user_modules( $user_id="" )
+	{
+		$usermodule = $this->db->select( 'user_module_category.user_module_category_id' )
+		->select( 'user_module_category.user_module_category_name' )
+		->select( 'user_module_category.module_count' )
+		->select( 'user_module.user_module_id' )
+		->select( 'user_module.user_module_name' )
+		->select( 'user_module.user_module_link' )
+		->from( array( 'user', 'user_module_category' ) )
+		->join( 'user_module', 'user_module.user_module_category_id=user_module_category.user_module_category_id', 'left' )
+		->where( 'user_module.user_module_id !=', '' );
+		
+		if( !empty($user_id) ){
+			$usermodule->where( 'FIND_IN_SET(user_module.user_module_id, user.user_modules)');
+			$usermodule->where( 'user.user_id', $user_id );
+		}
+
+		return $usermodule->group_by( 'user_module_category.user_module_category_name' )
+		->group_by( 'user_module_category.user_module_category_id' )
+		->group_by( 'user_module.user_module_id' )
+		->order_by( 'user_module_category.user_module_category_name' )
+		// ->get_compiled_select();
+		->get()->result();
+		
+	}
+
+	public function assign_user_modules( $user_id, $user_modules )
+	{
+		$data = array( 'user_modules' => $user_modules );
+		$where = array( 'user_id' => $user_id );
+
+		$this->db->update( 'user', $data, $where );
 		return $this->db->affected_rows();
 	}
 }
