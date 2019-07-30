@@ -14,7 +14,7 @@ class Account_model extends CI_Model {
 
 	public function auth_login( $user_name, $password )
 	{
-		$data = $this->db->select('user.*, CONCAT(user.first_name," ",user.last_name)as `full_name`, user_type.name as `user_type`, status.name as `status_name`')
+		$data = $this->db->select('user.*, CONCAT(user.first_name," ",user.last_name)as `full_name`, user_modules, user_type.name as `user_type`, status.name as `status_name`')
 		->from('user')
 		->join('user_type', 'user_type.user_type_id = user.user_type_id', 'left')
 		->join('status', 'status.status_id = user.status_id', 'left')
@@ -38,6 +38,17 @@ class Account_model extends CI_Model {
 	public function current_user_data()
 	{
 		return $this->current_user_data;
+	}
+
+	public function get_user( $user_id )
+	{
+		return $this->db->select( 'user.*, CONCAT(user.first_name," ",user.last_name)as `full_name`, user_modules, user_type.name as `user_type`, status.name as `status_name`' )
+		->from( 'user' )
+		->join( 'user_type', 'user_type.user_type_id = user.user_type_id', 'left')
+		->join( 'status', 'status.status_id = user.status_id', 'left')
+		->where( 'user.user_id', $user_id )
+		->get()->result()[0];
+
 	}
 
 	public function check_user_name( $user_name )
