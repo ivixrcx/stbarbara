@@ -23,6 +23,7 @@
     <script src="./vendor/iviarco/jquery-autocomplete/autocomplete.js"></script>
     <script src="./assets/js/charts-home.js"></script>
     <script src="./assets/js/front.js"></script>
+    <script src="./scripts/useraccess.js"></script>
 
     <?php 
     
