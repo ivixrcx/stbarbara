@@ -22,7 +22,9 @@ class Usermodule_model extends CI_Model {
 			$list->where( 'user_module.status_id', $status_id );
 		}
 		
-        // $list->group_by( array( 'user_module_category.user_module_category_name', 'user_module.user_module_id' ) );
+		// $list->group_by( array( 'user_module_category.user_module_category_name', 'user_module.user_module_id' ) );
+		
+		$list->order_by( 'user_module.user_module_name', 'ASC' );
 
 		return $list->get()->result();
 	}
