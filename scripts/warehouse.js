@@ -20,7 +20,7 @@ function load_warehouse(){
           html += '<td>' + data.contact_no + '</td>';
           html += '<td>';
           html += '<div class="d-flex justify-content-end">';
-          html += '<a href="stock/list_view/' + data.warehouse_id + '" class="btn_view"><button class="btn btn-primary btn-sm">view</button></a>';
+          html += '<a href="view/warehouse/' + data.warehouse_id + '" class="btn_view"><button class="btn btn-primary btn-sm">view</button></a>';
           html += '</div>';
           html += '</td>';
           html += '</tr>';
