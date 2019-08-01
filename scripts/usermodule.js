@@ -15,7 +15,17 @@ $.ajax({
       $.each(res.data, function(key, data){
         html = '<tr>';
         html += '<td>' + data.user_module_name + '</td>';
-        // html += '<td><a href="usermodule/list_view/' + data.user_module_category_id + '" class="pull-right btn btn-primary">view</a></td>';
+
+        var module_array = data.user_module_link.split(',');
+
+        html += '<td>';
+        $.each(module_array, function( key, link ){
+          html += '<code>' + link + '</code><br/>';
+        });
+        html += '</td>';
+        html += '<td>' + data.user_module_description + '</td>';
+
+        html += '<td><a href="module-category/' + data.user_module_category_id + '" class="pull-right btn btn-warning">edit</a></td>';
         html += '</tr>';
         $(table).append(html);
       });
