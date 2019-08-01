@@ -115,6 +115,10 @@ form label.error {
 	outline: none !important;
 }
 
+.table-responsive {
+  overflow-y: hidden !important;
+}
+
 /* sweet alert 2 */
 
 #swal2-content {
