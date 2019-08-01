@@ -4,7 +4,7 @@
       <div class="col-lg-12">
         <div class="block">
           <div class="d-flex pull-right">
-            <a class="pr-2 pb-2 pt-2" href="supplier/create_view"><button class="btn btn-primary">Add Supplier</button></a>
+            <a class="pr-2 pb-2 pt-2" href="create/supplier"><button class="btn btn-primary">Add Supplier</button></a>
           </div>
           <div class="table-responsive pt-3">
             <table class="table" style="width:100%"> 

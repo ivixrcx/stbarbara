@@ -18,8 +18,8 @@
         <div class="block tab-content">
           <!-- create button -->
           <div class="d-flex pull-right">
-              <a class="pr-2 pb-2 pt-2" href="stock/create_stock_in_view/<?php echo $warehouse_id ?>"><button class="btn btn-primary btn-block">Stock In</button></a>
-              <a class="pr-2 pb-2 pt-2" href="stock/create_stock_out_view/<?php echo $warehouse_id ?>"><button class="btn btn-danger btn-block">Stock Out</button></a>
+              <a class="pr-2 pb-2 pt-2" href="create/stock-in/<?php echo $warehouse_id ?>"><button class="btn btn-primary btn-block">Stock In</button></a>
+              <a class="pr-2 pb-2 pt-2" href="create/stock-out/<?php echo $warehouse_id ?>"><button class="btn btn-danger btn-block">Stock Out</button></a>
           </div>
 
           <!-- all stocks -->

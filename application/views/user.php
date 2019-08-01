@@ -4,7 +4,7 @@
       <div class="col-lg-12">
         <div class="block">
           <div class="d-flex pull-right">
-            <a class="pr-2 pb-2 pt-2" href="account/create_user_view"><button class="btn btn-primary">Add User</button></a>
+            <a class="pr-2 pb-2 pt-2" href="create/user"><button class="btn btn-primary">Add User</button></a>
           </div>
           <div class="table-responsive pt-3" style="overflow-y: hidden">
             <table id="list_of_active_users" class="table"> 

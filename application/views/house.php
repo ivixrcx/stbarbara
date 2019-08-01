@@ -4,7 +4,7 @@
       <div class="col-lg-12">
         <div class="block">
           <div class="d-flex pull-right">
-            <a class="pr-2 pb-2 pt-2" href="house/create_view"><button class="btn btn-primary">Add House</button></a>
+            <a class="pr-2 pb-2 pt-2" href="create/house"><button class="btn btn-primary">Add House</button></a>
           </div>
           <div class="table-responsive pt-3">
             <table class="table" style="width:100%"> 

@@ -14,7 +14,7 @@
         <div class="block tab-content">
 
           <div class="d-flex justify-content-end pr-2 pb-3">
-            <a href="purchaseorder/create_purchase_order_view" class="col-xs-12 col-sm-2 col-md-2 btn btn-primary btn-primary">Create</a>
+            <a href="create/purchase-order" class="col-xs-12 col-sm-2 col-md-2 btn btn-primary btn-primary">Create</a>
           </div>
 
           <!-- approved -->
