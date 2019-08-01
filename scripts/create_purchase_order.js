@@ -54,7 +54,7 @@ $('#frm_create_purchase_order').validate({
             showConfirmButton: false,
             timer: 1500,
           }).then(function(){
-            window.location.href='purchaseorder/purchase_order_item_view/' + res.responseJSON.data;
+            window.location.href='purchase-order-items/' + res.responseJSON.data;
           });
         }
         

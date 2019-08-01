@@ -50,7 +50,7 @@ $('#frm_add_warehouse').validate({
             showConfirmButton: false,
             timer: 1500,
           }).then(function(){
-            window.location.href='warehouse/list_view';
+            window.location.href='warehouses';
           });
         }
         

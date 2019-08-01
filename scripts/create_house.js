@@ -59,7 +59,7 @@ $('#frm_add_house').validate({
             showConfirmButton: false,
             timer: 1500,
           }).then(function(){
-            window.location.href='house/list_view';
+            window.location.href='houses';
           });
         }
         

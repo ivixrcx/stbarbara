@@ -62,7 +62,7 @@ $('#frm_add_project').validate({
             showConfirmButton: false,
             timer: 1500,
           }).then(function(){
-            window.location.href='project/list_view';
+            window.location.href='projects';
           });
         }
         

@@ -90,7 +90,7 @@ $('#frm_create_user').validate({
             showConfirmButton: false,
             timer: 1500,
           }).then(function(){
-            window.location.href='account/users';
+            window.location.href='users';
           });
         }
         

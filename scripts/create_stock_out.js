@@ -67,7 +67,7 @@ $('#frm_add_stock_out').validate({
             showConfirmButton: false,
             timer: 1500,
           }).then(function(){
-            window.location.href='stock/list_view/' + $('#warehouse_id').val();
+            window.location.href='view/warehouse/' + $('#warehouse_id').val();
           });
         }
         

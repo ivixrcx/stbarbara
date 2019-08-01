@@ -46,7 +46,7 @@ $('#frm_add_supplier').validate({
             showConfirmButton: false,
             timer: 1500,
           }).then(function(){
-            window.location.href='supplier/list_view';
+            window.location.href='suppliers';
           });
         }
         
