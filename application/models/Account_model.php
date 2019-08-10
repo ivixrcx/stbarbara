@@ -147,4 +147,20 @@ class Account_model extends CI_Model {
 		->where( 'status_id', $status_id )
 		->get()->result();
 	}
+	
+	public function apply_default_user_modules( $user_id, $user_type_id )
+	{
+		$user_types = $this->list_of_user_types( $user_type_id );
+
+		if( count($user_types) == 0 ){
+			return false;
+		}
+
+		$data = array( 'user_modules' => $user_types[0]->default_user_modules );
+		$where = array( 'user_id' => $user_id );
+
+		$this->db->update( 'user', $data, $where );
+		return $this->db->affected_rows();
+	}
+	
 }
