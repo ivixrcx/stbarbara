@@ -77,7 +77,7 @@
             <div class="list-inline-item"><a href="#" class="search-open nav-link"><i class="icon-magnifying-glass-browser"></i></a></div>
             <!-- Log out               -->
             <div class="list-inline-item logout">
-              <a id="logout" href="<?php echo base_url() . 'account/logout'?>" class="nav-link"> <span class="d-none d-sm-inline">Logout </span><i class="icon-logout"></i></a>
+              <a id="logout" href="<?php echo base_url() . 'logout'?>" class="nav-link"> <span class="d-none d-sm-inline">Logout </span><i class="icon-logout"></i></a>
             </div>
           </div>
         </div>
@@ -98,12 +98,13 @@
             <ul class="list-unstyled">
                 <li class="<?php if(isset($nav_home)) echo $nav_home; ?>"><a href="home"></i>Home </a></li>
                 <li class="<?php if(isset($nav_po)) echo $nav_po; ?> system-module" style="display:none"><a href="purchase-orders" data-module="purchaseorder/purchase_order_view">Purchase Orders</a></li>
-                <li class="<?php if(isset($nav_users)) echo $nav_users; ?> system-module" style="display:none"><a href="users" data-module="account/users">Users</a></li>
-                <li class="<?php if(isset($nav_usermodule)) echo $nav_usermodule; ?> system-module" style="display:none"><a href="module-category" data-module="usermodulecategory/list_view">Modules</a></li>
                 <li class="<?php if(isset($nav_projects)) echo $nav_projects; ?> system-module" style="display:none"><a href="projects" data-module="project/list_view">Project</a></li>
-                <li class="<?php if(isset($nav_suppliers)) echo $nav_suppliers; ?> system-module" style="display:none"><a href="suppliers" data-module="supplier/list_view">Supplier</a></li>
                 <li class="<?php if(isset($nav_houses)) echo $nav_houses; ?> system-module" style="display:none"><a href="houses" data-module="house/list_view">House</a></li>
+                <li class="<?php if(isset($nav_suppliers)) echo $nav_suppliers; ?> system-module" style="display:none"><a href="suppliers" data-module="supplier/list_view">Supplier</a></li>
                 <li class="<?php if(isset($nav_warehouses)) echo $nav_warehouses; ?> system-module" style="display:none"><a href="warehouses" data-module="warehouse/list_view">Warehouses</a></li>
+                <li class="<?php if(isset($nav_users)) echo $nav_users; ?> system-module" style="display:none"><a href="users" data-module="account/users">Users</a></li>
+                <li class="<?php if(isset($nav_positions)) echo $nav_positions; ?> system-module" style="display:none"><a href="positions" data-module="position/list_view">Positions</a></li>
+                <li class="<?php if(isset($nav_usermodule)) echo $nav_usermodule; ?> system-module" style="display:none"><a href="module-category" data-module="usermodulecategory/list_view">Modules</a></li>
                 <!-- <li><a href="charts.html"> <i class="fa fa-bar-chart"></i>Charts </a></li>
                 <li><a href="forms.html"> <i class="icon-padnote"></i>Forms </a></li>
                 <li><a href="#exampledropdownDropdown" aria-expanded="true" data-toggle="collapse"> <i class="icon-windows"></i>Example dropdown </a>
