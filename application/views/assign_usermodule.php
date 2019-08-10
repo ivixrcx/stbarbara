@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="block">
-        <table class="table">
+        <table class="table" data-id="<?php echo $user_id ?>">
             <thead>
             <tr>
                 <th class="w-20">Category</th>
