@@ -62,11 +62,12 @@ class Account_model extends CI_Model {
 		return $is_taken ? true : false;
 	}
 
-	public function create_user( $first_name, $last_name, $user_name, $password, $user_type_id )
+	public function create_user( $first_name, $last_name, $full_name, $user_name, $password, $user_type_id )
 	{
 		$data = array(
 			'first_name' 	=> $first_name,
 			'last_name' 	=> $last_name,
+			'full_name' 	=> $full_name,
 			'user_name' 	=> $user_name,
 			'password' 		=> $password,
 			'user_type_id' 	=> $user_type_id,
@@ -74,14 +75,15 @@ class Account_model extends CI_Model {
 		);
 
 		$this->db->insert('user', $data);
-		return $this->db->affected_rows();
+		return $this->db->insert_id();
 	}
 
-	public function update_user( $user_id, $first_name, $last_name, $user_name, $password, $user_type_id )
-	{
+	public function update_user( $user_id, $first_name, $last_name, $full_name, $user_name, $password, $user_type_id )
+	{	
 		$data = array(
 			'first_name' 	=> $first_name,
 			'last_name' 	=> $last_name,
+			'full_name' 	=> $full_name,
 			'user_name' 	=> $user_name,
 			'password' 		=> $password,
 			'user_type_id' 	=> $user_type_id,
@@ -90,7 +92,7 @@ class Account_model extends CI_Model {
 		$where = array( 'user_id' => $user_id );
 
 		$this->db->update( 'user', $data, $where );
-		return $this->db->affected_rows();
+		return $this->db->insert_id();
 	}
 
 	public function delete_user( $user_id )
@@ -125,14 +127,18 @@ class Account_model extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
-	public function list_of_user_types()
+	public function list_of_user_types( $user_type_id="" )
 	{
-		return $this->db->select( 'user_type_id, name' )
-		->from( 'user_type' )
-		->get()->result();
+		$list = $this->db->select( '*' )->from( 'user_type' );
+
+		if( !empty($user_type_id) ){
+			$list->where( 'user_type_id', $user_type_id );
+		}
+
+		return $list->get()->result();
 	}
 
-	public function list_of_users( $user_type_id, $status_id, $sort="asc" )
+	public function list_of_users( $user_type_id, $status_id=1, $sort="asc" )
 	{
 		return $this->db->select( 'user.*, user_type.name as uname' )
 		->from( 'user' )
@@ -141,5 +147,4 @@ class Account_model extends CI_Model {
 		->where( 'status_id', $status_id )
 		->get()->result();
 	}
-	
 }
