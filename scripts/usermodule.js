@@ -25,7 +25,7 @@ $.ajax({
         html += '</td>';
         html += '<td>' + data.user_module_description + '</td>';
 
-        html += '<td><a href="module-category/' + data.user_module_category_id + '" class="pull-right btn btn-warning">edit</a></td>';
+        html += '<td><a href="update/module/' + data.user_module_category_id + '/' + data.user_module_id + '" class="pull-right btn btn-warning">edit</a></td>';
         html += '</tr>';
         $(table).append(html);
       });
