@@ -50,8 +50,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'account';
-$route['404_override'] = '';
+$route['404_override'] = 'account/error';
 $route['translate_uri_dashes'] = FALSE;
+
+//common 
+$route['login'] = 'account/login';
+$route['logout'] = 'account/logout';
+$route['error/(:num)'] = 'status/index/$1';
 
 // user
 $route['users'] = 'account/users';
@@ -78,7 +83,7 @@ $route['update/module-category/(:num)'] = 'usermodulecategory/update_view/$1';
 // user modules
 $route['module-category/(:num)'] = 'usermodule/list_view/$1';
 $route['create/module/(:num)'] = 'usermodule/create_view/$1';
-$route['update/module/(:num)'] = 'usermodule/update_view/$1';
+$route['update/module/(:num)/(:num)'] = 'usermodule/update_view/$1/$2';
 $route['assign/user-modules/(:num)'] = 'usermodule/assign_user_module_view/$1';
 
 // project
@@ -93,7 +98,7 @@ $route['update/supplier/(:num)'] = 'supplier/update_view/$1';
 
 // house
 $route['houses'] = 'house/list_view';
-$route['view/house'] = 'house/create_view';
+$route['view/house'] = 'house/view';
 $route['create/house'] = 'house/create_view';
 $route['update/house/(:num)'] = 'house/update_view/$1';
 
@@ -104,5 +109,12 @@ $route['create/warehouse'] = 'warehouse/create_view';
 $route['update/warehouse/(:num)'] = 'warehouse/update_view/$1';
 
 // stock
-$route['create/stock-in'] = 'stock/create_stock_in_view';
-$route['create/stock-out'] = 'stock/create_stock_in_view';
+$route['create/stock-in/(:num)'] = 'stock/create_stock_in_view/$1';
+$route['create/stock-out/(:num)'] = 'stock/create_stock_in_view/$1';
+
+// position
+$route['positions'] = 'position/list_view';
+$route['view/position/(:num)'] = 'position/view/$1';
+$route['create/position'] = 'position/create_view';
+$route['update/position/(:num)'] = 'position/update_view/$1';
+$route['update/position/permissions/(:num)'] = 'position/update_permissions_view/$1';
