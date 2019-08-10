@@ -37,4 +37,27 @@ class API extends CI_Model {
 			die( @file_get_contents(VIEWPATH . '401.html') );
 		}
 	}
+
+	public function auth_required()
+	{
+		$location = base_url() . 'login';
+		$is_logged_in = false;
+
+		if($this->session->has_userdata('login_data')){
+			$is_logged_in = true;
+		}
+
+		if(!$this->input->is_ajax_request()) {
+			if(!$is_logged_in){
+				redirect($location, 'refresh');
+			}
+		}
+		else{
+			if(!$is_logged_in){
+				$this->output->set_status_header(401);
+				$this->emit_json( true, 'login is required.', 102 );
+				die();
+			}
+		}
+	}
 }
