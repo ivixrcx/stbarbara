@@ -14,25 +14,26 @@ class API extends CI_Model {
 		return $this->SSP;
 	}
 
-	public function emit($data, $error="")
+	public function emit($data, $error="", $code="")
 	{
 		return (object)array(
+			'code'      => $code,
 			'has_data' 	=> !empty($data) ?: false,
 			'data' 		=> $data,
 			'error' 	=> $error
 		);
 	}
 
-	public function emit_json($data, $error="")
+	public function emit_json($data, $error="", $code="")
 	{
 		header('content-type: application/json; charset=utf-8;');
-		echo json_encode($this->emit( $data, $error ));
+		echo json_encode($this->emit( $data, $error, $code ));
 	}
 
 	public function ajax_only()
 	{
 		// the best practice to filter non-ajax request
-		if(!isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) || $_SERVER['HTTP_X_REQUESTED_WITH'] != 'XMLHttpRequest') {
+		if(!$this->input->is_ajax_request()){
 			die( @file_get_contents(VIEWPATH . '401.html') );
 		}
 	}
