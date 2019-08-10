@@ -51,11 +51,12 @@ class Usermodule_model extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
-	public function update( $user_module_id, $user_module_name, $user_module_category_id )
+	public function update( $user_module_id, $user_module_name, $user_module_link, $user_module_description )
 	{
 		$data = array(
 			'user_module_name' 		  	=> $user_module_name,
-			'user_module_category_id' 	=> $user_module_category_id
+			'user_module_link' 			=> $user_module_link,
+			'user_module_description' 	=> $user_module_description
 		);
 
 		$where = array( 'user_module_id' => $user_module_id );
@@ -106,5 +107,13 @@ class Usermodule_model extends CI_Model {
 
 		$this->db->update( 'user', $data, $where );
 		return $this->db->affected_rows();
+	}
+
+	public function get( $user_module_id )
+	{
+		return $this->db->select( '*' )
+		->from( 'user_module' )
+		->where( 'user_module_id', $user_module_id )
+		->get()->result();
 	}
 }
