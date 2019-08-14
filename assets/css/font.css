@@ -9,7 +9,13 @@
     url("../fonts/dark-dashboard.svg#dark-dashboard") format("svg");
   font-weight: normal;
   font-style: normal;
+}
 
+@font-face {
+  font-family: "Nunito";
+  src:url("../fonts/Nunito/Nunito-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
 }
 
 [data-icon]:before {
