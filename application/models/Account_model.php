@@ -138,13 +138,13 @@ class Account_model extends CI_Model {
 		return $list->get()->result();
 	}
 
-	public function list_of_users( $user_type_id, $status_id=1, $sort="asc" )
+	public function list_of_users( $user_type_id="", $status_id=1, $sort="asc" )
 	{
 		return $this->db->select( 'user.*, user_type.name as uname' )
 		->from( 'user' )
 		->join( 'user_type', 'user_type_id', 'user' )
-		->where( 'user_type_id', $user_type_id )
-		->where( 'status_id', $status_id )
+		// ->where( 'user_type_id', $user_type_id )
+		->where( 'user_type.status_id', $status_id )
 		->get()->result();
 	}
 	

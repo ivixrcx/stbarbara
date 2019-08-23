@@ -10,7 +10,6 @@ class Account extends CI_Controller {
 		$this->load->model( 'usermodule_model' );
 		$this->load->library( 'API', NULL, 'API' );
 		$this->load->library( 'UserAccess', array( $this ) );
-
 		// default permissions
 		$this->useraccess->set_permission('account/index');
 		$this->useraccess->set_permission('account/login');
@@ -18,7 +17,7 @@ class Account extends CI_Controller {
 		$this->useraccess->set_permission('account/logout');
 		$this->useraccess->set_permission('account/get_session_permissions');
 		$this->useraccess->set_permission('account/list_of_user_types');
-
+		// check permissions onload
 		$this->useraccess->check_permissions();
 	}
 
@@ -71,6 +70,7 @@ class Account extends CI_Controller {
 	public function get_session_permissions()
 	{
 		$this->API->ajax_only();
+		$this->API->auth_required();
 		$this->API->emit_json( $this->useraccess->get_session_permissions() );
 		
 	}
@@ -106,7 +106,7 @@ class Account extends CI_Controller {
 		$this->useraccess->unset_permission();
 
 		// redirect to login page
-		redirect(base_url() . 'account/login', 'refresh');
+		redirect(base_url() . 'login', 'refresh');
 	}
 
 	public function list( $user_type_id, $status_id, $sort="asc" )
@@ -189,7 +189,7 @@ class Account extends CI_Controller {
 
 	public function create_user_process()
 	{
-
+		
 		$this->API->ajax_only();
 
 		$first_name 	= $this->input->post('first_name');
@@ -197,6 +197,7 @@ class Account extends CI_Controller {
 		$user_name 		= $this->input->post('user_name');
 		$password 		= $this->input->post('password');
 		$user_type_id 	= $this->input->post('user_role');
+		$full_name 		= $first_name . ' ' . $last_name;
 
 		$is_taken = $this->account_model->check_user_name($user_name);
 
@@ -205,15 +206,9 @@ class Account extends CI_Controller {
 			$this->API->emit_json( false, 'Username has been taken.' );
 		}
 		else{
-			$insert = $this->account_model->create_user( $first_name, $last_name, $user_name, $password, $user_type_id );
-
-			if($insert){
-				$this->API->emit_json( true );
-			}
-			else{
-				// error logs
-				$this->API->emit_json( 'Error: insert' );
-			}
+			$user_id = $this->account_model->create_user( $first_name, $last_name,$full_name, $user_name, $password, $user_type_id );
+			$this->account_model->apply_default_user_modules( $user_id, $user_type_id );
+			$this->API->emit_json( true );
 		}		
 	}
 
@@ -228,8 +223,9 @@ class Account extends CI_Controller {
 		$user_name 		= $this->input->post('user_name');
 		$password 		= $this->input->post('password');
 		$user_type_id 	= $this->input->post('user_role');
+		$full_name 		= $first_name . ' ' . $last_name;
 
-		$update = $this->account_model->update_user( $first_name, $last_name, $user_name, $password, $user_type_id );
+		$update = $this->account_model->update_user( $first_name, $last_name, $full_name, $user_name, $password, $user_type_id );
 
 		if($update){
 			$this->API->emit_json( true );

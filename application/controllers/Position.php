@@ -25,7 +25,7 @@ class Position extends CI_Controller {
 		$data['title'] = 'Positions';
 		$data['nav_positions'] = 'active';
 		$data['login_data'] = $this->session->userdata('login_data');
-		$data['script'] = './scripts/position.js';
+		$data['script'] = array('./scripts/deletion.js','./scripts/position.js');
 		
 		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'position', $data );

@@ -14,7 +14,7 @@
         <div class="block tab-content">
 
           <div class="d-flex justify-content-end pr-2 pb-3">
-            <a href="create/purchase-order" class="col-xs-12 col-sm-2 col-md-2 btn btn-primary btn-primary">Create</a>
+            <a href="create/purchase-order" class="col-xs-12 col-sm-2 col-md-2 btn btn-primary btn-primary btn-sm">Create</a>
           </div>
 
           <!-- approved -->
@@ -23,13 +23,9 @@
               <table id="list_of_approved_purchase_orders" class="table responsive nowrap" style="width:100%"> 
                 <thead> 
                   <tr> 
-                    <!-- <th>#</th> -->
                     <th>Request by</th>
                     <th>Date</th>
-                    <!-- <th>Prep. by</th> -->
-                    <!-- <th>Prep. date</th> -->
                     <th>Note</th>
-                    <th>Status</th>
                     <th></th>
                   </tr> 
                 </thead> 
@@ -43,13 +39,9 @@
               <table id="list_of_approval_purchase_orders" class="table responsive nowrap" style="width:100%"> 
                 <thead> 
                   <tr> 
-                    <!-- <th>#</th> -->
                     <th>Request by</th>
                     <th>Date</th>
-                    <!-- <th>Prep. by</th> -->
-                    <!-- <th>Prep. date</th> -->
                     <th>Note</th>
-                    <th>Status</th>
                     <th></th>
                   </tr> 
                 </thead> 

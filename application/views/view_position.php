@@ -12,7 +12,7 @@
                   foreach( $users as $user ) {?>
                   <tr>
                       <td><?php echo $user->full_name ?></td>
-                      <td><a href="user/<?php echo $user->user_id ?>" class="btn btn-primary btn-sm pull-right">View</a></td>
+                      <td><a href="user/<?php echo $user->user_id ?>" class="btn btn-primary btn-sm pull-right"><i class="fa fa-eye text-dark"></i></a></td>
                   </tr>
                   <?php }
                 }
@@ -26,7 +26,7 @@
       <div class="col-lg-7">
         <div class="block">
           <strong class="title">Default Permissions</strong>
-          <a href="update/position/permissions/<?php echo $user_type_id ?>" class="btn btn-primary pull-right">Modify</a>          
+          <a href="update/position/permissions/<?php echo $user_type_id ?>" class="btn btn-primary btn-sm pull-right">Modify</a>          
           <div class="table-responsive pt-3">
             <table class="table" style="width:100%"> 
             <?php 

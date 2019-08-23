@@ -10,7 +10,7 @@ class Project_model extends CI_Model {
 		$this->API = new API();
 	}
 
-	public function list($status_id="")
+	public function list($status_id="1")
 	{
 		$list = $this->db->select( 'project.*, status.name as status_name' )
 		->from( 'project')
@@ -59,5 +59,13 @@ class Project_model extends CI_Model {
 
 		$this->db->update( 'project', $data, $where );
 		return $this->db->affected_rows();
+	}
+
+	public function get( $project_id )
+	{
+		return $this->db->select( '*' )
+		->from( 'project' )
+		->where( 'project_id', $project_id )
+		->get()->result();
 	}
 }

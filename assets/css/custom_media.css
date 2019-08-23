@@ -1,5 +1,13 @@
 /* Extra small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) { 
+	body {
+		overflow-x: hidden !important;
+	}
+
+	.page-content .section, .page-content .container-fluid, .page-content .container-fluid .row [class*="col-"] {
+		padding: 0 !important;
+	}
+
 	/*  */
 	.dataTables_filter label, .dataTables_filter input {
 		width: 100% !important;
@@ -41,6 +49,35 @@
 
 	footer {
 		display: none !important;
+	}
+
+	.page-content {
+		height: 100% !important;
+	}
+
+	nav#sidebar.shrinked {
+		width: 100vw !important;
+		height: 120vh !important;
+		z-index: 999 !important;
+		position: absolute !important;
+		top: 0 !important;
+	}
+	
+	nav#sidebar.shrinked ul {
+		width: inherit !important;
+	}
+
+	nav#sidebar.shrinked ul a {
+		padding-left: 30px !important;
+		text-align: left !important;
+	}
+
+	nav#sidebar.shrinked .sidebar-header .title {
+		display: block !important;
+	}
+
+	nav#sidebar.shrinked .sidebar-header {
+		padding: 40px 20px !important;
 	}
 }
 

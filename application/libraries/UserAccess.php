@@ -43,11 +43,12 @@ class UserAccess {
                         'error'     => 'Access Denied on module "' . $request . '"',
                         'error_html'=> 'Access Denied on module <code class="text-warning">' . $request . '</code>'
                     );
-
-                    $this->emit_json( $array, 'No permission' ); // permission denied
+                    $this->ci->output->set_status_header(401);
+                    $this->emit_json( $array, 'Unauthorized', 101 ); // permission denied
                 }
                 else{
-                    $this->ci->load->view( '101.html' ); exit;
+                    $this->ci->load->view( '101.html' ); 
+                    die;
                 }
             }
         }
@@ -65,11 +66,12 @@ class UserAccess {
     /**
      * @return  string
      */
-	protected function emit_json( $data, $error="" )
+	protected function emit_json( $data, $error="", $code="200" )
 	{
 		header('content-type: application/json; charset=utf-8;');
 		echo json_encode(
             (object)array(
+                'code' 		=> $code,
                 'has_data' 	=> !empty($data) ?: false,
                 'data' 		=> $data,
                 'error' 	=> $error
@@ -86,12 +88,12 @@ class UserAccess {
     {
         // checks what kind of request is passed
         // is json request?
-
+        
         // the best practice to filter non-ajax request
 		if(isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
 			return true;
         }
-        
+
         return false;
     }
 

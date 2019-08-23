@@ -3,34 +3,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->model( 'account_model' );
+		$this->load->library( 'API', NULL, 'API' );
+		$this->API->auth_required();
+	}
+
 	public function index()
 	{
-		// check if user logged in
-		if(!$this->session->has_userdata('login_data')){
-			redirect(base_url() . 'account/login', 'refresh');
-		}
-
 		$data = array();
 		$data['nav_home'] = 'active';
-		$data['login_data'] = $this->session->userdata('login_data');
+		$data['login_data'] = $this->session->userdata( 'login_data' );
 
 		$this->load->view( 'page-frame', $data );
-		$this->load->view( 'home' );
+		$this->load->view( 'home', $data );
 		$this->load->view( 'page-frame-footer', $data ); 
 	}
 }

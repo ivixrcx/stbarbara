@@ -24,7 +24,7 @@ class API extends CI_Model {
 		);
 	}
 
-	public function emit_json($data, $error="", $code="")
+	public function emit_json($data, $error="", $code="200")
 	{
 		header('content-type: application/json; charset=utf-8;');
 		echo json_encode($this->emit( $data, $error, $code ));

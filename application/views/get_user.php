@@ -12,7 +12,7 @@
         <div class="block">
             <div class="title">
                 <strong>Access Modules</strong>
-                <a href="assign/user-modules/<?php echo $user_id ?>" class="btn btn-primary pull-right">Modify</a>
+                <a href="assign/user-modules/<?php echo $user_id ?>" class="btn btn-primary btn-sm pull-right">Modify</a>
             </div>
             <table class="table">
                 <thead>

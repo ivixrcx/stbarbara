@@ -24,7 +24,10 @@ class Project extends CI_Controller {
 		$data['title'] = 'Projects';
 		$data['nav_projects'] = 'active';
 		$data['login_data'] = $this->session->userdata('login_data');
-		$data['script'] = './scripts/project.js';
+		$data['script'] = array(
+			'./scripts/deletion.js',
+			'./scripts/project.js'
+		);
 		
 		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'project', $data );
@@ -90,7 +93,13 @@ class Project extends CI_Controller {
 		$data['nav_projects'] = 'active';
 		$data['login_data'] = $this->session->userdata('login_data');
 		$data['script'] = './scripts/update_project.js';
-		
+		$data['project'] = $this->project_model->get( $project_id );
+
+		// display nothing if no data found for now
+		if( count($data['project']) == 0 ){
+			return false;
+		}
+
 		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'update_project' );
 		$this->load->view( 'page-frame-footer', $data );
@@ -112,7 +121,7 @@ class Project extends CI_Controller {
 			$this->API->emit_json( true );
 		}
 		else{
-			$this->API->emit_json( false, 'Error: update');	
+			$this->API->emit_json( false, 'No changes.');	
 		}
 
 	}

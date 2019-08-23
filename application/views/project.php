@@ -4,7 +4,7 @@
       <div class="col-lg-12">
         <div class="block">
           <div class="d-flex pull-right">
-            <a class="pr-2 pb-2 pt-2" href="create/project"><button class="btn btn-primary">Add Project</button></a>
+            <a class="pr-2 pb-2 pt-2" href="create/project"><button class="btn btn-primary btn-sm">Add Project</button></a>
           </div>
           <div class="table-responsive pt-3" style="overflow-y: hidden">
             <table class="table" style="width:100%"> 

@@ -24,7 +24,10 @@ class Supplier extends CI_Controller {
 		$data['title'] = 'Suppliers';
 		$data['nav_suppliers'] = 'active';
 		$data['login_data'] = $this->session->userdata('login_data');
-		$data['script'] = './scripts/supplier.js';
+		$data['script'] = array(
+			'./scripts/deletion.js',
+			'./scripts/supplier.js'
+		);
 
 		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'supplier', $data );
@@ -85,24 +88,59 @@ class Supplier extends CI_Controller {
 
 	public function update_view( $supplier_id )
 	{
+		$data = array();
+		$data['title'] = 'Update Supplier';
+		$data['nav_suppliers'] = 'active';
+		$data['login_data'] = $this->session->userdata('login_data');
+		$data['script'] = './scripts/update_supplier.js';
+		$data['supplier'] = $this->supplier_model->get( $supplier_id );
+
+		// display nothing if no data found for now
+		if( count($data['supplier']) == 0 ){
+			return false;
+		}
+
+		$this->load->view( 'page-frame', $data  );
+		$this->load->view( 'update_supplier', $data );
+		$this->load->view( 'page-frame-footer', $data );
+	}
+
+	public function update()
+	{
+		$this->API->ajax_only();
+
+		$supplier_id	= $this->input->post( 'supplier_id', true );
+		$name 		  	= $this->input->post( 'name', true );
+		$description  	= $this->input->post( 'description', true );
+		$address 	 	= $this->input->post( 'address', true );
+		$contact_no 	= $this->input->post( 'contact_no', true );
+
+		$update = $this->supplier_model->update( $supplier_id, $name, $description, $address, $contact_no );
+
+		if($update){
+			$this->API->emit_json( true );
+		}
+		else{
+			$this->API->emit_json( false, 'No changes.');	
+		}
 
 	}
 
-	public function update_supplier()
+	public function delete()
 	{
 		$this->API->ajax_only();
 
 		$supplier_id = $this->input->post( 'supplier_id' );
 		if(empty($supplier_id)) return false;
 
-	}
+		$delete = $this->supplier_model->delete( $supplier_id );
 
-	public function delete_supplier()
-	{
-		$this->API->ajax_only();
-
-		$supplier_id = $this->input->post( 'supplier_id' );
-		if(empty($supplier_id)) return false;
+		if($delete){
+			$this->API->emit_json( true );
+		}
+		else{
+			$this->API->emit_json( false, 'Error: delete');	
+		}
 
 	}
 }

@@ -1,6 +1,55 @@
 /* your styles go here */
 
 /* main theme */
+
+nav#sidebar {
+  width: 220px !important;
+}
+
+.page-content {
+  width: calc(100% - 220px) !important;
+}
+
+.page-content.active {
+  width: 100% !important;
+}
+
+nav#sidebar img#sidebar-logo {
+  width: 100% !important;
+}
+
+nav#sidebar.shrinked img#sidebar-logo {
+  width: 100% !important;
+  margin-left: -3px;
+  display: block !important;
+  -moz-box-sizing: border-box !important;
+  box-sizing: border-box !important;
+  content: url(../images/icon.png) !important;
+}
+
+nav#sidebar.shrinked {
+  width: 100px !important;
+}
+
+button.sidebar-toggle {
+  width: 32px !important;
+  height: 32px !important;
+  line-height: 25px !important;
+  text-align: center !important;
+  border-radius: 50% !important;
+  background: #282b2f !important;
+  color: #8a8d93 !important;
+  font-size: 1.1rem !important;
+  border: 2px solid #3d4148 !important;
+  outline: none !important;
+  margin-right: 10px !important;;
+}
+
+nav#sidebar.shrinked ul a {
+  text-align: left !important;
+  margin-left: 8px;
+}
+
 .login-page .form-holder {
   margin: 0 !important;
   border-radius: 0 !important;
@@ -122,7 +171,7 @@ form label.error {
 /* sweet alert 2 */
 
 #swal2-content {
-	color: #545454 !important;
+	color: #cccccc !important;
 }
 
 .swal2-icon.swal2-warning::before {
@@ -135,4 +184,9 @@ form label.error {
 
 .swal2-styled:focus {
     box-shadow: 0 0 0 2px #a9a9a9 !important;
+}
+
+.swal2-validation-message {
+  background: #facea8;
+  color: #131313 !important;
 }

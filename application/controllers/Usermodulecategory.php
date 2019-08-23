@@ -10,7 +10,7 @@ class Usermodulecategory extends CI_Controller {
 		$this->load->model( 'account_model' );
 		$this->load->library( 'API', NULL, 'API' );
 		$this->load->library( 'UserAccess', array( $this ) );
-		$this->useraccess->check_permissions();
+		// $this->useraccess->check_permissions();
 	}
 
 	public function index()
@@ -76,8 +76,13 @@ class Usermodulecategory extends CI_Controller {
 		$data['nav_module'] = 'active';
 		$data['login_data'] = $this->session->userdata('login_data');
 		$data['script'] = './scripts/update_usermodule_category.js';
-		$data['user_module_category_id'] = $user_module_category_id;
-		
+		$data['category'] = $this->usermodulecategory_model->get( $user_module_category_id );
+
+		// display nothing if no data found for now
+		if( count($data['category']) == 0 ){
+			return false;
+		}
+
 		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'update_usermodule_category', $data );
 		$this->load->view( 'page-frame-footer', $data );
@@ -89,14 +94,13 @@ class Usermodulecategory extends CI_Controller {
 
 		$user_module_category_id  = $this->input->post( 'user_module_category_id' );
 		$user_module_category_name = $this->input->post( 'user_module_category_name' );
-
+		
 		$update = $this->usermodulecategory_model->update( $user_module_category_id, $user_module_category_name );
-
 		if($update){
 			$this->API->emit_json( true );
 		}
 		else{
-			$this->API->emit_json( false, 'Error: update');	
+			$this->API->emit_json( false, 'No changes.');	
 		}
 	}
 

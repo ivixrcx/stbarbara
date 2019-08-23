@@ -11,7 +11,7 @@ class Usermodule extends CI_Controller {
 		$this->load->model( 'account_model' );
 		$this->load->library( 'API', NULL, 'API' );
 		$this->load->library( 'UserAccess', array( $this ) );
-		// $this->useraccess->check_permissions();
+		$this->useraccess->check_permissions();
 	}
 
 	public function index()
@@ -88,14 +88,16 @@ class Usermodule extends CI_Controller {
 		}
 	}
 
-	public function update_view( $user_module_id )
+	public function update_view( $user_module_category_id, $user_module_id )
 	{
 		$data = array();
 		$data['title'] = 'Update User Module';
 		$data['nav_module'] = 'active';
 		$data['login_data'] = $this->session->userdata('login_data');
 		$data['script'] = './scripts/update_usermodule.js';
+		$data['user_module'] = $this->usermodule_model->get( $user_module_id );
 		$data['user_module_id'] = $user_module_id;
+		$data['user_module_category_id'] = $user_module_category_id;
 		
 		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'update_usermodule', $data );
@@ -108,15 +110,16 @@ class Usermodule extends CI_Controller {
 
 		$user_module_id  = $this->input->post( 'user_module_id' );
 		$user_module_name = $this->input->post( 'user_module_name' );
-		$user_module_category_id = $this->input->post( 'user_module_category_id' );
+		$user_module_link = $this->input->post( 'user_module_link' );
+		$user_module_description = $this->input->post( 'user_module_description' );
 
-		$update = $this->usermodule_model->update( $user_module_id, $user_module_name, $user_module_category_id );
+		$update = $this->usermodule_model->update( $user_module_id, $user_module_name, $user_module_link, $user_module_description );
 
 		if($update){
 			$this->API->emit_json( true );
 		}
 		else{
-			$this->API->emit_json( false, 'Error: update');	
+			$this->API->emit_json( false, $update);	
 		}
 	}
 
@@ -146,7 +149,6 @@ class Usermodule extends CI_Controller {
 		$data['title'] = 'Assign Modules';
 		$data['nav_module'] = 'active';
 		$data['login_data'] = $this->session->userdata('login_data');
-		// print_r($_SESSION);exit;
 		$data['usermodules'] = $this->usermodule_model->get_user_modules();
 		$data['user_id'] = $user_id;
 		$data['script'] = './scripts/assign_usermodule.js';
@@ -169,5 +171,16 @@ class Usermodule extends CI_Controller {
 		else{
 			$this->API->emit_json( false, 'Error: update');	
 		}
+	}
+
+	public function get_assigned_user_modules()
+	{
+		$this->API->ajax_only();
+
+		$user_id = $this->input->post('user_id');
+
+		$user_modules = $this->usermodule_model->get_user_modules( $user_id );
+		
+		$this->API->emit_json( $user_modules );
 	}
 }

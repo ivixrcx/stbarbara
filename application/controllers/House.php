@@ -24,7 +24,10 @@ class House extends CI_Controller {
 		$data['title'] = 'Houses';
 		$data['nav_houses'] = 'active';
 		$data['login_data'] = $this->session->userdata('login_data');
-		$data['script'] = './scripts/house.js';
+		$data['script'] = array(
+			'./scripts/deletion.js',
+			'./scripts/house.js'
+		);
 		
 		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'house', $data );
@@ -79,8 +82,13 @@ class House extends CI_Controller {
 		$data['nav_houses'] = 'active';
 		$data['login_data'] = $this->session->userdata('login_data');
 		$data['script'] = './scripts/update_house.js';
-		$data['house_id'] = $house_id;
-		
+		$data['house'] = $this->house_model->get( $house_id );
+
+		// display nothing if no data found for now
+		if( count($data['house']) == 0 ){
+			return false;
+		}
+
 		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'update_house', $data );
 		$this->load->view( 'page-frame-footer', $data );
@@ -102,7 +110,7 @@ class House extends CI_Controller {
 			$this->API->emit_json( true );
 		}
 		else{
-			$this->API->emit_json( false, 'Error: update');	
+			$this->API->emit_json( false, 'No changes.');	
 		}
 
 	}

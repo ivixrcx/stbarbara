@@ -16,7 +16,7 @@ class Stock extends CI_Controller {
 
 	public function index()
 	{
-		$this->list_view();
+		// $this->list_view();
 	}
 
 	public function list( $warehouse_id )
