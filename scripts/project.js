@@ -16,17 +16,30 @@ $.ajax({
       $(project).html('');
       if(res.has_data === true){
         $.each(res.data, function(key, data){
-          html = '<tr>';
-          html += '<td>' + data.project_id + '</td>';
-          html += '<td>' + data.name + '</td>';
-          html += '<td colspan="2">' + data.total_area + '</td>';
-          html += '<td colspan="3">' + data.total_units + '</td>';
-          html += '<td>' + data.location + '</td>';
-          html += '<td></td>';
-          html += '</tr>';
+          html = `
+          <tr>
+            <td>${data.project_id}</td>
+            <td>${data.name}</td>
+            <td colspan="2">${data.total_area}</td>
+            <td colspan="3">${data.total_units}</td>
+            <td>${data.location}</td>
+            <td>
+              <div class="d-flex justify-content-end">
+                <a href="update/project/${data.project_id}" class="pull-right btn btn-warning btn-sm ml-1"><i class="fa fa-pencil text-dark"></i></a>
+                <button class="pull-right btn btn-danger btn-sm ml-1 btndelete" data-project_id="${data.project_id}"><i class="fa fa-remove text-dark"></i></button>
+              </div>
+            </td>
+          </tr>`;
           $(project).append(html);
         });
       }
+
+      new deletion({
+          button: 'button.btndelete',
+          action: 'project/delete',
+          redirect: 'projects'
+      })
+      .fire();
     }
   },
   error: function(error){
