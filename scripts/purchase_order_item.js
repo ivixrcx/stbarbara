@@ -28,7 +28,7 @@ $(function(){
               html += '<td>' + data.quantity + '</td>';
               html += '<td>' + data.unit_price + '</td>';
               html += '<td>' + data.total + '</td>';
-              html += '<td><button class="btn btn-danger btn-block btn-sm btn_remove" data-id="' + data.purchase_order_item_id + '" data-item="' + data.description + '">remove</button></td>';
+              html += '<td><button class="btn btn-danger btn-sm btn_remove pull-right" data-id="' + data.purchase_order_item_id + '" data-item="' + data.description + '"><i class="fa fa-remove text-dark"></i></button></td>';
               html += '</tr>';
               $(items).append( html );
             });

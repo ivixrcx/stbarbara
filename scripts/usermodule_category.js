@@ -13,17 +13,22 @@ $.ajax({
       $.each(res.data, function(key, data){
         html = '<tr>';
         if( data.module_count == 0 ){
-          html += '<td>' + data.user_module_category_name + '</td>';
+          html += `<td>${data.user_module_category_name}</td>`;
         }
         else if( data.module_count == 1 ){
-          html += '<td>' + data.user_module_category_name + ' <code>' + data.module_count + ' module</code></td>';
+          html += `<td>${data.user_module_category_name} <code>${data.module_count} module</code></td>`;
         }
         else{
-          html += '<td>' + data.user_module_category_name + ' <code>' + data.module_count + ' modules</code></td>';
-
+          html += `<td>${data.user_module_category_name} <code>${data.module_count} modules</code></td>`;
         }
-        html += '<td><a href="module-category/' + data.user_module_category_id + '" class="pull-right btn btn-primary">view</a></td>';
-        html += '</tr>';
+        html += `
+          <td>
+            <div class="d-flex justify-content-end">
+            <a href="module-category/${data.user_module_category_id}" class="pull-right btn btn-primary btn-sm ml-1"><i class="fa fa-eye text-dark"></i></a>
+            <a href="update/module-category/${data.user_module_category_id}" class="pull-right btn btn-warning btn-sm ml-1"><i class="fa fa-pencil text-dark"></i></a>
+            </div>
+          </td>
+        </tr>`;
         $(table).append(html);
       });
     }

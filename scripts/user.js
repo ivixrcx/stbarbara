@@ -82,8 +82,8 @@ $('#list_of_active_users').DataTable({
       targets: 3,
       render: function(data, type, row){
         let buttons = `<div class="d-flex justify-content-end">`;
-        buttons += `<a href="user/${row['user_id']}" class="btn btn-primary mr-2">view</a>`;
-        buttons += `<button class="btn btn-danger mr-2 btn-delete" data-id="${row['user_id']}"><i class="icon-close"></i></button></div>`;
+        buttons += `<a href="user/${row['user_id']}" class="btn btn-primary btn-sm mr-2"><i class="fa fa-eye text-dark"></i></a>`;
+        buttons += `<button class="btn btn-danger btn-sm mr-2 btn-delete" data-id="${row['user_id']}"><i class="fa fa-remove text-dark"></i></button></div>`;
         return buttons;
       }
     },
