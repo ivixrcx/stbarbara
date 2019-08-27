@@ -11,6 +11,7 @@ class Usermodule extends CI_Controller {
 		$this->load->model( 'account_model' );
 		$this->load->library( 'API', NULL, 'API' );
 		$this->load->library( 'UserAccess', array( $this ) );
+		$this->API->auth_required();
 		$this->useraccess->check_permissions();
 	}
 
@@ -92,7 +93,7 @@ class Usermodule extends CI_Controller {
 	{
 		$data = array();
 		$data['title'] = 'Update User Module';
-		$data['nav_module'] = 'active';
+		$data['nav_usermodule'] = 'active';
 		$data['login_data'] = $this->session->userdata('login_data');
 		$data['script'] = './scripts/update_usermodule.js';
 		$data['user_module'] = $this->usermodule_model->get( $user_module_id );
@@ -147,7 +148,7 @@ class Usermodule extends CI_Controller {
 	{
 		$data = array();
 		$data['title'] = 'Assign Modules';
-		$data['nav_module'] = 'active';
+		$data['nav_usermodule'] = 'active';
 		$data['login_data'] = $this->session->userdata('login_data');
 		$data['usermodules'] = $this->usermodule_model->get_user_modules();
 		$data['user_id'] = $user_id;

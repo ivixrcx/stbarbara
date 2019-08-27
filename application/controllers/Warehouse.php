@@ -10,6 +10,7 @@ class Warehouse extends CI_Controller {
 		$this->load->model( 'account_model' );
 		$this->load->library( 'API', NULL, 'API' );
 		$this->load->library( 'UserAccess', array( $this ) );
+		$this->API->auth_required();
 		$this->useraccess->check_permissions();
 	}
 

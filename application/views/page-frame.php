@@ -74,6 +74,7 @@
                 <li class="<?php if(isset($nav_projects)) echo $nav_projects; ?> system-module" style="display:none"><a href="projects" data-module="project/list_view">Project</a></li>
                 <li class="<?php if(isset($nav_houses)) echo $nav_houses; ?> system-module" style="display:none"><a href="houses" data-module="house/list_view">House</a></li>
                 <li class="<?php if(isset($nav_suppliers)) echo $nav_suppliers; ?> system-module" style="display:none"><a href="suppliers" data-module="supplier/list_view">Supplier</a></li>
+                <li class="<?php if(isset($nav_materials)) echo $nav_materials; ?> system-module" style="display:none"><a href="materials" data-module="material/list_view">Materials</a></li>
                 <li class="<?php if(isset($nav_warehouses)) echo $nav_warehouses; ?> system-module" style="display:none"><a href="warehouses" data-module="warehouse/list_view">Warehouses</a></li>
                 <li class="<?php if(isset($nav_users)) echo $nav_users; ?> system-module" style="display:none"><a href="users" data-module="account/users">Users</a></li>
                 <li class="<?php if(isset($nav_positions)) echo $nav_positions; ?> system-module" style="display:none"><a href="positions" data-module="position/list_view">Positions</a></li>

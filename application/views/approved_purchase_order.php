@@ -29,6 +29,8 @@
                 <tbody id="list_of_purchase_order_items" data-id="<?php echo $purchase_order->purchase_order_id ?>"></tbody>
                 </table>
             </div>
+            <a href="print/purchase-order/<?php echo $purchase_order->purchase_order_id ?>" target="_blank" class="btn btn-primary mt-5 btn-block btn-lg font-weight-bold"><i class="fa fa-print">&nbsp;</i>Print</a>
+
         </div>
       </div>
     </div>
