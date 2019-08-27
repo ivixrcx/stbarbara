@@ -113,7 +113,7 @@ $(function(){
         showCancelButton: true,
         preConfirm: flag => {
             if(flag){
-                return $.post('purchaseorder/approve_purchase_order',{ 
+                return $.post('purchaseorder/approved_purchase_order',{ 
                     purchase_order_id: $(items).data('id') 
                 })
                 .then(res=>res)
@@ -124,7 +124,18 @@ $(function(){
         }
     })
     .then(res=>{
-        Swal.fire('im fine');
+      // prompt result
+      if(res.value){
+        Swal.fire({
+          type: 'success',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        .then(res=>{
+          window.location.href='approved/purchase-order/'+$(items).data('id')
+        });
+      }
+        
     });
   });
 
@@ -140,7 +151,7 @@ $(function(){
         confirmButtonColor: '#bb414d',
         showLoaderOnConfirm: true,
         preConfirm: (note) => {
-            return $.post('purchaseorder/disapprove_purchase_order',{
+            return $.post('purchaseorder/disapproved_purchase_order',{
                 purchase_order_id: $(items).data('id'),
                 admin_note: note,
             })
