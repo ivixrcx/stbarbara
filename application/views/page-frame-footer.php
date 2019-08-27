@@ -23,18 +23,18 @@
     <script src="./vendor/iviarco/jquery-autocomplete/autocomplete.js"></script>
     <!-- <script src="./assets/js/charts-home.js"></script> -->
     <script src="./assets/js/front.js"></script>
-    <script src="./scripts/useraccess.js"></script>
+    <script src="./scripts/useraccess.js?v=<?php echo time()?>"></script>
 
     <?php 
     
     if(isset($script)){
       if(is_array($script)){
         foreach ($script as $file_path) {
-          echo "<script src='$file_path'></script>";
+          echo '<script src="' . $file_path . '?v=' . time() . '"></script>';
         }
       }
       else{ 
-        echo "<script src='$script'></script>";
+        echo '<script src="' . $script . '?v=' . time() . '"></script>';
       }
     }
 
