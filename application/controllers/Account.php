@@ -3,6 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Account extends CI_Controller {
 
+	private $permissions;
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -43,8 +45,8 @@ class Account extends CI_Controller {
 	{
 		$this->API->ajax_only();
 
-		$user_name 	= $this->input->post('user_name');
-		$password 	= $this->input->post('password');
+		$user_name 	= $this->input->post('user_name', true);
+		$password 	= $this->input->post('password', true);
 
 		$auth_login = 	$this->account_model->auth_login($user_name, $password);
 		if(empty($auth_login->data)){
@@ -63,7 +65,7 @@ class Account extends CI_Controller {
 			$this->register_permissions( $permissions );
 
 			$this->session->set_userdata('login_data', $user_data);
-			$this->API->emit_json( true );
+			$this->API->emit_json( [ 'user_data'=>$user_data, 'modules'=>$this->permissions ] );
 		}
 	}
 
@@ -80,7 +82,7 @@ class Account extends CI_Controller {
 	 */
 	protected function register_permissions( $permissions )
 	{
-		$modules = '';
+		$modules = [];
 		foreach( $permissions as $permission ){
 			//shorten variable
 			$module_link = $permission->user_module_link;
@@ -94,6 +96,7 @@ class Account extends CI_Controller {
 			}
 		}
 
+		$this->permissions = $modules;
 		$this->useraccess->set_permission( $modules );
 	}
 
