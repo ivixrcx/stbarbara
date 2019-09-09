@@ -175,9 +175,26 @@ class Purchaseorder_model extends CI_Model {
 		->get()->result();
 	}
 
-	public function approve_purchase_order( $purchase_order_id )
+	public function approval_purchase_order( $purchase_order_id, $approved_by, $approved_date )
 	{
-		$data = array( 'status_id' => 6 ); // approved
+		$data = array( 
+			'approved_by' => $approved_by,
+			'approved_date' => $approved_date,
+			'status_id' => 9 // for approval
+		);
+		$where = array( 'purchase_order_id' => $purchase_order_id );
+
+		$this->db->update( 'purchase_order', $data, $where );
+		return $this->db->affected_rows();
+	}
+
+	public function approved_purchase_order( $purchase_order_id, $approved_by, $approved_date )
+	{
+		$data = array( 
+			'approved_by' => $approved_by,
+			'approved_date' => $approved_date,
+			'status_id' => 6 // approved
+		);
 		$where = array( 'purchase_order_id' => $purchase_order_id );
 
 		$this->db->update( 'purchase_order', $data, $where );
@@ -188,7 +205,7 @@ class Purchaseorder_model extends CI_Model {
 	{
 		$data = array( 
 			'admin_note' => $admin_note, 
-			'status_id' => 6, // disapproved
+			'status_id' => 7, // disapproved
 		);
 
 		$where = array( 'purchase_order_id' => $purchase_order_id );
