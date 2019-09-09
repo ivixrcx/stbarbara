@@ -134,7 +134,4 @@ $.ajax({
   },
 });
 
-console.log(aaa)
-// return
-
-autocomplete($("#requested_by"), aaa);
+new autocomplete($("#requested_by"), aaa);
