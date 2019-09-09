@@ -1,7 +1,7 @@
 {
     "require": {
         "iviarco/jquery-touch": "^1.0",
-        "iviarco/jquery-autocomplete": "^2.0",
+        "iviarco/jquery-autocomplete": "^2.1",
         "dompdf/dompdf": "0.8.3"
     }
 }
