@@ -51,7 +51,7 @@
             <div class="col-lg-6 login-panel">
               <div class="form d-flex align-items-center">
                 <div class="content">
-                  <form method="post" id="form_login" class="form-validate mb-4">
+                  <form method="post" class="form-validate mb-4">
                     <div class="form-group">
                       <input id="login-username" type="text" name="user_name" value="livil" required data-msg="Please enter your username" class="input-material">
                       <label for="login-username" class="label-material">User Name</label>
@@ -63,18 +63,10 @@
                     <button type="submit" class="btn btn-primary">Login</button>
                   </form>
                   <a href="#" class="forgot-pass">Forgot Password?</a><br>
-                  <!-- <small>Do not have an account? </small><a href="register.html" class="signup">Signup</a> -->
                 </div>
               </div>
             </div>
           </div>
-          <!-- <div class="row">
-            <div class="col-lg-12">
-              <div class="copyrights text-center">
-                <p>Powered by <a href="https://www.arttechcebu.com/" class="external">Art Tech Media & I.T. Solutions</a></p>
-              </div>
-            </div>
-          </div> -->
         </div>
         </div>
       </div>
@@ -82,39 +74,12 @@
     <!-- JavaScript files-->
 
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="./node_modules/popper.js/dist/popper.min.js"> </script>
+    <script src="./node_modules/popper.js/dist/umd/popper.min.js"> </script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="./node_modules/chart.js/dist/Chart.min.js"></script>
     <script src="./node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="./node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
     <script src="./assets/js/front.js"></script>
-
-    <script type="text/javascript">
-      $(function(){
-
-        const base = $('base').attr('href');
-
-        $('#form_login').submit(function(e){
-          e.preventDefault();
-
-          $.ajax({
-            type: 'post',
-            url: base + 'account/login_process',
-            data: $(this).serialize(),
-            success: (res)=>{
-              console.log(res)
-              if(res.has_data){
-                window.location.href=base + 'home'
-              }
-              else{
-                Swal.fire('Invalid Login.');
-              }
-            }
-          });
-
-        });
-
-      });
-    </script>
+    <script src="./scripts/login.js"></script>
   </body>
 </html>
