@@ -1,3 +1,5 @@
+/* global declarations */
+
 // disables error for user permission
 $.fn.dataTable.ext.errMode = 'none';
 
@@ -31,27 +33,16 @@ $('#list_of_approved_purchase_orders').DataTable({
     }
   },
   columns: [
-    // {data: 'purchase_order_id'},
     {data: 'requested_by'},
     {data: 'requested_date'},
-    // {data: 'prepared_by'},
-    // {data: 'prepared_date'},
     {data: 'user_note'},
     {
       data: null,
       render: function(data, type, row){
-        return '<span style="color:' + row['status_color'] + '">' + row['status_name'] + '</span>';
-      }
-    },
-    {
-      data: null,
-      render: function(data, type, row){
-        let buttons = `<div class="d-flex justify-content-end">`;
-        // buttons += `<a href="purchaseorder/purchase_order_item_view/${row['purchase_order_id']}" class="btn_view"><button class="btn btn-primary mr-2">view</button></a>`;
-        buttons += `<a href="purchaseorder/print/${row['purchase_order_id']}"><button class="btn btn-secondary mr-2">print</button></a>`;
-        buttons += `<button class="btn btn-danger mr-2 btn-delete" data-id="${row['purchase_order_id']}"><i class="icon-close"></i></button></a>`;
-        // buttons += `<button class="btn btn-danger mr-2 btn-delete" data-id="${row['purchase_order_id']}"><i class="icon-close"></i></button></div>`;
-        return buttons;
+        return `
+        <div class="d-flex justify-content-end">
+        <a href="approved/purchase-order/${row['purchase_order_id']}" class="system-module" data-module="purchaseorder/approved_purchase_order_view"><button class="btn btn-primary btn-sm mr-2"><i class="fa fa-eye text-dark"></i></button></a>
+        <a href="print/purchase-order/${row['purchase_order_id']}" class="system-module" data-module="purchaseorder/print"><button class="btn btn-secondary btn-sm mr-2"><i class="fa fa-print text-dark"></i></button></a>`;
       }
     }
   ],
@@ -83,33 +74,28 @@ $('#list_of_approval_purchase_orders').DataTable({
     for (var i = 0; i < tds.length-1; i++) {
       $(tds[i]).attr('title', 'Click to view')
       $(tds[i]).click(function(){
-        // window.location.href='purchaseorder/purchase_order_item_view/' + data.purchase_order_id;
+        window.location.href='purchase-order-items/' + data.purchase_order_id;
       });
     }
   },
   columns: [
-    // {data: 'purchase_order_id'},
     {data: 'requested_by'},
     {data: 'requested_date'},
-    // {data: 'prepared_by'},
-    // {data: 'prepared_date'},
     {data: 'user_note'},
     {
       data: null,
       render: function(data, type, row){
-        return '<span style="color:' + row['status_color'] + '">' + row['status_name'] + '</span>';
-      }
-    },
-    {
-      data: null,
-      render: function(data, type, row){
-        let buttons = `<div class="d-flex justify-content-end">`;
-        // buttons += `<a href="purchaseorder/purchase_order_item_view/${row['purchase_order_id']}" class="btn_view"><button class="btn btn-primary mr-2">view</button></a>`;
-        buttons += `<a href="purchaseorder/print/${row['purchase_order_id']}"><button class="btn btn-secondary mr-2">print</button></a>`;
-        buttons += `<button class="btn btn-danger mr-2 btn-delete" data-id="${row['purchase_order_id']}"><i class="icon-close"></i></button></a>`;
-        // buttons += `<button class="btn btn-danger mr-2 btn-delete" data-id="${row['purchase_order_id']}"><i class="icon-close"></i></button></div>`;
-        return buttons;
+        return `
+        <div class="d-flex justify-content-end">
+        <a href="approval/purchase-order/${row['purchase_order_id']}" class="system-module mr-2 btn btn-info btn-sm text-dark" data-module="purchaseorder/approve_purchase_order">Review</a>
+        <a href="purchase-order-items/${row['purchase_order_id']}" class="system-module btn btn-primary btn-sm mr-2" data-module="purchaseorder/purchase_order_item_view"><i class="fa fa-eye text-dark"></i></a>
+        </div>`;
       }
     }
   ],
+  initComplete: function( settings, json ){
+      // initialize checking in-text modules
+      ua = new useraccess;
+      ua.check($('a.system-module'));
+  }
 });

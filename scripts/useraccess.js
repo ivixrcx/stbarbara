@@ -44,7 +44,7 @@ useraccess.prototype.check = function(_modules){
                     });
                 }
                 else{
-                    window.location.href=e.target.href;
+                    window.location.href=$(module_html).attr('href');
                 }
             });
         });

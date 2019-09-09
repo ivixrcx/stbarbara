@@ -29,10 +29,10 @@ $(stock_all).DataTable({
   },
   createdRow: function(row, data, dataIndex){
     if(data.stock_in_id != null){
-      // $(row).contents().find('td').prevObject.addClass('text-success')
+      $(row).contents().find('td').prevObject.addClass('bg-success').addClass('text-dark')
     }
     else if(data.stock_out_id != null){
-      // $(row).contents().find('td').prevObject.addClass('text-danger')
+      $(row).contents().find('td').prevObject.addClass('bg-danger');
     }
     // $(row).addClass('text-')
     $(row).touch({
