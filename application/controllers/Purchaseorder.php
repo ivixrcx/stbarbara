@@ -1,6 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+date_default_timezone_get('Asia/Manila');
+
 class Purchaseorder extends CI_Controller {
 
 	public function __construct()
@@ -12,20 +14,17 @@ class Purchaseorder extends CI_Controller {
 		$this->load->library( 'API', NULL, 'API' );
 		$this->load->library( 'dompdf/Dompdf_api', '', 'dompdf' );
 		$this->load->library( 'UserAccess', array( $this ) );
+		$this->API->auth_required();
 		$this->useraccess->check_permissions();
-
-		$this->index();
+		$this->index(); 	
 	}
 
 	public function index()
 	{
-		$loggedin = $this->session->userdata('login_data');
-		if(empty($loggedin)){
-			redirect( base_url() . 'account/login' );
-		}
 	}
 
-	public function purchase_order_view(){
+	public function purchase_order_view()
+	{
 		$data = array();
 		$data['title'] = 'Purchase Orders';
 		$data['nav_po'] = 'active';
@@ -289,21 +288,97 @@ class Purchaseorder extends CI_Controller {
 
 	public function print($purchase_order_id)
 	{
-		// echo $this->dompdf->get_option('default_font');exit;
-
-		// $this->API->ajax_only();
-		
 		$data['purchase_order'] = $this->purchaseorder_model->get_purchase_order_details( $purchase_order_id );
 		$data['items'] = $this->purchaseorder_model->list_purchase_order_items( $purchase_order_id );
 
-		$this->load->view('table', $data);
-
+		$this->load->view('purchase_order_print', $data);
 		$html = $this->output->get_output();
 
-		$this->dompdf->load_html($html);
+		$this->dompdf->loadHtml($html);
 		$this->dompdf->render();// $this->dompdf->get_canvas()->get_cpdf()->setEncryption('12345');
 
 		// Output the generated PDF to Browser
-		$this->dompdf->stream("test.pdf", array("Attachment" => 0));
+		$this->dompdf->stream("Purchase Order", array("Attachment" => 0));
+	}
+
+	public function approval_purchase_order_view( $purchase_order_id="" )
+	{
+		if( !isset($purchase_order_id) ){
+			redirect($_SERVER['HTTP_REFERER']);
+		}
+
+		$data = array();
+		$data['title'] = 'PO Approval';
+		$data['nav_po'] = 'active';
+		$data['login_data'] = $this->session->userdata('login_data');
+		$data['items'] = $this->purchaseorder_model->list_purchase_order_items( $purchase_order_id );
+		$data['purchase_order'] = $this->purchaseorder_model->get_purchase_order_details( $purchase_order_id );
+		$data['script'] = './scripts/approval_purchase_order.js';
+
+		$this->load->view( 'page-frame', $data  );
+		$this->load->view( 'approval_purchase_order', $data );
+		$this->load->view( 'page-frame-footer', $data );
+	}
+
+	public function approval_purchase_order()
+	{
+		$this->API->ajax_only();
+		$this->API->auth_required();
+
+		$login_data = $this->session->userdata( 'login_data' );
+		$purchase_order_id = $this->input->post( 'purchase_order_id' );
+		$approved_by = $login_data->user_id;
+		$approved_date = date('Y-m-d');
+
+		$this->purchaseorder_model->approval_purchase_order( $purchase_order_id, $approved_by, $approved_date );
+		$this->output->set_status_header(200);
+		$this->API->emit_json( true );
+	}
+	
+	public function approved_purchase_order_view( $purchase_order_id="" )
+	{
+		if( !isset($purchase_order_id) ){
+			redirect($_SERVER['HTTP_REFERER']);
+		}
+
+		$data = array();
+		$data['title'] = 'Approved';
+		$data['nav_po'] = 'active';
+		$data['login_data'] = $this->session->userdata('login_data');
+		$data['items'] = $this->purchaseorder_model->list_purchase_order_items( $purchase_order_id );
+		$data['purchase_order'] = $this->purchaseorder_model->get_purchase_order_details( $purchase_order_id );
+		$data['script'] = './scripts/approved_purchase_order.js';
+
+		$this->load->view( 'page-frame', $data  );
+		$this->load->view( 'approved_purchase_order', $data );
+		$this->load->view( 'page-frame-footer', $data );
+	}
+
+	public function approved_purchase_order()
+	{
+		$this->API->ajax_only();
+		$this->API->auth_required();
+
+		$login_data = $this->session->userdata( 'login_data' );
+		$purchase_order_id = $this->input->post( 'purchase_order_id' );
+		$approved_by = $login_data->user_id;
+		$approved_date = date('Y-m-d');
+
+		$this->purchaseorder_model->approved_purchase_order( $purchase_order_id, $approved_by, $approved_date );
+		$this->output->set_status_header(200);
+		$this->API->emit_json( true );
+	}
+
+	public function disapproved_purchase_order()
+	{
+		$this->API->ajax_only();
+		$this->API->auth_required();
+
+		$purchase_order_id = $this->input->post( 'purchase_order_id' );
+		$admin_note = $this->input->post( 'admin_note' );
+
+		$this->purchaseorder_model->disapprove_purchase_order( $purchase_order_id, $admin_note );
+		$this->output->set_status_header(200);
+		$this->API->emit_json( true, NULL);
 	}
 }
