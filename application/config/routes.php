@@ -69,6 +69,9 @@ $route['purchase-orders'] = 'purchaseorder/purchase_order_view';
 $route['purchase-order/(:num)'] = 'purchaseorder/get_purchase_order_view/$1';
 $route['create/purchase-order'] = 'purchaseorder/create_purchase_order_view';
 $route['update/purchase-order/(:num)'] = 'purchaseorder/update_purchase_order_view/$1';
+$route['approval/purchase-order/(:num)'] = 'purchaseorder/approval_purchase_order_view/$1';
+$route['approved/purchase-order/(:num)'] = 'purchaseorder/approved_purchase_order_view/$1';
+$route['print/purchase-order/(:num)'] = 'purchaseorder/print/$1';
 
 // purchase order item
 $route['purchase-order-items/(:num)'] = 'purchaseorder/purchase_order_item_view/$1';
@@ -110,7 +113,7 @@ $route['update/warehouse/(:num)'] = 'warehouse/update_view/$1';
 
 // stock
 $route['create/stock-in/(:num)'] = 'stock/create_stock_in_view/$1';
-$route['create/stock-out/(:num)'] = 'stock/create_stock_in_view/$1';
+$route['create/stock-out/(:num)'] = 'stock/create_stock_out_view/$1';
 
 // position
 $route['positions'] = 'position/list_view';
@@ -118,3 +121,9 @@ $route['view/position/(:num)'] = 'position/view/$1';
 $route['create/position'] = 'position/create_view';
 $route['update/position/(:num)'] = 'position/update_view/$1';
 $route['update/position/permissions/(:num)'] = 'position/update_permissions_view/$1';
+
+// material
+$route['materials'] = 'material/list_view';
+$route['view/material/(:num)'] = 'material/view/$1';
+$route['create/material'] = 'material/create_view';
+$route['update/material/(:num)'] = 'material/update_view/$1';
