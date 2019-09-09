@@ -50,6 +50,10 @@ nav#sidebar.shrinked ul a {
   margin-left: 8px;
 }
 
+nav#sidebar .sidebar-header.logo {
+  background: #fcfcfc !important;
+}
+
 .login-page .form-holder {
   margin: 0 !important;
   border-radius: 0 !important;
@@ -69,11 +73,6 @@ code.selected {
 /* datatables */
 .table tr {
   	background: #2d3035 !important;
-}
-
-.table tr th,
-.table tr td {
-	/*color: #8a8d93 !important;*/
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button {

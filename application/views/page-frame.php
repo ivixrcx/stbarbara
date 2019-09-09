@@ -57,7 +57,7 @@
     <div class="d-flex align-items-stretch">
          <!-- Sidebar Navigation--> 
         <nav id="sidebar">
-            <div class="sidebar-header d-flex align-items-center">
+            <div class="sidebar-header logo d-flex align-items-center">
               <img id="sidebar-logo" src="./assets/images/logo.png">
             </div>
             <!-- Sidebar Header-->
@@ -79,18 +79,8 @@
                 <li class="<?php if(isset($nav_users)) echo $nav_users; ?> system-module" style="display:none"><a href="users" data-module="account/users">Users</a></li>
                 <li class="<?php if(isset($nav_positions)) echo $nav_positions; ?> system-module" style="display:none"><a href="positions" data-module="position/list_view">Positions</a></li>
                 <li class="<?php if(isset($nav_usermodule)) echo $nav_usermodule; ?> system-module" style="display:none"><a href="module-category" data-module="usermodulecategory/list_view">Modules</a></li>
-                <!-- <li><a href="charts.html"> <i class="fa fa-bar-chart"></i>Charts </a></li>
-                <li><a href="forms.html"> <i class="icon-padnote"></i>Forms </a></li>
-                <li><a href="#exampledropdownDropdown" aria-expanded="true" data-toggle="collapse"> <i class="icon-windows"></i>Example dropdown </a>
-                <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-                    <li><a href="#">Page</a></li>
-                    <li><a href="#">Page</a></li>
-                    <li><a href="#">Page</a></li>
-                </ul>
-                </li> -->
             </ul>
-             <!-- <span class="heading">Extras</span> -->
-            <ul class="list-unstyled">
+            <ul class="list-unstyled" id="fixed-sidebar">
                 <li class="mt-5"><a href="logout"><i class="icon-settings"></i>Settings</a></li>
                 <li><a href="logout"><i class="icon-logout"></i>Logout</a></li>
             </ul>

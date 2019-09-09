@@ -90,6 +90,14 @@
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) { 
 	/*  */
+	nav#sidebar ul#fixed-sidebar {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		background: #2d3035;
+		width: 220px !important;
+		margin: 0;
+	}
  }
 
 /* Large devices (desktops, 992px and up) */
@@ -102,6 +110,15 @@
 	.login-panel {
 		height: 100vh !important;
 	}	
+
+	nav#sidebar ul#fixed-sidebar {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		background: #2d3035;
+		width: 220px !important;
+		margin: 0;
+	}
  }
 
 /* Extra large devices (large desktops, 1200px and up) */
