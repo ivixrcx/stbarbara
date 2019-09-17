@@ -7,7 +7,7 @@ application/logs/*
 db_stbarbara.sql
 
 # db structure
-project.txt
+# project.txt
 
 # dependencies
 vendor
