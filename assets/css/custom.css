@@ -50,10 +50,6 @@ nav#sidebar.shrinked ul a {
   margin-left: 8px;
 }
 
-nav#sidebar .sidebar-header.logo {
-  background: #fcfcfc !important;
-}
-
 .login-page .form-holder {
   margin: 0 !important;
   border-radius: 0 !important;
@@ -68,6 +64,10 @@ code.selected {
   color: #222 !important;
   font-family: Courier, Consolas !important;
   font-weight: bold;
+}
+
+select option {
+  color: #979a9f !important;
 }
 
 /* datatables */

@@ -173,15 +173,6 @@ amenity_type
   amenity_type_id   pk int
   name              var 50
 
-------so soon--------
-
-salary
-  salary_id
-  person_id
-
-expense ()
-  expense_id
-
 purchase_order
   purchase_order_id fk int
   project_id        fk int
@@ -198,7 +189,27 @@ purchase_order
   deletion_note     var 200 null
   admin_note        var 200 null
   status_id         fk int
-  
+
+purchase_order_item
+  purchase_order_item_id    fk int
+  purchase_order_id         fk int
+  quantity                  int
+  description               var 200
+  unit_price                dec 18,2
+  total                     dec 18,2
+  status_id                 fk int
+
+warehouse
+
+------so soon--------
+
+salary
+  salary_id
+  person_id
+
+expense ()
+  expense_id
+
 
 -------------------------------------------
 
