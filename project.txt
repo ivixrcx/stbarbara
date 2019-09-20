@@ -175,6 +175,7 @@ amenity_type
 
 purchase_order
   purchase_order_id fk int
+  purchase_order_no int (1909xxx)
   project_id        fk int
   supplier_id       fk int
   invoice_no        var 20 null
