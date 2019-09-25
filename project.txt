@@ -176,19 +176,21 @@ amenity_type
 purchase_order
   purchase_order_id fk int
   purchase_order_no int (1909xxx)
-  project_id        fk int
-  supplier_id       fk int
-  invoice_no        var 20 null
-  grand_total       dec 18,2
+  invoice_no        var 50 null
+  invoice_img       var 100 null
+  additional_fee    dec 18,2 def 0.00
+  grand_total       dec 18,2 def 0.00
   requested_by      fk int
   requested_date    date
   prepared_by       fk int
   prepared_date     date
-  approved_by       fk int
-  approved_date     date
+  approved_by       fk int null
+  approved_date     date null
   user_note         var 200 null
   deletion_note     var 200 null
   admin_note        var 200 null
+  warehouse_id      fk int
+  supplier_id       fk int
   status_id         fk int
 
 purchase_order_item
