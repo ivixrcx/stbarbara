@@ -5,7 +5,7 @@ let suppliers = $('#supplier_id');
 
 $('#frm_create_purchase_order').validate({
   rules: {
-    project_id: {
+    warehouse_id: {
       required: true,
     },
     supplier_id: {
@@ -21,7 +21,7 @@ $('#frm_create_purchase_order').validate({
   },
 
   messages: {
-    project_id: {
+    warehouse_id: {
       required: "Please choose a Project",
     },
     supplier_id: {
@@ -36,102 +36,91 @@ $('#frm_create_purchase_order').validate({
   },
 
   submitHandler: function(form){
-    $.ajax({
-      url: 'purchaseorder/create_purchase_order',
-      type: 'post',
-      data: {
-        project_id: $('#project_id').val(),
-        supplier_id: $('#supplier_id').val(),
-        requested_by: $('#requested_by').data('id'),
-        requested_date: $('#requested_date').val(),
-        user_note: $('#user_note').val(),
-      },
-      complete: function(res){
-        if(res.responseJSON.has_data === true){
-          Swal.fire({
-            type: 'success',
-            title: 'Successfully created.',
-            showConfirmButton: false,
-            timer: 1500,
-          }).then(function(){
-            window.location.href='purchase-order-items/' + res.responseJSON.data;
-          });
-        }
-        
-      },
-      error: function(err){
-        console.log('error');
-        console.log(err);
-      },
+    $.post('purchaseorder/create_purchase_order', {
+      warehouse_id: $('#warehouse_id').val(),
+      supplier_id: $('#supplier_id').val(),
+      requested_by: $('#requested_by').data('id'),
+      requested_date: $('#requested_date').val(),
+      user_note: $('#user_note').val(),
+    })
+    .then(res=>{
+      if(res.has_data){
+        let id = res.data;
+        Swal.fire({
+          type: 'success',
+          title: 'Successfully created.',
+          showConfirmButton: false,
+          timer: 1500,
+        }).then(function(){
+          window.location.href=`purchase-order-items/${id}`;
+        });
+      }
+    })
+    .catch(err=>{                
+      Swal.showValidationMessage(err.responseJSON.error)
     });
   }
 
 });
 
-$.ajax({
-  type: 'post',
-  url: 'supplier/list',
-  error: (err) => {
-    console.log('error');
-    console.log(err);
-  },
-  success: (res) => {
-    if(res.has_data == true){
-      // let options = 
-      $.each(res.data, function(key, data){
-       $(suppliers).append(new Option(data.name, data.supplier_id));
-      });
-    }
-   else{
-     $(suppliers).append(new Option('---No suppliers available---', 0));
-   }
-  },
+/**
+ * get active warehouses
+ */
+$.post('purchaseorder/active_warehouses')
+.then(res=>{
+  if(res.has_data){
+    $.each(res.data, function( key, data ){
+      $('#warehouse_id').append( new Option( data.name, data.warehouse_id ) );
+    });
+  }
+  else{
+    // no warehouse
+    $('#warehouse_id').append( new Option('---NO WAREHOUSE---') );
+  }
+})
+.catch(err=>{                
+  Swal.showValidationMessage(err.responseJSON.error)
 });
 
-$.ajax({
-  url: 'purchaseorder/active_projects',
-  type: 'post',
-  success: function(res){
-    // console.log('success');
-    if(res.has_data){
-      $.each(res.data, function( key, data ){
-        $('#project_id').append( new Option( data.name, data.project_id ) );
-      });
-    }
-    else{
-      // no projects
-      $('#project_id').append( new Option('NO PROJECT') );
-
-    }
-  },
-  error: function(err){
-    console.log('error');
-    console.log(err);
-  },
+/**
+ * get active suppliers
+ */
+$.post('purchaseorder/active_suppliers')
+.then(res=>{
+  if(res.has_data){
+    $.each(res.data, function( key, data ){
+      $('#supplier_id').append( new Option( data.name, data.supplier_id ) );
+    });
+  }
+  else{
+    // no suppliers
+    $('#supplier_id').append( new Option('---NO SUPPLIER---') );
+  }
+})
+.catch(err=>{                
+  Swal.showValidationMessage(err.responseJSON.error)
 });
 
-let aaa = [];
-$.ajax({
-  url: 'purchaseorder/active_staffs',
-  type: 'post',
-  success: function(res){
-    // console.log('success');
-    if(res.has_data){
-      $.each(res.data, function( key, data ){
-        aaa.push({
-            id: data.user_id,
-            data: data.full_name
-        });
-      });
-    }
-    else{
-      // no staffs
-    }
-  },
-  error: function(err){
-    console.log('error');
-    console.log(err);
-  },
-});
+/**
+ * get active suppliers
+ */
 
-new autocomplete($("#requested_by"), aaa);
+$.post('purchaseorder/active_staffs')
+.then(res=>{
+  if(res.has_data){
+    let ls = [];
+    $.each(res.data, function( key, data ){
+      ls.push({
+          id: data.user_id,
+          data: data.full_name
+      });
+    });
+    new autocomplete($("#requested_by"), ls);
+  }
+  else{
+    // no data
+  }
+})
+.catch(err=>{                
+  Swal.showValidationMessage(err.responseJSON.error)
+});

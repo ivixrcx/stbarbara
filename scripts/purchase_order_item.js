@@ -42,12 +42,10 @@ $(function(){
             $(items).append( total_html );
 
             btn_remove_callback();
-
-
-
          }
          else{
            $(items).append('<tr><td colspan="7" align=middle>No Data</td></tr>')
+           $('#btnAdd').click();
          }
        },
     });

@@ -10,9 +10,9 @@ class Purchaseorder_model extends CI_Model {
 		$this->API = new API();
 	}
 
-	public function create_purchase_order( $project_id, $supplier_id, $requested_by, $requested_date, $prepared_by, $prepared_date, $user_note )
+	public function create_purchase_order( $warehouse_id, $supplier_id, $requested_by, $requested_date, $prepared_by, $prepared_date, $user_note )
 	{
-		$this->db->set( 'project_id', $project_id );
+		$this->db->set( 'warehouse_id', $warehouse_id );
 		$this->db->set( 'supplier_id', $supplier_id );
 		$this->db->set( 'requested_by', $requested_by );
 		$this->db->set( 'requested_date', $requested_date );
@@ -27,9 +27,10 @@ class Purchaseorder_model extends CI_Model {
 		/**
 		 * generate purchase order #
 		 */
-		$this->db->set( 'purchase_order_no', "CONCAT( DATE_FORMAT( NOW(), '%y%m' ), LPAD( $purchase_order_id, 3, '0') )" );
+		$this->db->set( 'purchase_order_no', "CONCAT( DATE_FORMAT( NOW(), '%y%m' ), LPAD( $purchase_order_id, 3, '0') )", false );
+		$this->db->where( 'purchase_order_id', $purchase_order_id );
 		$this->db->update( 'purchase_order' );
-		return $this->db->affected_rows();
+		return $purchase_order_id;
 	}
 
 	public function update_purchase_order( $purchase_order_id, $supplier_id, $requested_by, $user_note )
@@ -73,13 +74,13 @@ class Purchaseorder_model extends CI_Model {
 
 	public function get_purchase_order_details( $purchase_order_id )
 	{
-		$this->db->select( 'purchase_order.*, req.full_name as req_full_name, prep.full_name as prep_full_name, appr.full_name as appr_full_name, project.name as project_name, supplier.name as supplier_name, supplier.description, supplier.address, supplier.contact_no, status.name as status_name, color' );
+		$this->db->select( 'purchase_order.*, req.full_name as req_full_name, prep.full_name as prep_full_name, appr.full_name as appr_full_name, warehouse.name as warehouse_name, warehouse.location as warehouse_location, supplier.name as supplier_name, supplier.description, supplier.address, supplier.contact_no, status.name as status_name, color' );
 		$this->db->from( 'purchase_order' );
 		$this->db->join( 'user as req', 'req.user_id=purchase_order.requested_by', 'left' );
 		$this->db->join( 'user as prep', 'prep.user_id=purchase_order.prepared_by', 'left' );
 		$this->db->join( 'user as appr', 'appr.user_id=purchase_order.approved_by', 'left' );
 		$this->db->join( 'supplier', 'supplier.supplier_id=purchase_order.supplier_id', 'left' );
-		$this->db->join( 'project', 'project.project_id=purchase_order.project_id', 'left' );
+		$this->db->join( 'warehouse', 'warehouse.warehouse_id=purchase_order.warehouse_id', 'left' );
 		$this->db->join( 'status', 'status.status_id=purchase_order.status_id', 'left' );
 		$this->db->where( 'purchase_order_id', $purchase_order_id );
 		return $this->db->get()->result()[0];
@@ -135,7 +136,7 @@ class Purchaseorder_model extends CI_Model {
 	{
 		$status = $this->get_po_item_status( $purchase_order_item_id );
 
-		if($status !== 9){ // check if PO is not for approval
+		if($status === 9){ // check if PO is not for approval
 			// just do nothing here
 			return false;
 		}

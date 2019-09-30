@@ -5,8 +5,8 @@
         <div class="block">
           <form id="frm_create_purchase_order" method="POST" autocomplete="off" style="font-size: 16px !important;">
             <div class="form-group">
-              <label>Project</label>
-              <select id="project_id" name="project_id" class="form-control mb-3 mb-3"></select>
+              <label>Warehouse</label>
+              <select id="warehouse_id" name="warehouse_id" class="form-control mb-3 mb-3"></select>
             </div>
             <div class="form-group">
               <label>Vendor</label>

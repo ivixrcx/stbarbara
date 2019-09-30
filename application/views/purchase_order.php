@@ -23,6 +23,7 @@
               <table id="list_of_approved_purchase_orders" class="table responsive nowrap" style="width:100%"> 
                 <thead> 
                   <tr> 
+                    <th>#</th>
                     <th>Request by</th>
                     <th>Date</th>
                     <th>Note</th>
@@ -39,6 +40,7 @@
               <table id="list_of_approval_purchase_orders" class="table responsive nowrap" style="width:100%"> 
                 <thead> 
                   <tr> 
+                    <th>#</th>
                     <th>Request by</th>
                     <th>Date</th>
                     <th>Note</th>

@@ -9,8 +9,9 @@ class Purchaseorder extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model( 'purchaseorder_model' );
-		$this->load->model( 'project_model' );
+		$this->load->model( 'supplier_model' );
 		$this->load->model( 'account_model' );
+		$this->load->model( 'warehouse_model' );
 		$this->load->library( 'API', NULL, 'API' );
 		$this->load->library( 'dompdf/Dompdf_api', '', 'dompdf' );
 		$this->load->library( 'UserAccess', array( $this ) );
@@ -42,7 +43,8 @@ class Purchaseorder extends CI_Controller {
 
 		$this->SSP->table( 'purchase_order' )
 		->column( 'purchase_order_id' )
-		->column( 'project_id' )
+		->column( 'purchase_order_no' )
+		->column( 'warehouse_id' )
 		->column( 'invoice_no' )
 		->column( 'grand_total' )
 		->column( 'req.full_name', 'requested_by' )
@@ -73,7 +75,8 @@ class Purchaseorder extends CI_Controller {
 
 		$this->SSP->table( 'purchase_order' )
 		->column( 'purchase_order_id' )
-		->column( 'project_id' )
+		->column( 'purchase_order_no' )
+		->column( 'warehouse_id' )
 		->column( 'invoice_no' )
 		->column( 'grand_total' )
 		->column( 'req.full_name', 'requested_by' )
@@ -126,7 +129,7 @@ class Purchaseorder extends CI_Controller {
 	{
 		$this->API->ajax_only();
 
-		$project_id	 	 = $this->input->post( 'project_id' );
+		$warehouse_id	 	 = $this->input->post( 'warehouse_id' );
 		$supplier_id	 = $this->input->post( 'supplier_id' );
 		$requested_by	 = $this->input->post( 'requested_by' );
 		$requested_date	 = $this->input->post( 'requested_date' );
@@ -134,15 +137,24 @@ class Purchaseorder extends CI_Controller {
 		$prepared_by 	 = $this->session->userdata('login_data')->user_id;
 		$prepared_date 	 = date('Y-m-d');
 
-		$insert_id = $this->purchaseorder_model->create_purchase_order( $project_id, $supplier_id, $requested_by, $requested_date, $prepared_by, $prepared_date, $user_note );
+		$insert_id = $this->purchaseorder_model->create_purchase_order( $warehouse_id, $supplier_id, $requested_by, $requested_date, $prepared_by, $prepared_date, $user_note );
 		$this->API->emit_json( $insert_id );
 	}
 
-	public function active_projects()
+	public function active_warehouses()
 	{
 		$this->API->ajax_only();
 
-		$list = $this->project_model->list(1);
+		$list = $this->warehouse_model->list();
+
+		$this->API->emit_json( $list );
+	}
+
+	public function active_suppliers()
+	{
+		$this->API->ajax_only();
+
+		$list = $this->supplier_model->list(1);
 
 		$this->API->emit_json( $list );
 	}
@@ -276,14 +288,6 @@ class Purchaseorder extends CI_Controller {
 		else{
 			$this->API->emit_json( false, 'Error: delete');	
 		}
-	}
-
-	public function test_print($purchase_order_id)
-	{
-		$data['purchase_order'] = $this->purchaseorder_model->get_purchase_order_details( $purchase_order_id );
-		$data['items'] = $this->purchaseorder_model->list_purchase_order_items( $purchase_order_id );
-
-		$this->load->view('table', $data);
 	}
 
 	public function print($purchase_order_id)

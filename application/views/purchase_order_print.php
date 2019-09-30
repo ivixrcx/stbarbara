@@ -67,10 +67,13 @@ tr.grand-total td {
   </tr>
   <tr>
     <td colspan="4"><b>CONTACT:</b>&nbsp;&nbsp;<?php echo $purchase_order->contact_no ?></td>
-    <td><b>PO#:</b>&nbsp;&nbsp;<?php echo $purchase_order->purchase_order_id ?></td>
+    <td><b>PO#:</b>&nbsp;&nbsp;<?php echo $purchase_order->purchase_order_no ?></td>
   </tr>
   <tr>
     <td colspan="5"><b>ADDRESS:</b>&nbsp;&nbsp;<?php echo strtoupper($purchase_order->address) ?></td>
+  </tr>
+  <tr>
+    <td colspan="5"><b>DELIVERY TO:</b>&nbsp;&nbsp;<?php echo strtoupper($purchase_order->warehouse_name . ' (' . $purchase_order->warehouse_location . ')' ) ?></td>
   </tr>
   <tr class="break"><td colspan="5"></td></tr>
   <!-- <tr class="break"><td colspan="5"></td></tr> -->

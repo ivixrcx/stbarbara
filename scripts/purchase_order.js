@@ -33,6 +33,7 @@ $('#list_of_approved_purchase_orders').DataTable({
     }
   },
   columns: [
+    {data: 'purchase_order_no'},
     {data: 'requested_by'},
     {data: 'requested_date'},
     {data: 'user_note'},
@@ -79,6 +80,7 @@ $('#list_of_approval_purchase_orders').DataTable({
     }
   },
   columns: [
+    {data: 'purchase_order_no'},
     {data: 'requested_by'},
     {data: 'requested_date'},
     {data: 'user_note'},
