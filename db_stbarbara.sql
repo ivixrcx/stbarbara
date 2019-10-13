@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
--- https://www.phpmyadmin.net/
+-- version 4.5.4.1deb2ubuntu2.1
+-- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Sep 18, 2019 at 09:08 AM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.1.26
+-- Host: localhost:3306
+-- Generation Time: Oct 12, 2019 at 11:24 PM
+-- Server version: 5.7.27-0ubuntu0.16.04.1
+-- PHP Version: 7.0.33-0ubuntu0.16.04.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -122,7 +120,9 @@ CREATE TABLE `material` (
 
 INSERT INTO `material` (`material_id`, `particular`, `unit`, `no_of_stocks`, `last_stock_date`, `stock_level`, `material_category_id`, `status_id`) VALUES
 (1, 'COCO LUMBER', 'PCS', 50, NULL, 10, 1, 1),
-(2, 'CONCRETE NAILS', 'KG', 30, NULL, 10, 4, 1);
+(3, 'boysen-white', 'pcs', 0, NULL, 10, 2, 1),
+(4, 'electrical tape', 'pcs', 0, NULL, 10, 1, 1),
+(21, 'concrete nail', 'kg', 25, NULL, 10, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -295,9 +295,10 @@ INSERT INTO `project` (`project_id`, `name`, `total_area`, `total_units`, `locat
 
 CREATE TABLE `purchase_order` (
   `purchase_order_id` int(11) NOT NULL,
-  `project_id` int(11) NOT NULL,
-  `supplier_id` int(11) NOT NULL,
-  `invoice_no` varchar(20) DEFAULT NULL,
+  `purchase_order_no` int(11) DEFAULT NULL,
+  `invoice_no` varchar(50) DEFAULT NULL,
+  `invoice_img` varchar(100) DEFAULT NULL,
+  `additional_fee` decimal(18,2) NOT NULL DEFAULT '0.00',
   `grand_total` decimal(18,2) NOT NULL DEFAULT '0.00',
   `requested_by` int(11) NOT NULL,
   `requested_date` date NOT NULL,
@@ -308,6 +309,8 @@ CREATE TABLE `purchase_order` (
   `user_note` varchar(200) DEFAULT NULL,
   `deletion_note` varchar(200) DEFAULT NULL,
   `admin_note` varchar(200) DEFAULT NULL,
+  `warehouse_id` int(11) NOT NULL,
+  `supplier_id` int(11) NOT NULL,
   `status_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -315,9 +318,8 @@ CREATE TABLE `purchase_order` (
 -- Dumping data for table `purchase_order`
 --
 
-INSERT INTO `purchase_order` (`purchase_order_id`, `project_id`, `supplier_id`, `invoice_no`, `grand_total`, `requested_by`, `requested_date`, `prepared_by`, `prepared_date`, `approved_by`, `approved_date`, `user_note`, `deletion_note`, `admin_note`, `status_id`) VALUES
-(1, 1, 1, NULL, '0.00', 2, '2019-08-10', 1, '2019-08-10', 1, '2019-08-23', 'testing purchase order', NULL, NULL, 9),
-(2, 1, 1, NULL, '0.00', 1, '2019-08-11', 1, '2019-08-11', 1, '2019-08-27', 'test', NULL, 'fdfdfd', 6);
+INSERT INTO `purchase_order` (`purchase_order_id`, `purchase_order_no`, `invoice_no`, `invoice_img`, `additional_fee`, `grand_total`, `requested_by`, `requested_date`, `prepared_by`, `prepared_date`, `approved_by`, `approved_date`, `user_note`, `deletion_note`, `admin_note`, `warehouse_id`, `supplier_id`, `status_id`) VALUES
+(1, 1910001, NULL, NULL, '0.00', '0.00', 2, '2019-09-30', 1, '2019-09-30', 1, '2019-09-30', '', NULL, NULL, 1, 1, 6);
 
 -- --------------------------------------------------------
 
@@ -340,8 +342,9 @@ CREATE TABLE `purchase_order_item` (
 --
 
 INSERT INTO `purchase_order_item` (`purchase_order_item_id`, `purchase_order_id`, `quantity`, `description`, `unit_price`, `total`, `status_id`) VALUES
-(1, 1, 50, 'coco lumber', '80.00', '4000.00', 1),
-(2, 2, 50, 'coco lumber', '78.00', '3900.00', 1);
+(1, 1, 50, 'coco lumber', '80.00', '4000.00', 5),
+(2, 2, 50, 'coco lumber', '78.00', '3900.00', 1),
+(3, 1, 50, 'coco lumber', '75.00', '3750.00', 1);
 
 -- --------------------------------------------------------
 
@@ -393,12 +396,8 @@ CREATE TABLE `stock` (
 --
 
 INSERT INTO `stock` (`stock_id`, `stock_in_id`, `stock_out_id`, `date`, `quantity`, `warehouse_id`, `remarks`, `status_id`) VALUES
-(1, 1, NULL, '2019-07-03', 50, 1, 'test stocking', 1),
-(2, 1, NULL, '2019-07-03', 20, 1, 'test', 1),
-(3, 1, NULL, '2019-07-03', 12, 1, '1212', 1),
-(4, NULL, 1, '2019-07-03', 1, 1, '1', 1),
-(5, 2, NULL, '2019-09-10', 26, 1, 'TEST', 1),
-(6, 2, NULL, '2019-09-10', 4, 1, 'TESTS', 1);
+(4, 21, NULL, '2019-09-09', 21, 1, 'cfd', 1),
+(7, 21, NULL, '2019-09-09', 4, 1, 'test', 1);
 
 -- --------------------------------------------------------
 
@@ -420,8 +419,7 @@ CREATE TABLE `supplier` (
 --
 
 INSERT INTO `supplier` (`supplier_id`, `name`, `description`, `address`, `contact_no`, `status_id`) VALUES
-(1, 'ABC Enterprises', 'hardware & construction materials', 'linao, talisay city, cebu', '09394789920', 2),
-(2, 'ABC Enterprise', 'hardware & construction materials', 'linao, talisay city, cebu', '09394789920', 1);
+(1, 'ABC Enterprises', '', 'Talisay City, Cebu', '462-5340', 1);
 
 -- --------------------------------------------------------
 
@@ -478,7 +476,7 @@ INSERT INTO `user_module` (`user_module_id`, `user_module_name`, `user_module_li
 (6, 'Update', 'project/update_view,project/update', '', 3, 1),
 (7, 'Approval List', 'purchaseorder/purchase_order_view,purchaseorder/approval_purchase_orders', '', 7, 1),
 (8, 'Approved List', 'purchaseorder/purchase_order_view,purchaseorder/approved_purchase_orders', '', 7, 1),
-(9, 'Create', 'purchaseorder/create_purchase_order_view,purchaseorder/create_purchase_order,purchaseorder/create_purchase_order_item_view,purchaseorder/create_purchase_order_item,supplier/list,purchaseorder/active_projects,purchaseorder/active_staffs', '', 7, 1),
+(9, 'Create', 'purchaseorder/create_purchase_order_view,purchaseorder/create_purchase_order,purchaseorder/create_purchase_order_item_view,purchaseorder/create_purchase_order_item,supplier/list,purchaseorder/active_warehouses,purchaseorder/active_suppliers,purchaseorder/active_staffs', '', 7, 1),
 (10, 'View', 'purchaseorder/get_purchase_order_view,purchaseorder/get_purchase_order,purchaseorder/purchase_order_item_view,purchaseorder/purchase_order_items,purchaseorder/delete_purchase_order_item', '', 7, 1),
 (11, 'Update', 'purchaseorder/update_purchase_order_view,purchaseorder/update_purchase_order,purchaseorder/update_purchase_order_item_view,purchaseorder/update_purchase_order_item', '', 7, 1),
 (12, 'List', 'supplier/list_view,supplier/list', '', 5, 1),
@@ -706,12 +704,11 @@ ALTER TABLE `project`
 --
 ALTER TABLE `purchase_order`
   ADD PRIMARY KEY (`purchase_order_id`),
-  ADD KEY `project_id` (`project_id`),
-  ADD KEY `prepared_by` (`prepared_by`),
-  ADD KEY `approved_by` (`approved_by`),
-  ADD KEY `status_id` (`status_id`),
   ADD KEY `requested_by` (`requested_by`),
-  ADD KEY `supplier_id` (`supplier_id`);
+  ADD KEY `prepared_by` (`prepared_by`),
+  ADD KEY `warehouse_id` (`warehouse_id`),
+  ADD KEY `supplier_id` (`supplier_id`),
+  ADD KEY `status_id` (`status_id`);
 
 --
 -- Indexes for table `purchase_order_item`
@@ -790,145 +787,121 @@ ALTER TABLE `warehouse`
 --
 ALTER TABLE `amenity_house`
   MODIFY `amenity_house_id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `amenity_project`
 --
 ALTER TABLE `amenity_project`
   MODIFY `amenity_project_id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `amenity_type`
 --
 ALTER TABLE `amenity_type`
   MODIFY `amenity_type_id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `house`
 --
 ALTER TABLE `house`
   MODIFY `house_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `house_on_project`
 --
 ALTER TABLE `house_on_project`
   MODIFY `house_on_project_id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `material`
 --
 ALTER TABLE `material`
-  MODIFY `material_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
+  MODIFY `material_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `material_category`
 --
 ALTER TABLE `material_category`
   MODIFY `material_category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
 --
 -- AUTO_INCREMENT for table `material_issuance`
 --
 ALTER TABLE `material_issuance`
   MODIFY `material_issuance_id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `miscellaneous`
 --
 ALTER TABLE `miscellaneous`
   MODIFY `miscellaneous_id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `miscellaneous_type`
 --
 ALTER TABLE `miscellaneous_type`
   MODIFY `miscellaneous_type_id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `person`
 --
 ALTER TABLE `person`
   MODIFY `person_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `person_contact`
 --
 ALTER TABLE `person_contact`
   MODIFY `person_contact_id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `person_detail`
 --
 ALTER TABLE `person_detail`
   MODIFY `person_detail_id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `project`
 --
 ALTER TABLE `project`
   MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT for table `purchase_order`
 --
 ALTER TABLE `purchase_order`
-  MODIFY `purchase_order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
+  MODIFY `purchase_order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `purchase_order_item`
 --
 ALTER TABLE `purchase_order_item`
-  MODIFY `purchase_order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
+  MODIFY `purchase_order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `status`
 --
 ALTER TABLE `status`
   MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
 --
 -- AUTO_INCREMENT for table `stock`
 --
 ALTER TABLE `stock`
-  MODIFY `stock_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
+  MODIFY `stock_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
+  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `user_module`
 --
 ALTER TABLE `user_module`
   MODIFY `user_module_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
-
 --
 -- AUTO_INCREMENT for table `user_module_category`
 --
 ALTER TABLE `user_module_category`
   MODIFY `user_module_category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
 --
 -- AUTO_INCREMENT for table `user_type`
 --
 ALTER TABLE `user_type`
   MODIFY `user_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT for table `warehouse`
 --
 ALTER TABLE `warehouse`
   MODIFY `warehouse_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- Constraints for dumped tables
 --
@@ -1019,12 +992,11 @@ ALTER TABLE `project`
 -- Constraints for table `purchase_order`
 --
 ALTER TABLE `purchase_order`
-  ADD CONSTRAINT `purchase_order_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`),
-  ADD CONSTRAINT `purchase_order_ibfk_2` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`supplier_id`),
-  ADD CONSTRAINT `purchase_order_ibfk_3` FOREIGN KEY (`requested_by`) REFERENCES `user` (`user_id`),
-  ADD CONSTRAINT `purchase_order_ibfk_4` FOREIGN KEY (`prepared_by`) REFERENCES `user` (`user_id`),
-  ADD CONSTRAINT `purchase_order_ibfk_5` FOREIGN KEY (`approved_by`) REFERENCES `user` (`user_id`),
-  ADD CONSTRAINT `purchase_order_ibfk_6` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`);
+  ADD CONSTRAINT `purchase_order_ibfk_1` FOREIGN KEY (`requested_by`) REFERENCES `user` (`user_id`),
+  ADD CONSTRAINT `purchase_order_ibfk_2` FOREIGN KEY (`prepared_by`) REFERENCES `user` (`user_id`),
+  ADD CONSTRAINT `purchase_order_ibfk_3` FOREIGN KEY (`warehouse_id`) REFERENCES `warehouse` (`warehouse_id`),
+  ADD CONSTRAINT `purchase_order_ibfk_4` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`supplier_id`),
+  ADD CONSTRAINT `purchase_order_ibfk_5` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`);
 
 --
 -- Constraints for table `purchase_order_item`
@@ -1080,7 +1052,6 @@ ALTER TABLE `user_type`
 --
 ALTER TABLE `warehouse`
   ADD CONSTRAINT `warehouse_ibfk_1` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
