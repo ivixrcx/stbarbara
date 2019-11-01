@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="block">
-            <h4 class="mr-auto pt-2"><?php echo ucwords($purchase_order->user_note) ?></h4>
+            <h4 class="mr-auto pt-2"><?php echo ucwords($purchase_order->user_note) . '<br/><small>#' . $purchase_order->purchase_order_no . '</small>' ?></h4>
 
             <table cellpadding="10">
                 <tr>
