@@ -194,7 +194,7 @@ purchase_order
   status_id         fk int
 
 purchase_order_item
-  purchase_order_item_id    fk int
+  purchase_order_item_id    pk int
   purchase_order_id         fk int
   quantity                  int
   description               var 200
@@ -203,7 +203,21 @@ purchase_order_item
   status_id                 fk int
 
 warehouse
+  warehouse_id    pk int
+  name            var 20
+  location        var 20
+  contact_no      var 20 
+  status_id       fk int
 
+notification
+  notification_id   pk int
+  user_id           fk int
+  scope             var 30
+  message           var 50
+  link              var 50
+  datetime          datetime
+  seen              tinyint
+  
 ------so soon--------
 
 salary
