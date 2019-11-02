@@ -95,11 +95,25 @@
 
         <div class="page-content">
             <div class="page-header">
-            <div class="container-fluid">
-                <h2 class="h5 no-margin-bottom">
-            <button class="sidebar-toggle"><i class="fa fa-long-arrow-left"></i></button>
-                  <?php echo $title ?></h2>
+              <div class="container-fluid d-flex align-items-center justify-content-between">
+                  <span class="h5 no-margin-bottom">
+                    <button class="sidebar-toggle"><i class="fa fa-long-arrow-left"></i></button>
+                    <?php echo $title ?>
+                  </span>
+                  <div class="right-menu list-inline no-margin-bottom">
+                    <!-- Languages dropdown    -->
+                    <div class="list-inline-item dropdown">
+                      <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link notifications dropdown-toggle">
+                        <i class="icon-new-file"></i>
+                        <span class="badge dashbg-3">9</span>
+                      </a>
+                      <div aria-labelledby="notifications" id="system-nofication" class="dropdown-menu" data-display="static" style="display: none;">
+                        <!-- <a rel="nofollow" href="#" class="dropdown-item"> 
+                          <span></span>
+                        </a> -->
+                      </div>
+                    </div>
+                  </div>
+              </div>
             </div>
-            </div>
-
             
