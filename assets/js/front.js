@@ -151,4 +151,10 @@ $(function () {
         });
     }
 
+    // ------------------------------------------------------- //
+    // disable popper (fixed flying dropdowns!)
+    // ------------------------------------------------------ //   
+    
+    Popper.Defaults.modifiers.computeStyle.enabled=false;
+
 });
