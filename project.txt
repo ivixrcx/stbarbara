@@ -211,12 +211,13 @@ warehouse
 
 notification
   notification_id   pk int
-  user_id           fk int
+  user_id           fk int null
+  user_type_id      fk int null
   scope             var 30
   message           var 50
   link              var 50  null                                                              
   datetime          datetime def curr_timestamp
-  seen              tinyint
+  seen              tinyint def 0
   
 ------so soon--------
 
