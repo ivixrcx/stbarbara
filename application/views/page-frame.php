@@ -105,9 +105,9 @@
                     <div class="list-inline-item dropdown">
                       <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link notifications dropdown-toggle">
                         <i class="icon-new-file"></i>
-                        <span class="badge dashbg-3">9</span>
+                        <span class="badge dashbg-3" id="notification-count"></span>
                       </a>
-                      <div aria-labelledby="notifications" id="system-nofication" class="dropdown-menu" data-display="static" style="display: none;">
+                      <div aria-labelledby="notifications" id="notification-list" class="dropdown-menu" data-display="static" style="display: none;">
                         <!-- <a rel="nofollow" href="#" class="dropdown-item"> 
                           <span></span>
                         </a> -->
