@@ -21,28 +21,21 @@ class Notification_model extends CI_Model {
         $this->db->select( 'notification.seen' ); 
         $this->db->from( 'notification' );
         $this->db->join( 'user', 'user_id', 'notification' );
-        $this->db->where( 'user_id', $user_id );
+        $this->db->where( 'user.user_id', $user_id );
         $this->db->order_by( 'notification.datetime', 'DESC' );
         $this->db->limit( $limit );
         return $this->db->get()->result();
     }
 
-    public function unread( $user_id, $limit=15 )
+    public function unread_count( $user_id )
     {
-        $this->db->select( 'user.full_name' );
-        $this->db->select( 'notification.user_id' );
-        $this->db->select( 'notification.scope' ); 
-        $this->db->select( 'notification.message' ); 
-        $this->db->select( 'notification.link' ); 
-        $this->db->select( 'notification.datetime' ); 
-        $this->db->select( 'notification.seen' ); 
+        $this->db->select( 'notification.notification_id' );
         $this->db->from( 'notification' );
         $this->db->join( 'user', 'user_id', 'notification' );
-        $this->db->where( 'user_id', $user_id );
+        $this->db->where( 'user.user_id', $user_id );
         $this->db->where( 'seen', false );
         $this->db->order_by( 'notification.datetime', 'DESC' );
-        $this->db->limit( $limit );
-        return $this->db->get()->result();
+        return $this->db->count_all_results();
     }
 
     public function mark_all_as_read( $user_id )

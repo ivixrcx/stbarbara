@@ -37,14 +37,8 @@ class Notification extends CI_Controller {
         header('Content-Type: text/event-stream');
         header('Cache-Control: no-cache');
 
-        $time = date('r');
-        echo "data: The server time is: {$time}\n\n";
+		$list = $this->notification_model->list(2);
+		$this->API->emit_json($list);
         flush();
-    }
-
-    public function test()
-    {
-        header('Content-Type: application/json');
-        print_r($this->notification_model->list(2));
     }
 }
