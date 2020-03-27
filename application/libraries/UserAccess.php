@@ -13,6 +13,7 @@ class UserAccess {
 
     private $ci;
     private $session_name;
+    private $status = true;
 
     function __construct( $params )
     {
@@ -26,6 +27,8 @@ class UserAccess {
 
     public function check_permissions()
     {
+        // user access checking permissions status
+        if($this->status === false) return;
         // return has permission flag
         $request = $this->ci->router->class . '/' . $this->ci->router->method;
         $permissions = $this->ci->session->userdata( $this->session_name );
