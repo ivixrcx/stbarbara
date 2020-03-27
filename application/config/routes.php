@@ -127,3 +127,7 @@ $route['materials'] = 'material/list_view';
 $route['view/material/(:num)'] = 'material/view/$1';
 $route['create/material'] = 'material/create_view';
 $route['update/material/(:num)'] = 'material/update_view/$1';
+
+// expenses
+$route['expenses'] = 'expense/list_view';
+$route['create/expense'] = 'expense/create_view';
