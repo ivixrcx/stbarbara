@@ -101,6 +101,11 @@ select option {
   	background: #2d3035 !important;
 }
 
+.table td, .table th {
+  display: table-cell;
+  vertical-align: middle;
+}
+
 .dataTables_wrapper .dataTables_paginate .paginate_button {
 	color: #fff !important;
 }

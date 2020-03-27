@@ -103,6 +103,14 @@
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) { 
 	/*  */
+	body {
+		font-size: .8rem;
+	}
+	
+	nav#sidebar li a {
+		padding: 10px 20px;
+	}
+
 	.dashboard-panel {
 		height: 100vh !important;
 	}
