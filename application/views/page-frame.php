@@ -57,9 +57,9 @@
     <div class="d-flex align-items-stretch">
          <!-- Sidebar Navigation--> 
         <nav id="sidebar">
-            <div class="sidebar-header logo d-flex align-items-center">
+            <!-- <div class="sidebar-header logo d-flex align-items-center">
               <img id="sidebar-logo" src="./assets/images/logo.png">
-            </div>
+            </div> -->
             <!-- Sidebar Header-->
             <div class="sidebar-header d-flex align-items-center">
                 <div class="title">
@@ -76,6 +76,7 @@
                 <li class="<?php if(isset($nav_suppliers)) echo $nav_suppliers; ?> system-module" style="display:none"><a href="suppliers" data-module="supplier/list_view">Supplier</a></li>
                 <li class="<?php if(isset($nav_materials)) echo $nav_materials; ?> system-module" style="display:none"><a href="materials" data-module="material/list_view">Materials</a></li>
                 <li class="<?php if(isset($nav_warehouses)) echo $nav_warehouses; ?> system-module" style="display:none"><a href="warehouses" data-module="warehouse/list_view">Warehouses</a></li>
+                <li class="<?php if(isset($nav_expense)) echo $nav_expense; ?> system-module" style="display:none"><a href="expenses" data-module="expense/list_view">Expenses</a></li>
                 <li class="<?php if(isset($nav_users)) echo $nav_users; ?> system-module" style="display:none"><a href="users" data-module="account/users">Users</a></li>
                 <li class="<?php if(isset($nav_positions)) echo $nav_positions; ?> system-module" style="display:none"><a href="positions" data-module="position/list_view">Positions</a></li>
                 <li class="<?php if(isset($nav_usermodule)) echo $nav_usermodule; ?> system-module" style="display:none"><a href="module-category" data-module="usermodulecategory/list_view">Modules</a></li>
