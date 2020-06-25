@@ -9,7 +9,12 @@ $('table').DataTable({
     url: 'material/list',
     type: 'post',
     complete: function(res){
-        
+      new deletion({
+        button: 'button.btndelete',
+        action: 'material/delete',
+        redirect: 'materials'
+      })
+      .fire();
     },
     error: function(error){
       console.log('error');
@@ -39,3 +44,5 @@ $('table').DataTable({
     },
   ]
 });
+
+
