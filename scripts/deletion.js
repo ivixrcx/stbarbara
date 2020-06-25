@@ -13,16 +13,9 @@ const deletion = class{
     constructor(e){
         // init
         this.button = e.button
-        this.action = e.action;
-        this.redirect = e.redirect; 
+        this.action = e.action
+        this.redirect = e.redirect
         this.params = {}; 
-        
-        var params = {};
-        $.each( $(this.button).data(), function(name, id){
-            params[name] = id;
-        });
-
-        this.params = $.param(params);
     }
 
     // additional parameters
@@ -32,9 +25,18 @@ const deletion = class{
 
     // call trigger
     fire(){
+        var self = this
+
         // if clicked
-        $(this.button).click((e)=>{
+        $(this.button).click(function(e){
             e.preventDefault();
+
+            var params = {}
+            $.each( $(this).data(), function(name, id){
+                params[name] = id;
+            });
+
+            this.params = $.param(params)
 
             Swal.fire({
                 type: 'warning', 
@@ -45,7 +47,7 @@ const deletion = class{
                 confirmButtonColor: '#bb414d',
                 showLoaderOnConfirm: true,
                 preConfirm: (note) => {
-                    return $.post(this.action, this.params)
+                    return $.post(self.action, this.params)
                     .then(res=>res)
                     .catch(err=>{                
                         Swal.showValidationMessage(err.responseJSON.error)
@@ -62,7 +64,7 @@ const deletion = class{
                         timer: 1500
                     })
                     .then(res=>{
-                        window.location.href=this.redirect;
+                        window.location.href=self.redirect;
                     });
                 }
             });
