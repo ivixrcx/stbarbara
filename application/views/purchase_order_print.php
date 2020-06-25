@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="application/pdf; charset=utf-8" />
 <title>Purchase Order</title>
 <style>
 
 * {
-  font-size: 13px;
+  font-size: 11px;
+  letter-spacing: -0.5px;
 }
 
 table {
@@ -25,7 +26,7 @@ tr.borderless td {
 td, th {
   border: 1px solid #aaa;
   text-align: left;
-  padding: 8px;
+  padding: 3px;
 }
 
 tr.title {
@@ -52,27 +53,33 @@ tr.grand-total td {
   text-align: right;
 }
 
+
+@page { margin: 24px; }
+body { margin: 24px; }
+
 </style>
 </head>
 <body>
 
 <img src="<?php echo FCPATH . 'assets/images/letterhead.png' ?>" style="width: 40%">
-<table style="margin-top:15px">
-  <tr>
+<table style="margin-top:15px;">
+  <tr class="borderless">
     <td colspan="4"><b>VENDOR:</b>&nbsp;&nbsp;<?php echo strtoupper($purchase_order->supplier_name) ?></td>
     <td><b>DATE:</b>&nbsp;&nbsp;<?php echo date('M d, Y', strtotime($purchase_order->approved_date))?></td>
-
   </tr>
-  <tr>
+  <tr class="borderless">
     <td colspan="4"><b>CONTACT:</b>&nbsp;&nbsp;<?php echo $purchase_order->contact_no ?></td>
     <td><b>PO#:</b>&nbsp;&nbsp;<?php echo $purchase_order->purchase_order_no ?></td>
   </tr>
-  <tr>
+  <tr class="borderless">
     <td colspan="5"><b>ADDRESS:</b>&nbsp;&nbsp;<?php echo strtoupper($purchase_order->address) ?></td>
   </tr>
-  <tr>
+  <tr class="borderless">
     <td colspan="5"><b>DELIVERY TO:</b>&nbsp;&nbsp;<?php echo strtoupper($purchase_order->warehouse_name . ' (' . $purchase_order->warehouse_location . ')' ) ?></td>
   </tr>
+  <tr class="break"><td colspan="5"></td></tr>
+  <tr class="break"><td colspan="5"></td></tr>
+  <tr class="break"><td colspan="5"></td></tr>
   <tr class="break"><td colspan="5"></td></tr>
   <!-- <tr class="break"><td colspan="5"></td></tr> -->
   <tr class="title">
@@ -98,6 +105,8 @@ tr.grand-total td {
     <td class="text-center"><b>TOTAL</b></td>
     <td class="text-right"><b><?php echo number_format($total, 2, '.',',') ?></b></td>
   </tr>
+  <tr class="break"><td colspan="5"></td></tr>
+  <tr class="break"><td colspan="5"></td></tr>
   <tr class="break"><td colspan="5"></td></tr>
   <tr class="break"><td colspan="5"></td></tr>
   <tr class="borderless">
