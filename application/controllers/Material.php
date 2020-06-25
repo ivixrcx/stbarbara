@@ -65,7 +65,10 @@ class Material extends CI_Controller {
 		$data['title'] = 'Materials';
 		$data['nav_materials'] = 'active';
 		$data['login_data'] = $this->session->userdata('login_data');
-		$data['script'] = './scripts/material.js';
+		$data['script'] = array(
+			'./scripts/deletion.js',
+			'./scripts/material.js'
+		);
 
 		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'material', $data );
