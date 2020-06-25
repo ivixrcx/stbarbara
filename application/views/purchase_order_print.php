@@ -109,6 +109,9 @@ body { margin: 24px; }
   <tr class="break"><td colspan="5"></td></tr>
   <tr class="break"><td colspan="5"></td></tr>
   <tr class="break"><td colspan="5"></td></tr>
+  <tr class="break"><td colspan="5"></td></tr>
+  <tr class="break"><td colspan="5"></td></tr>
+  <tr class="break"><td colspan="5"></td></tr>
   <tr class="borderless">
     <td colspan="3"><b>Requested:</b>&nbsp;<?php echo ucwords($purchase_order->req_full_name) ?></td>
     <!-- <td class="text-left"><b>Date:</b> <?php echo date('M. d, Y', strtotime($purchase_order->requested_date)) ?></td> -->
