@@ -56,7 +56,7 @@ tr.grand-total td {
 </head>
 <body>
 
-<img src="<?php echo FCPATH . 'assets/images/letterhead.png' ?>" style="width: 50%">
+<img src="<?php echo FCPATH . 'assets/images/letterhead.png' ?>" style="width: 40%">
 <table style="margin-top:15px">
   <tr>
     <td colspan="4"><b>VENDOR:</b>&nbsp;&nbsp;<?php echo strtoupper($purchase_order->supplier_name) ?></td>
