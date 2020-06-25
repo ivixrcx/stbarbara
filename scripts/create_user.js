@@ -10,11 +10,13 @@ $.ajax({
       $('select[name=user_role]').append( new Option(value.name, value.user_type_id) );
     });
   },
-  error: function(error){
-    // Swal.fire(error.responseText);
-    console.log('error');
-    console.log(error.responseText);
-    alert(error.responseText);
+  error: function(err){
+    Swal.fire({
+      type: 'error',
+      title: err | 'unexpected error',
+      showConfirmButton: false,
+      timer: 1500,
+    })
   },
 })
 
@@ -93,13 +95,23 @@ $('#frm_create_user').validate({
             window.location.href='users';
           });
         }
-        
+        else{
+          Swal.fire({
+            type: 'error',
+            title: res.error,
+            showConfirmButton: false,
+            timer: 1500,
+          })        
+        }        
       },
-      error: function(err){
-        console.log('error');
-        console.log(err);
+      error: function(err){        
+        Swal.fire({
+          type: 'error',
+          title: err | 'unexpected error',
+          showConfirmButton: false,
+          timer: 1500,
+        })
       }
-
     })
   }
 })
