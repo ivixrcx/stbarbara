@@ -6,11 +6,11 @@ $('#frm_add_warehouse').validate({
   rules: {
     name: {
       required: true,
-      maxlength: 20,
+      maxlength: 100,
     },
     location: {
       required: true,
-      maxlength: 20,
+      maxlength: 100,
     },
     contact_no: {
       required: true,
@@ -21,11 +21,11 @@ $('#frm_add_warehouse').validate({
   messages: {
     name: {
       required: "This field is required",
-      maxlength: "Max of 20 characters",
+      maxlength: "Max of 100 characters",
     },
     location: {
       required: "This field is required",
-      maxlength: "Max of 20 characters",
+      maxlength: "Max of 100 characters",
     },
     contact_no: {
       required: "This field is required",
@@ -53,11 +53,22 @@ $('#frm_add_warehouse').validate({
             window.location.href='warehouses';
           });
         }
-        
+        else{
+          Swal.fire({
+            type: 'error',
+            title: res.error,
+            showConfirmButton: false,
+            timer: 1500,
+          })        
+        }         
       },
       error: function(err){
-        console.log('error');
-        console.log(err);
+        Swal.fire({
+          type: 'error',
+          title: err | 'unexpected error',
+          showConfirmButton: false,
+          timer: 1500,
+        })
       },
     });
   }
