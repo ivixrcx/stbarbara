@@ -3,6 +3,9 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="block">
+          <div class="d-flex pull-left">
+            <a class="pr-2 pb-2 pt-2" href="materials-category"><button class="btn btn-primary btn-sm">Categories</button></a>
+          </div>
           <div class="d-flex pull-right">
             <a class="pr-2 pb-2 pt-2" href="create/material"><button class="btn btn-primary btn-sm">Add Material</button></a>
           </div>

@@ -31,6 +31,16 @@ class Materialcategory_model extends CI_Model {
 		->get()->result();
 	}
 
+	public function search_particular_unit( $particular )
+	{
+		return $this->db->select( 'material_category.*, status.name as status_name' )
+		->from( 'material_category' )
+		->join( 'status', 'status.status_id=material_category.status_id', 'left' )
+		->like( 'material_category.particular', $particular )
+		->where( 'material_category.status_id', 1 )
+		->get()->result();
+	}
+
 	public function get( $material_category_id )
 	{
 		return $this->db->select( 'material_category.*, status.name as status_name' )
@@ -73,7 +83,7 @@ class Materialcategory_model extends CI_Model {
 		$data  = array( 'status_id' => 2 ); // inactive
 		$where = array( 'material_category_id' => $material_category_id);
 
-		$this->db->update( 'material_category_id', $data, $where );
+		$this->db->update( 'material_category', $data, $where );
 		return $this->db->affected_rows();
 	}
 }

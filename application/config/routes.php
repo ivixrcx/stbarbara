@@ -128,6 +128,23 @@ $route['view/material/(:num)'] = 'material/view/$1';
 $route['create/material'] = 'material/create_view';
 $route['update/material/(:num)'] = 'material/update_view/$1';
 
+// material category
+$route['materials-category'] = 'materialcategory/list_view';
+$route['view/materials-category/(:num)'] = 'materialcategory/view/$1';
+$route['create/materials-category'] = 'materialcategory/create_view';
+$route['update/materials-category/(:num)'] = 'materialcategory/update_view/$1';
+
 // expenses
 $route['expenses'] = 'expense/list_view';
 $route['create/expense'] = 'expense/create_view';
+$route['update/expense/(:any)'] = 'expense/update_view/$1';
+
+// expense category
+$route['expense-categories'] = 'expensecategory/list_view';
+$route['create/expense-category'] = 'expensecategory/create_view';
+$route['update/expense-category'] = 'expensecategory/list_view';
+
+// expense items
+$route['expense-items'] = 'expenseitem/list_view';
+$route['create/expense-item'] = 'expenseitem/create_view';
+$route['update/expense-item'] = 'expenseitem/list_view';
