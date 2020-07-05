@@ -131,7 +131,12 @@ class Material extends CI_Controller {
 		$data['nav_materials'] = 'active';
 		$data['login_data'] = $this->session->userdata('login_data');
 		$data['script'] = './scripts/update_material.js';
-		$data['material_id'] = $material_id;
+
+		$get = $this->material_model->get($material_id);
+		$data['material_id'] = $get[0]->material_id;
+		$data['particular'] = $get[0]->particular;
+		$data['unit'] = $get[0]->unit;
+		$data['stock_level'] = $get[0]->stock_level;
 
 		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'update_material', $data );
@@ -151,7 +156,7 @@ class Material extends CI_Controller {
 			return false;
 		}
 
-		$update = $this->material_model->update( $material_id, $particular, $unit );
+		$update = $this->material_model->update( $material_id, $particular, $unit, $stock_level );
 
 		if($update){
 			$this->API->emit_json( true );

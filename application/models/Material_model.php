@@ -27,8 +27,8 @@ class Material_model extends CI_Model {
 		return $this->db->select( 'material.*, CONCAT(particular, "/", unit) as "particular_unit", status.name as status_name' )
 		->from( 'material' )
 		->join( 'status', 'status.status_id=material.status_id', 'left' )
-		->like( 'material.particular', $particular )
-		->like( 'material.unit', $unit )
+		->where( 'material.particular', $particular )
+		->where( 'material.unit', $unit )
 		->where( 'material.status_id', 1 )
 		->get()->result();
 	}
