@@ -142,9 +142,9 @@ $route['update/expense/(:any)'] = 'expense/update_view/$1';
 // expense category
 $route['expense-categories'] = 'expensecategory/list_view';
 $route['create/expense-category'] = 'expensecategory/create_view';
-$route['update/expense-category'] = 'expensecategory/list_view';
+$route['update/expense-category/(:num)'] = 'expensecategory/update_view/$1';
 
 // expense items
 $route['expense-items'] = 'expenseitem/list_view';
 $route['create/expense-item'] = 'expenseitem/create_view';
-$route['update/expense-item'] = 'expenseitem/list_view';
+$route['update/expense-item/(:num)'] = 'expenseitem/update_view/$1';
