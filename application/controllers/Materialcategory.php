@@ -13,28 +13,22 @@ class Materialcategory extends CI_Controller {
 		// $this->API->auth_required();
 		// $this->useraccess->check_permissions();
 	}
-    
-    public function list()
-    {
-        $this->API->ajax_only();
+	
+	public function list()
+	{
+		$this->API->ajax_only();
 
-        $list = $this->materialcategory_model->list();
-
-        $this->API->emit_json( $list );   
+		$this->SSP->table( 'material_category' )
+		->column( 'material_category_id' )
+		->column( 'particular' )
+		->column( 'priority_level' )
+		->where( 'material_category.status_id', 1 ) // active
+		->output();
 	}
 	
 	public function index()
 	{
 		$this->list_view();
-	}
-
-	public function search()
-	{
-		$search = $this->input->post( 'search' );
-
-		$data = $this->material_model->search( $search );
-		
-		$this->API->emit_json( $data );
 	}
 
 	public function search_particular_unit()

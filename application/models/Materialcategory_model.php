@@ -20,23 +20,12 @@ class Materialcategory_model extends CI_Model {
 		->get()->result();
 	}
 
-	public function search( $search, $sort="asc" )
-	{
-		return $this->db->select( 'material_category.*, status.name as status_name' )
-		->from( 'material_category' )
-		->join( 'status', 'status.status_id=material_category.status_id', 'left' )
-		->like( 'material.particular', $search )
-        ->where( 'material_category.status_id', 1 )
-        ->order_by( 'material_category.particular', $sort )
-		->get()->result();
-	}
-
 	public function search_particular_unit( $particular )
 	{
 		return $this->db->select( 'material_category.*, status.name as status_name' )
 		->from( 'material_category' )
 		->join( 'status', 'status.status_id=material_category.status_id', 'left' )
-		->like( 'material_category.particular', $particular )
+		->where( 'material_category.particular', $particular )
 		->where( 'material_category.status_id', 1 )
 		->get()->result();
 	}

@@ -6,7 +6,7 @@
           <form method="POST" style="font-size: 16px !important;">
             <div class="modal-body">
               <div class="form-group">
-                <input type="text" id="material_category_id" name="material_category_id" class="form-control" value="<?php echo $material_category_id ?>" required readonly/>
+                <input type="hidden" id="material_category_id" name="material_category_id" class="form-control" value="<?php echo $material_category_id ?>" required readonly/>
                 <label>Particular</label>
                 <input type="text" id="particular" name="particular" class="form-control" value="<?php echo $particular ?>"  required/>
               </div>         
