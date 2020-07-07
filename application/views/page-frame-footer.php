@@ -21,7 +21,7 @@
     <script src="./node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
     <script src="./vendor/iviarco/jquery-touch/jquery-touch.js"></script>
     <!-- <script src="./vendor/iviarco/jquery-autocomplete/autocomplete.js?v=<?php echo time()?>"></script> -->
-    <script src="./assets/js/jquery-autocomplete/autocomplete.js"></script>
+    <script src="./assets/js/jquery-autocomplete/autocomplete.js?v=<?php echo time()?>"></script>
     <!-- <script src="./assets/js/charts-home.js"></script> -->
     <script src="./assets/js/front.js"></script>
     <script src="./scripts/useraccess.js?v=<?php echo time()?>"></script>

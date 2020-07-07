@@ -13,7 +13,7 @@ class autocomplete {
         this._promise = '';
         this._currentFocus = 0;
         this._hasData = false;
-  
+
         // initialize key events
         this._oninput();
         this._onkeydown();
@@ -53,8 +53,23 @@ class autocomplete {
             this._items = [];
   
             // for each item in the array...
+
+            const ldata = [];
+            (this._data).map((l)=>{
+                ldata.push(l.data)
+            })
+
+            if(ldata.join(', ').indexOf(value) != -1){
+                // remove styling when data not exist
+                $(input).removeAttr('style')
+            }
+            else{                
+                // add styling when data not exist
+                $(input).css('border-color','red')
+            }
+
             for (let i = 0; i < this._data.length; i++) {
-  
+
                 // check if the item starts with the same letters as the text field value:
                 if(this._data[i].data.substr(0, value.length).toUpperCase() == value.toUpperCase()){
   
@@ -82,17 +97,12 @@ class autocomplete {
                     // add items to list
                     $(list).append(listItem);
 
-                    // remove styling when data not exist
-                    $(input).removeAttr('style')
-
                     // update _items
                     this._items.push($(listItem[0]).children()[1])
   
                     this._hasData = true;
                 }
                 else{
-                    // add styling when data not exist
-                    $(input).css('border-color','red')
                     this.has_data = false;
                 }
             }
