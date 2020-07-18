@@ -13,8 +13,17 @@ class Materialcategory extends CI_Controller {
 		// $this->API->auth_required();
 		// $this->useraccess->check_permissions();
 	}
-	
+
 	public function list()
+	{
+		$this->API->ajax_only();
+
+		$data = $this->materialcategory_model->list();
+
+		return $this->API->emit_json( $data );
+	}
+	
+	public function list_ssp()
 	{
 		$this->API->ajax_only();
 

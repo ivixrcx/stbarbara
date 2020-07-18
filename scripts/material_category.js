@@ -6,7 +6,7 @@ $('table').DataTable({
   processing: true,
   serverSide: true,
   ajax: {
-    url: 'materialcategory/list',
+    url: 'materialcategory/list_ssp',
     type: 'post',
     complete: function(res){
       new deletion({
