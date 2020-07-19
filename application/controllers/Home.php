@@ -14,6 +14,7 @@ class Home extends CI_Controller {
 	public function index()
 	{
 		$data = array();
+		$data['title'] = 'Home';
 		$data['nav_home'] = 'active';
 		$data['login_data'] = $this->session->userdata( 'login_data' );
 
