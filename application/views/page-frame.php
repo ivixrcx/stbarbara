@@ -31,9 +31,9 @@
     <!-- theme stylesheet-->
     <link rel="stylesheet" href="./assets/css/style.green.css">
     <!-- Custom stylesheet -->
-    <link rel="stylesheet" href="./assets/css/custom.css">
+    <link rel="stylesheet" href="./assets/css/custom.css?v=<?php echo time()?>">
     <!-- Custom Media stylesheet -->
-    <link rel="stylesheet" href="./assets/css/custom_media.css">
+    <link rel="stylesheet" href="./assets/css/custom_media.css?v=<?php echo time()?>">
     <?php 
     if(isset($style)){
       if(is_array($style)){
@@ -56,7 +56,7 @@
   <body style="height: 100vh !important">
     <div class="d-flex align-items-stretch">
          <!-- Sidebar Navigation--> 
-        <nav id="sidebar">
+        <nav id="sidebar" class="shinked shrinked">
             <!-- <div class="sidebar-header logo d-flex align-items-center">
               <img id="sidebar-logo" src="./assets/images/logo.png">
             </div> -->
@@ -82,8 +82,8 @@
                 <li class="<?php if(isset($nav_usermodule)) echo $nav_usermodule; ?> system-module" style="display:none"><a href="module-category" data-module="usermodulecategory/list_view">Modules</a></li>
             </ul>
             <ul class="list-unstyled" id="fixed-sidebar">
-                <li class="mt-5"><a href="logout"><i class="icon-settings"></i>Settings</a></li>
-                <li><a href="logout"><i class="icon-logout"></i>Logout</a></li>
+                <li class="mt-5"><a href="logout">Settings</a></li>
+                <li><a href="logout">Logout</a></li>
             </ul>
         </nav>
         <!-- Sidebar Navigation end  -->
@@ -98,23 +98,23 @@
             <div class="page-header">
               <div class="container-fluid d-flex align-items-center justify-content-between">
                   <span class="h5 no-margin-bottom">
-                    <button class="sidebar-toggle"><i class="fa fa-long-arrow-left"></i></button>
+                    <button class="sidebar-toggle"><i class="fa fa-bars"></i></button>
                     <?php echo $title ?>
                   </span>
-                  <div class="right-menu list-inline no-margin-bottom">
+                  <!-- <div class="right-menu list-inline no-margin-bottom"> -->
                     <!-- Languages dropdown    -->
-                    <div class="list-inline-item dropdown">
+                    <!-- <div class="list-inline-item dropdown">
                       <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link notifications dropdown-toggle">
                         <i class="icon-new-file"></i>
                         <span class="badge dashbg-3" id="notification-count"></span>
                       </a>
                       <div aria-labelledby="notifications" id="notification-list" class="dropdown-menu" data-display="static" style="display: none;">
-                        <!-- <a rel="nofollow" href="#" class="dropdown-item"> 
+                        <a rel="nofollow" href="#" class="dropdown-item"> 
                           <span></span>
-                        </a> -->
+                        </a>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
               </div>
             </div>
             

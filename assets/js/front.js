@@ -110,13 +110,18 @@ $(function () {
         if ($('.sidebar-toggle').hasClass('active')) {
             $('.navbar-brand .brand-sm').addClass('visible');
             $('.navbar-brand .brand-big').removeClass('visible');
-            $(this).find('i').attr('class', 'fa fa-long-arrow-right');
+            // $(this).find('i').attr('class', 'fa fa-long-arrow-right');
         } else {
             $('.navbar-brand .brand-sm').removeClass('visible');
             $('.navbar-brand .brand-big').addClass('visible');
-            $(this).find('i').attr('class', 'fa fa-long-arrow-left');
+            // $(this).find('i').attr('class', 'fa fa-long-arrow-left');
         }
     });
+
+    if(document.body.clientWidth >= 768){
+        $('#sidebar').toggleClass('shrinked');
+        $('.page-content').toggleClass('active');
+    }
 
 
     // ------------------------------------------------------ //

@@ -7,7 +7,8 @@ nav#sidebar {
 }
 
 .page-content {
-  width: calc(100% - 220px) !important;
+  width: calc(100%) !important;
+  /* overflow-x: scroll; */
 }
 
 .page-content.active {
@@ -48,6 +49,10 @@ button.sidebar-toggle {
 nav#sidebar.shrinked ul a {
   text-align: left !important;
   margin-left: 8px;
+}
+
+footer p {
+  text-align: center !important;
 }
 
 a.nav-link .badge {
@@ -111,7 +116,7 @@ select option {
 }
 
 .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
-    color: #333 !important;
+    color: #ccc !important;
 }
 
 .dataTables_wrapper .dataTables_processing {
@@ -132,8 +137,8 @@ select option {
 
 
 .dataTables_filter label, .dataTables_length label {
-	color: #2d3035 !important;
-  	position: relative !important;
+	color: rgb(34, 37, 42) !important;
+  position: relative !important;
 }
 
 .dataTables_length:after{

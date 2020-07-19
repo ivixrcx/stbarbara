@@ -23,7 +23,7 @@
     <!-- <script src="./vendor/iviarco/jquery-autocomplete/autocomplete.js?v=<?php echo time()?>"></script> -->
     <script src="./assets/js/jquery-autocomplete/autocomplete.js?v=<?php echo time()?>"></script>
     <!-- <script src="./assets/js/charts-home.js"></script> -->
-    <script src="./assets/js/front.js"></script>
+    <script src="./assets/js/front.js?v=<?php echo time()?>"></script>
     <script src="./scripts/useraccess.js?v=<?php echo time()?>"></script>
 
     <?php 
