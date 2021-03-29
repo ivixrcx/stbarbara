@@ -218,6 +218,25 @@ notification
   link              var 50  null                                                              
   datetime          datetime def curr_timestamp
   seen              tinyint def 0
+
+staff 
+  staff_id            pk int  
+  first_name          var 20
+  last_name           var 20
+  full_name           var 40
+  address             var 100 null
+  contact_no          var 20 null
+  gender              var 10 null
+  birth_date          date null
+  employee_id         var 20 null
+  start_date          date null
+  daily_compensation  dec 18,2 null
+  daily_cola          dec 18,2 null
+  job_description     var 50 null
+  sss                 var 20 null
+  pagibig             var 20 null
+  tin                 var 20 null
+  status_id           fk int
   
 ------so soon--------
 
