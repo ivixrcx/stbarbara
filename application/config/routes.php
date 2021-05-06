@@ -91,6 +91,7 @@ $route['assign/user-modules/(:num)'] = 'usermodule/assign_user_module_view/$1';
 
 // project
 $route['projects'] = 'project/list_view';
+$route['view/project/(:num)'] = 'project/project_view/$1';
 $route['create/project'] = 'project/create_view';
 $route['update/project/(:num)'] = 'project/update_view/$1';
 
