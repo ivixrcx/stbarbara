@@ -149,3 +149,18 @@ $route['update/expense-category/(:num)'] = 'expensecategory/update_view/$1';
 $route['expense-items'] = 'expenseitem/list_view';
 $route['create/expense-item'] = 'expenseitem/create_view';
 $route['update/expense-item/(:num)'] = 'expenseitem/update_view/$1';
+
+// staff
+$route['staffs'] = 'staff/index';
+$route['view/staff/(:num)'] = 'staff/view/$1';
+$route['create/staff'] = 'staff/create_view';
+$route['update/staff/(:num)'] = 'staff/update_view/$1';
+
+// payroll
+$route['payroll'] = 'payroll/index';
+$route['view/payroll/(:num)'] = 'payroll/payroll_list_view/$1';
+$route['view/payroll-details/(:num)'] = 'payroll/payroll_details_view/$1';
+$route['create/payroll-additional/(:num)'] = 'payroll/create_addition_view/$1';
+$route['create/payroll-deduction/(:num)'] = 'payroll/create_deduction_view/$1';
+$route['create/payroll/(:num)'] = 'payroll/create_view/$1';
+$route['update/payroll/(:num)'] = 'payroll/update_view/$1';
