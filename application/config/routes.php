@@ -93,6 +93,7 @@ $route['assign/user-modules/(:num)'] = 'usermodule/assign_user_module_view/$1';
 $route['projects'] = 'project/list_view';
 $route['view/project/(:num)'] = 'project/project_view/$1';
 $route['create/project'] = 'project/create_view';
+$route['add/staff-in-project/(:num)'] = 'project/create_staff_in_project_view/$1';
 $route['update/project/(:num)'] = 'project/update_view/$1';
 
 // supplier
