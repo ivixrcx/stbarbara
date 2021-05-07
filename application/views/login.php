@@ -53,11 +53,11 @@
                 <div class="content">
                   <form method="post" class="form-validate mb-4">
                     <div class="form-group">
-                      <input id="login-username" type="text" name="user_name" value="livil" required data-msg="Please enter your username" class="input-material">
+                      <input id="login-username" type="text" name="user_name" required data-msg="Please enter your username" class="input-material">
                       <label for="login-username" class="label-material">User Name</label>
                     </div>
                     <div class="form-group">
-                      <input id="login-password" type="password" name="password" value="password" required data-msg="Please enter your password" class="input-material">
+                      <input id="login-password" type="password" name="password" required data-msg="Please enter your password" class="input-material">
                       <label for="login-password" class="label-material">Password</label>
                     </div>
                     <button type="submit" class="btn btn-primary">Login</button>
