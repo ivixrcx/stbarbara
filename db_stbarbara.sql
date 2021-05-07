@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2.1
--- http://www.phpmyadmin.net
+-- version 4.9.2
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Oct 12, 2019 at 11:24 PM
--- Server version: 5.7.27-0ubuntu0.16.04.1
--- PHP Version: 7.0.33-0ubuntu0.16.04.6
+-- Host: 127.0.0.1
+-- Generation Time: May 07, 2021 at 08:39 PM
+-- Server version: 10.4.10-MariaDB
+-- PHP Version: 7.1.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,8 +21,46 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_stbarbara`
 --
-CREATE DATABASE IF NOT EXISTS `db_stbarbara` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `db_stbarbara`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `additional`
+--
+
+CREATE TABLE `additional` (
+  `additional_id` int(10) UNSIGNED NOT NULL,
+  `payroll_id` int(10) UNSIGNED NOT NULL,
+  `additional_type_id` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `amount` decimal(18,2) NOT NULL,
+  `note` varchar(500) DEFAULT NULL,
+  `status_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `additional_type`
+--
+
+CREATE TABLE `additional_type` (
+  `additional_type_id` int(11) NOT NULL,
+  `name` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `additional_type`
+--
+
+INSERT INTO `additional_type` (`additional_type_id`, `name`) VALUES
+(1, 'Bonus'),
+(2, 'Overtime'),
+(3, 'Referral Fee'),
+(4, 'Others'),
+(5, 'Override Cash'),
+(6, 'Cash Advance'),
+(7, 'Holidays');
 
 -- --------------------------------------------------------
 
@@ -60,6 +100,52 @@ CREATE TABLE `amenity_type` (
   `amenity_type_id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `deduction`
+--
+
+CREATE TABLE `deduction` (
+  `deduction_id` int(10) UNSIGNED NOT NULL,
+  `payroll_id` int(10) UNSIGNED NOT NULL,
+  `deduction_type_id` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `amount` decimal(18,2) UNSIGNED NOT NULL,
+  `note` varchar(500) DEFAULT NULL,
+  `status_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `deduction_type`
+--
+
+CREATE TABLE `deduction_type` (
+  `deduction_type_id` int(11) NOT NULL,
+  `name` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `deduction_type`
+--
+
+INSERT INTO `deduction_type` (`deduction_type_id`, `name`) VALUES
+(1, 'COLA'),
+(2, 'Tax'),
+(3, 'Pag-Ibig'),
+(4, 'SSS'),
+(5, 'PhilHealth'),
+(6, 'GSIS'),
+(7, 'Late/Absences'),
+(8, 'Others'),
+(9, 'Capital Gain Tax'),
+(10, 'State Tax'),
+(11, 'Withholding Tax'),
+(12, 'Transfer'),
+(13, 'Cash Advance');
 
 -- --------------------------------------------------------
 
@@ -107,9 +193,9 @@ CREATE TABLE `material` (
   `material_id` int(11) NOT NULL,
   `particular` varchar(100) NOT NULL,
   `unit` varchar(20) DEFAULT NULL,
-  `no_of_stocks` int(11) NOT NULL DEFAULT '0',
+  `no_of_stocks` int(11) NOT NULL DEFAULT 0,
   `last_stock_date` date DEFAULT NULL,
-  `stock_level` int(2) NOT NULL DEFAULT '10',
+  `stock_level` int(2) NOT NULL DEFAULT 10,
   `material_category_id` int(11) NOT NULL,
   `status_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -133,7 +219,7 @@ INSERT INTO `material` (`material_id`, `particular`, `unit`, `no_of_stocks`, `la
 CREATE TABLE `material_category` (
   `material_category_id` int(11) NOT NULL,
   `particular` varchar(100) NOT NULL,
-  `priority_level` int(5) NOT NULL DEFAULT '0',
+  `priority_level` int(5) NOT NULL DEFAULT 0,
   `status_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -199,6 +285,27 @@ CREATE TABLE `miscellaneous_type` (
   `miscellaneous_type_id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `suggested_price` decimal(18,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payroll`
+--
+
+CREATE TABLE `payroll` (
+  `payroll_id` int(10) UNSIGNED NOT NULL,
+  `staff_id` int(11) NOT NULL,
+  `project_id` int(11) DEFAULT 0,
+  `paydate` date NOT NULL,
+  `daily_compensation` decimal(18,2) NOT NULL,
+  `no_of_days` decimal(18,2) NOT NULL,
+  `basepay` decimal(18,2) NOT NULL,
+  `net_pay` decimal(18,2) NOT NULL,
+  `total_additionals` decimal(18,2) DEFAULT 0.00,
+  `total_deductions` decimal(18,2) DEFAULT 0.00,
+  `note` varchar(100) DEFAULT NULL,
+  `status_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -298,8 +405,8 @@ CREATE TABLE `purchase_order` (
   `purchase_order_no` int(11) DEFAULT NULL,
   `invoice_no` varchar(50) DEFAULT NULL,
   `invoice_img` varchar(100) DEFAULT NULL,
-  `additional_fee` decimal(18,2) NOT NULL DEFAULT '0.00',
-  `grand_total` decimal(18,2) NOT NULL DEFAULT '0.00',
+  `additional_fee` decimal(18,2) NOT NULL DEFAULT 0.00,
+  `grand_total` decimal(18,2) NOT NULL DEFAULT 0.00,
   `requested_by` int(11) NOT NULL,
   `requested_date` date NOT NULL,
   `prepared_by` int(11) NOT NULL,
@@ -345,6 +452,40 @@ INSERT INTO `purchase_order_item` (`purchase_order_item_id`, `purchase_order_id`
 (1, 1, 50, 'coco lumber', '80.00', '4000.00', 5),
 (2, 2, 50, 'coco lumber', '78.00', '3900.00', 1),
 (3, 1, 50, 'coco lumber', '75.00', '3750.00', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `staff`
+--
+
+CREATE TABLE `staff` (
+  `staff_id` int(11) NOT NULL,
+  `first_name` varchar(20) NOT NULL,
+  `last_name` varchar(20) NOT NULL,
+  `full_name` varchar(40) NOT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `contact_no` varchar(20) DEFAULT NULL,
+  `gender` varchar(10) DEFAULT NULL,
+  `birth_date` date DEFAULT NULL,
+  `employee_id` varchar(20) DEFAULT NULL,
+  `start_date` date DEFAULT NULL,
+  `daily_compensation` decimal(18,2) DEFAULT NULL,
+  `daily_cola` decimal(18,2) DEFAULT NULL,
+  `job_description` varchar(50) DEFAULT NULL,
+  `sss` varchar(20) DEFAULT NULL,
+  `pagibig` varchar(20) DEFAULT NULL,
+  `tin` varchar(20) DEFAULT NULL,
+  `project_id` int(11) DEFAULT 0,
+  `status_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `staff`
+--
+
+INSERT INTO `staff` (`staff_id`, `first_name`, `last_name`, `full_name`, `address`, `contact_no`, `gender`, `birth_date`, `employee_id`, `start_date`, `daily_compensation`, `daily_cola`, `job_description`, `sss`, `pagibig`, `tin`, `project_id`, `status_id`) VALUES
+(1, 'mark daryl', 'jerezon', 'mark daryl jerezon', '', '', '', '0000-00-00', NULL, '0000-00-00', '500.00', NULL, 'Systems Administrator', '', '', '', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -434,7 +575,7 @@ CREATE TABLE `user` (
   `full_name` varchar(40) DEFAULT NULL,
   `user_name` varchar(20) NOT NULL,
   `password` varchar(20) NOT NULL,
-  `user_modules` varchar(300) DEFAULT NULL,
+  `user_modules` text DEFAULT NULL,
   `user_type_id` int(11) NOT NULL,
   `status_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -444,9 +585,11 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `first_name`, `last_name`, `full_name`, `user_name`, `password`, `user_modules`, `user_type_id`, `status_id`) VALUES
-(1, 'marco', 'jerezon', 'marco jerezon', 'livil', 'password', '1,2,3,41,32,33,35,36,39,4,5,6,40,7,8,9,10,11,37,38,43,12,13,14,42,15,16,17,18,19,20,21,34,22,24,25,26,27,28,29,30,44,45,46,47,31', 1, 1),
-(2, 'john', 'doe', 'john doe', 'johndoe', '12345678', '9,10', 4, 1),
-(3, 'junhnel', 'bastida', 'junhnel bastida', 'jbastida', '12345678', '9,10,12,13,14,7,8', 4, 1);
+(1, 'marco', 'jerezon', 'marco jerezon', 'marco', 'password', '1,2,3,41,44,45,46,47,51,52,53,54,55,56,57,58,31,32,33,35,36,39,4,5,6,40,7,8,9,10,11,37,38,43,48,49,50,12,13,14,42,15,16,17,18,19,20,21,34,22,24,25,26,27,28,29,30,59,60,62,61', 1, 1),
+(2, 'john', 'doe', 'john doe', 'johndoe', 'password', '9,10', 4, 1),
+(3, 'junhnel', 'bastida', 'junhnel bastida', 'jbastida', 'password', '9,10,12,13,14,7,8', 4, 1),
+(4, 'Kendy', 'Peros', 'Kendy Peros', 'kendy', 'password', '52,53,54,48,49,50', 5, 1),
+(5, 'Archie', 'Nishimura', 'Archie Nishimura', 'archie', 'password', '1,2,3,41,44,45,46,47,61,51,52,53,54,55,56,57,58,31,32,33,35,36,39,4,5,6,40,59,60,7,8,9,10,11,37,38,43,48,49,50,12,13,14,42,18,19,20,21,34,22,24,25,26,27,28,29,30,62', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -456,11 +599,11 @@ INSERT INTO `user` (`user_id`, `first_name`, `last_name`, `full_name`, `user_nam
 
 CREATE TABLE `user_module` (
   `user_module_id` int(11) NOT NULL,
-  `user_module_name` varchar(20) NOT NULL,
+  `user_module_name` varchar(50) NOT NULL,
   `user_module_link` varchar(500) NOT NULL,
   `user_module_description` varchar(200) DEFAULT NULL,
   `user_module_category_id` int(11) NOT NULL,
-  `status_id` int(11) NOT NULL DEFAULT '1'
+  `status_id` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -468,12 +611,12 @@ CREATE TABLE `user_module` (
 --
 
 INSERT INTO `user_module` (`user_module_id`, `user_module_name`, `user_module_link`, `user_module_description`, `user_module_category_id`, `status_id`) VALUES
-(1, 'List', 'house/list_view,house/list', '', 2, 1),
-(2, 'Create', 'house/create_view,house/create', '', 2, 1),
-(3, 'Update', 'house/update_view,house/update', '', 2, 1),
-(4, 'List', 'project/list_view,project/list', '', 3, 1),
-(5, 'Create', 'project/create_view,project/create', '', 3, 1),
-(6, 'Update', 'project/update_view,project/update', '', 3, 1),
+(1, '1. List', 'house/list_view,house/list', '', 2, 1),
+(2, '1.1. Create', 'house/create_view,house/create', '', 2, 1),
+(3, '1.2. Update', 'house/update_view,house/update', '', 2, 1),
+(4, '1. List', 'project/list_view,project/list', '', 3, 1),
+(5, '1.1. Create', 'project/create_view,project/create', '', 3, 1),
+(6, '1.3. Update', 'project/update_view,project/update', '', 3, 1),
 (7, 'Approval List', 'purchaseorder/purchase_order_view,purchaseorder/approval_purchase_orders', '', 7, 1),
 (8, 'Approved List', 'purchaseorder/purchase_order_view,purchaseorder/approved_purchase_orders', '', 7, 1),
 (9, 'Create', 'purchaseorder/create_purchase_order_view,purchaseorder/create_purchase_order,purchaseorder/create_purchase_order_item_view,purchaseorder/create_purchase_order_item,supplier/list,purchaseorder/active_warehouses,purchaseorder/active_suppliers,purchaseorder/active_staffs', '', 7, 1),
@@ -497,23 +640,38 @@ INSERT INTO `user_module` (`user_module_id`, `user_module_name`, `user_module_li
 (28, 'View stock out', 'stock/list_view,stock/list,stock/out', '', 4, 1),
 (29, 'Create Stock-in', 'stock/create_stock_in_view,stock/create_stock_in', '', 4, 1),
 (30, 'Create Stock-out', 'stock/create_stock_out_view,stock/create_stock_out', '', 4, 1),
-(31, 'List', 'position/list_view,position/list', '', 8, 1),
-(32, 'Create', 'position/create_view,position/create', '', 8, 1),
-(33, 'Update', 'position/update_view,position/update', '', 8, 1),
+(31, '1. List', 'position/list_view,position/list', '', 8, 1),
+(32, '1.1. Create', 'position/create_view,position/create', '', 8, 1),
+(33, '1.2. Update', 'position/update_view,position/update', '', 8, 1),
 (34, 'Modify Permissions', 'usermodule/assign_user_module_view,usermodule/get_assigned_user_modules,usermodule/assign_user_modules', 'Allowed to modify user\'s permissions', 1, 1),
-(35, 'View', 'position/view', '', 8, 1),
-(36, 'Modify Permissions', 'position/update_permissions_view,position/get_permissions,position/update_permissions', '', 8, 1),
+(35, '1.4. View', 'position/view', '', 8, 1),
+(36, '1.4.1. Modify Permissions', 'position/update_permissions_view,position/get_permissions,position/update_permissions', '', 8, 1),
 (37, 'Print', 'purchaseorder/print', '', 7, 1),
 (38, 'PO Approval', 'purchaseorder/approval_purchase_order_view,purchaseorder/approval_purchase_order', '', 7, 1),
-(39, 'Delete', 'position/delete', 'Deletion but users are not affected.', 8, 1),
-(40, 'Delete', 'project/delete', '', 3, 1),
-(41, 'Delete', 'house/delete', '', 2, 1),
+(39, '1.3. Delete', 'position/delete', 'Deletion but users are not affected.', 8, 1),
+(40, '1.4. Delete', 'project/delete', '', 3, 1),
+(41, '1.3. Delete', 'house/delete', '', 2, 1),
 (42, 'Delete', 'supplier/delete', '', 5, 1),
 (43, 'PO Approved', 'purchaseorder/approved_purchase_order_view,purchaseorder/approved_purchase_order', '', 7, 1),
-(44, 'List', 'material/list_view,material/list', '', 9, 1),
-(45, 'Create', 'material/create_view,material/create', '', 9, 1),
-(46, 'Update', 'material/update_view,material/update', '', 9, 1),
-(47, 'View', 'material/view', '', 9, 1);
+(44, '1. List', 'material/list_view,material/list', '', 9, 1),
+(45, '1.1. Create', 'material/create_view,material/create', '', 9, 1),
+(46, '1.2. Update', 'material/update_view,material/update', '', 9, 1),
+(47, 'View', 'material/view', '', 9, 1),
+(48, 'List', 'staff/list_view,staff/list,staff/index', '', 10, 1),
+(49, 'Create', 'staff/create_view,staff/create', '', 10, 1),
+(50, 'View', 'staff/view', '', 10, 1),
+(51, '3. Create', 'payroll/create_view,payroll/create_payroll_process', '', 11, 1),
+(52, '1. List', 'payroll/list_view,payroll/list_staff,payroll/index', '', 11, 1),
+(53, '2. View', 'payroll/payroll_list_view,payroll/list', '', 11, 1),
+(54, '4. View payroll details', 'payroll/payroll_details_view,payroll/get_payroll_additionals,payroll/get_payroll_deductions', '', 11, 1),
+(55, '4.2. Create additional in payroll', 'payroll/create_addition_view,payroll/create_payroll_additional_process', '', 11, 1),
+(56, '4.3. Create deduction in payroll', 'payroll/create_deduction_view,payroll/create_payroll_deduction_process', '', 11, 1),
+(57, '4.4. Delete additional in payroll', 'payroll/delete_payroll_additional_process', '', 11, 1),
+(58, '4.5. Delete deduction in payroll', 'payroll/delete_payroll_deduction_process', '', 11, 1),
+(59, '1.2. View Project', 'project/project_view,project/get_staff_in_project', '', 3, 1),
+(60, '1.2.1 Add Staff in a Project', 'staff/search,project/create_staff_in_project_view,project/create_staff_in_project_process', '', 3, 1),
+(61, '1.3 Delete', 'material/delete', '', 9, 1),
+(62, '4.1. Print Payslip', 'payroll/print', '', 11, 1);
 
 -- --------------------------------------------------------
 
@@ -524,8 +682,8 @@ INSERT INTO `user_module` (`user_module_id`, `user_module_name`, `user_module_li
 CREATE TABLE `user_module_category` (
   `user_module_category_id` int(11) NOT NULL,
   `user_module_category_name` varchar(20) NOT NULL,
-  `module_count` int(11) NOT NULL DEFAULT '0',
-  `status_id` int(11) NOT NULL DEFAULT '1'
+  `module_count` int(11) NOT NULL DEFAULT 0,
+  `status_id` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -535,13 +693,15 @@ CREATE TABLE `user_module_category` (
 INSERT INTO `user_module_category` (`user_module_category_id`, `user_module_category_name`, `module_count`, `status_id`) VALUES
 (1, 'users', 5, 1),
 (2, 'house', 4, 1),
-(3, 'projects', 4, 1),
+(3, 'projects', 6, 1),
 (4, 'warehouse', 8, 1),
 (5, 'supplier', 4, 1),
 (6, 'user modules', 3, 1),
 (7, 'purchase orders', 8, 1),
 (8, 'positions', 6, 1),
-(9, 'materials', 4, 1);
+(9, 'materials', 5, 1),
+(10, 'staffs', 3, 1),
+(11, 'payroll', 9, 1);
 
 -- --------------------------------------------------------
 
@@ -552,7 +712,7 @@ INSERT INTO `user_module_category` (`user_module_category_id`, `user_module_cate
 CREATE TABLE `user_type` (
   `user_type_id` int(11) NOT NULL,
   `name` varchar(20) NOT NULL,
-  `default_user_modules` varchar(100) NOT NULL,
+  `default_user_modules` text NOT NULL,
   `status_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -561,10 +721,11 @@ CREATE TABLE `user_type` (
 --
 
 INSERT INTO `user_type` (`user_type_id`, `name`, `default_user_modules`, `status_id`) VALUES
-(1, 'superuser', '1,2,3,31,32,33,4,5,6,7,8,9,10,11,12,13,14,15,17,18,19,20,21,22,24,25,26,27,28,29,30', 1),
-(2, 'administrator', '1,2,3', 1),
+(1, 'superuser', '1,2,3,41,44,45,46,47,31,32,33,4,5,6,7,8,9,10,11,48,12,13,14,15,17,18,19,20,22,24,25,26,27,28,29,30,61,51,52,53,54,55,56,57,58,62,35,36,39,40,59,60,37,38,43,49,50,42,16,21,34', 1),
+(2, 'administrator', '1,2,3,41,44,45,46,47,61,51,52,53,54,55,56,57,58,31,32,33,35,36,39,4,5,6,40,59,60,7,8,9,10,11,37,38,2', 1),
 (3, 'Production', '1,2,3,31,32,33,4,5,6', 1),
-(4, 'Purchaser', '9,10,12,13,14', 1);
+(4, 'Purchaser', '9,10,12,13,14', 1),
+(5, 'Human Resource', '52,53', 1);
 
 -- --------------------------------------------------------
 
@@ -594,6 +755,21 @@ INSERT INTO `warehouse` (`warehouse_id`, `name`, `location`, `contact_no`, `stat
 --
 
 --
+-- Indexes for table `additional`
+--
+ALTER TABLE `additional`
+  ADD PRIMARY KEY (`additional_id`),
+  ADD KEY `fk_additional_additional_type1_idx` (`additional_type_id`),
+  ADD KEY `fk_additional_payroll1_idx` (`payroll_id`),
+  ADD KEY `fk_additional_status1_idx` (`status_id`);
+
+--
+-- Indexes for table `additional_type`
+--
+ALTER TABLE `additional_type`
+  ADD PRIMARY KEY (`additional_type_id`);
+
+--
 -- Indexes for table `amenity_house`
 --
 ALTER TABLE `amenity_house`
@@ -608,13 +784,29 @@ ALTER TABLE `amenity_house`
 ALTER TABLE `amenity_project`
   ADD PRIMARY KEY (`amenity_project_id`),
   ADD KEY `amenity_type_id` (`amenity_type_id`),
-  ADD KEY `project_id` (`project_id`);
+  ADD KEY `project_id` (`project_id`),
+  ADD KEY `fk_status_id_idx` (`status_id`);
 
 --
 -- Indexes for table `amenity_type`
 --
 ALTER TABLE `amenity_type`
   ADD PRIMARY KEY (`amenity_type_id`);
+
+--
+-- Indexes for table `deduction`
+--
+ALTER TABLE `deduction`
+  ADD PRIMARY KEY (`deduction_id`),
+  ADD KEY `fk_deduction_deduction_type1_idx` (`deduction_type_id`),
+  ADD KEY `fk_deduction_status1_idx` (`status_id`),
+  ADD KEY `fk_deduction_payroll1_idx` (`payroll_id`);
+
+--
+-- Indexes for table `deduction_type`
+--
+ALTER TABLE `deduction_type`
+  ADD PRIMARY KEY (`deduction_type_id`);
 
 --
 -- Indexes for table `house`
@@ -672,6 +864,14 @@ ALTER TABLE `miscellaneous_type`
   ADD PRIMARY KEY (`miscellaneous_type_id`);
 
 --
+-- Indexes for table `payroll`
+--
+ALTER TABLE `payroll`
+  ADD PRIMARY KEY (`payroll_id`),
+  ADD KEY `fk_payroll_staff1_idx` (`staff_id`),
+  ADD KEY `fk_payroll_status1_idx` (`status_id`);
+
+--
 -- Indexes for table `person`
 --
 ALTER TABLE `person`
@@ -717,6 +917,13 @@ ALTER TABLE `purchase_order_item`
   ADD PRIMARY KEY (`purchase_order_item_id`),
   ADD KEY `purchase_order_id` (`purchase_order_id`),
   ADD KEY `status_id` (`status_id`);
+
+--
+-- Indexes for table `staff`
+--
+ALTER TABLE `staff`
+  ADD PRIMARY KEY (`staff_id`),
+  ADD KEY `fk_staff_status1_idx` (`status_id`);
 
 --
 -- Indexes for table `status`
@@ -783,128 +990,196 @@ ALTER TABLE `warehouse`
 --
 
 --
+-- AUTO_INCREMENT for table `additional`
+--
+ALTER TABLE `additional`
+  MODIFY `additional_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `additional_type`
+--
+ALTER TABLE `additional_type`
+  MODIFY `additional_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `amenity_house`
 --
 ALTER TABLE `amenity_house`
   MODIFY `amenity_house_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `amenity_project`
 --
 ALTER TABLE `amenity_project`
   MODIFY `amenity_project_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `amenity_type`
 --
 ALTER TABLE `amenity_type`
   MODIFY `amenity_type_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `deduction`
+--
+ALTER TABLE `deduction`
+  MODIFY `deduction_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `deduction_type`
+--
+ALTER TABLE `deduction_type`
+  MODIFY `deduction_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
 --
 -- AUTO_INCREMENT for table `house`
 --
 ALTER TABLE `house`
   MODIFY `house_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `house_on_project`
 --
 ALTER TABLE `house_on_project`
   MODIFY `house_on_project_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `material`
 --
 ALTER TABLE `material`
   MODIFY `material_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
 --
 -- AUTO_INCREMENT for table `material_category`
 --
 ALTER TABLE `material_category`
   MODIFY `material_category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
 --
 -- AUTO_INCREMENT for table `material_issuance`
 --
 ALTER TABLE `material_issuance`
   MODIFY `material_issuance_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `miscellaneous`
 --
 ALTER TABLE `miscellaneous`
   MODIFY `miscellaneous_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `miscellaneous_type`
 --
 ALTER TABLE `miscellaneous_type`
   MODIFY `miscellaneous_type_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `payroll`
+--
+ALTER TABLE `payroll`
+  MODIFY `payroll_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `person`
 --
 ALTER TABLE `person`
   MODIFY `person_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `person_contact`
 --
 ALTER TABLE `person_contact`
   MODIFY `person_contact_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `person_detail`
 --
 ALTER TABLE `person_detail`
   MODIFY `person_detail_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `project`
 --
 ALTER TABLE `project`
   MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `purchase_order`
 --
 ALTER TABLE `purchase_order`
   MODIFY `purchase_order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `purchase_order_item`
 --
 ALTER TABLE `purchase_order_item`
   MODIFY `purchase_order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `staff`
+--
+ALTER TABLE `staff`
+  MODIFY `staff_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT for table `status`
 --
 ALTER TABLE `status`
   MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
 -- AUTO_INCREMENT for table `stock`
 --
 ALTER TABLE `stock`
   MODIFY `stock_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
   MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `user_module`
 --
 ALTER TABLE `user_module`
-  MODIFY `user_module_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `user_module_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+
 --
 -- AUTO_INCREMENT for table `user_module_category`
 --
 ALTER TABLE `user_module_category`
-  MODIFY `user_module_category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `user_module_category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
 --
 -- AUTO_INCREMENT for table `user_type`
 --
 ALTER TABLE `user_type`
-  MODIFY `user_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `user_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `warehouse`
 --
 ALTER TABLE `warehouse`
   MODIFY `warehouse_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `additional`
+--
+ALTER TABLE `additional`
+  ADD CONSTRAINT `fk_additional_additional_type1` FOREIGN KEY (`additional_type_id`) REFERENCES `additional_type` (`additional_type_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_additional_payroll1` FOREIGN KEY (`payroll_id`) REFERENCES `payroll` (`payroll_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_additional_status1` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `amenity_house`
@@ -919,7 +1194,16 @@ ALTER TABLE `amenity_house`
 --
 ALTER TABLE `amenity_project`
   ADD CONSTRAINT `amenity_project_ibfk_1` FOREIGN KEY (`amenity_type_id`) REFERENCES `amenity_type` (`amenity_type_id`),
-  ADD CONSTRAINT `amenity_project_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`);
+  ADD CONSTRAINT `amenity_project_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`),
+  ADD CONSTRAINT `fk_status_id` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `deduction`
+--
+ALTER TABLE `deduction`
+  ADD CONSTRAINT `fk_deduction_deduction_type1` FOREIGN KEY (`deduction_type_id`) REFERENCES `deduction_type` (`deduction_type_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_deduction_payroll1` FOREIGN KEY (`payroll_id`) REFERENCES `payroll` (`payroll_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_deduction_status1` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `house`
@@ -965,6 +1249,13 @@ ALTER TABLE `miscellaneous`
   ADD CONSTRAINT `miscellaneous_ibfk_2` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`);
 
 --
+-- Constraints for table `payroll`
+--
+ALTER TABLE `payroll`
+  ADD CONSTRAINT `fk_payroll_staff1` FOREIGN KEY (`staff_id`) REFERENCES `staff` (`staff_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_payroll_status1` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Constraints for table `person`
 --
 ALTER TABLE `person`
@@ -1004,6 +1295,12 @@ ALTER TABLE `purchase_order`
 ALTER TABLE `purchase_order_item`
   ADD CONSTRAINT `purchase_order_item_ibfk_1` FOREIGN KEY (`purchase_order_id`) REFERENCES `purchase_order` (`purchase_order_id`),
   ADD CONSTRAINT `purchase_order_item_ibfk_2` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`);
+
+--
+-- Constraints for table `staff`
+--
+ALTER TABLE `staff`
+  ADD CONSTRAINT `status_ibfk_1` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `stock`
@@ -1052,6 +1349,7 @@ ALTER TABLE `user_type`
 --
 ALTER TABLE `warehouse`
   ADD CONSTRAINT `warehouse_ibfk_1` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
