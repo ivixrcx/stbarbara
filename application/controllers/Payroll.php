@@ -13,6 +13,7 @@ class Payroll extends CI_Controller {
 		$this->load->model( 'staff_model' );
 		$this->load->model( 'project_model' );
 		$this->load->library( 'API', NULL, 'API' );
+		$this->load->library( 'dompdf/Dompdf_api', '', 'dompdf' );
 		$this->load->library( 'UserAccess', array( $this ) );
 		// // default permissions
 		
@@ -184,7 +185,7 @@ class Payroll extends CI_Controller {
 		$staff = $this->staff_model->get_staff($staff_id);
 		$daily_compensation = $staff[0]->daily_compensation;
 		$basepay = $daily_compensation * $no_of_days;
-		$net_pay = 0;
+		$net_pay = $basepay;
 
 		$create = $this->payroll_model->create( $staff_id, $project_id, $paydate, $daily_compensation, $no_of_days, $basepay, $net_pay, $note );
 
@@ -305,6 +306,22 @@ class Payroll extends CI_Controller {
 			// error logs
 			$this->API->emit_json( 'Error: delete' );
 		}
+	}
+
+	public function print($payroll_id)
+	{
+		$data['payroll'] = $this->payroll_model->get_payroll( $payroll_id );
+		$data['additionals'] = $this->payroll_model->get_payroll_additionals( $payroll_id );
+		$data['deductions'] = $this->payroll_model->get_payroll_deductions( $payroll_id );
+		
+		$this->load->view('payslip_print', $data);
+		$html = $this->output->get_output();
+
+		$this->dompdf->loadHtml($html);
+		$this->dompdf->render();// $this->dompdf->get_canvas()->get_cpdf()->setEncryption('12345');
+
+		// Output the generated PDF to Browser
+		$this->dompdf->stream("Payslip", array("Attachment" => 0));
 	}
 
 	// public function update_payroll_process()
