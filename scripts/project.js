@@ -24,7 +24,8 @@ $.ajax({
             <td colspan="3">${data.total_units}</td>
             <td>${data.location}</td>
             <td>
-              <div class="d-flex justify-content-end">
+              <div class="d-flex justify-content-end">              
+                <a href="view/project/${data.project_id}" class="btn btn-primary btn-sm mr-2"><i class="fa fa-eye text-dark"></i></a>
                 <a href="update/project/${data.project_id}" class="pull-right btn btn-warning btn-sm ml-1"><i class="fa fa-pencil text-dark"></i></a>
                 <button class="pull-right btn btn-danger btn-sm ml-1 btndelete" data-project_id="${data.project_id}"><i class="fa fa-remove text-dark"></i></button>
               </div>

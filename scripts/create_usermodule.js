@@ -11,7 +11,7 @@ $('#form_submit').validate({
     },
     user_module_name: {
       required: true,
-      maxlength: 20,
+      maxlength: 50,
     },
     user_module_link: {
       required: true,
@@ -25,7 +25,7 @@ $('#form_submit').validate({
   messages: {
     user_module_name: {
       required: "This field is required",
-      maxlength: "Max of 20 characters"
+      maxlength: "Max of 50 characters"
     },
     user_module_link: {
       required: "This field is required",
