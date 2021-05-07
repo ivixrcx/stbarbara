@@ -68,4 +68,35 @@ class Project_model extends CI_Model {
 		->where( 'project_id', $project_id )
 		->get()->result();
 	}
+
+	public function get_staff_in_project( $project_id )
+	{
+		$staffs = $this->db->select( 'project.*, staff.*' )
+		->from( 'project' )
+		->join( 'staff', 'staff.project_id=project.project_id', 'left')
+		->where( 'project.project_id', $project_id )
+		->get()->result();
+
+		if(!empty($staffs[0]->full_name))
+			return $staffs;
+		return false;
+	}
+
+	public function create_staff_in_project( $staff_id, $project_id )
+	{
+		$data  = array( 'project_id' => $project_id );
+		$where = array( 'staff_id' => $staff_id);
+
+		$this->db->update( 'staff', $data, $where );
+		return $this->db->affected_rows();
+	}
+
+	public function remove_staff_in_project( $staff_id )
+	{
+		$data  = array( 'project_id' => 0 ); // None
+		$where = array( 'staff_id' => $staff_id);
+
+		$this->db->update( 'staff', $data, $where );
+		return $this->db->affected_rows();
+	}
 }
