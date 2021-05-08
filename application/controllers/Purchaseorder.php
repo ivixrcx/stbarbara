@@ -349,7 +349,10 @@ class Purchaseorder extends CI_Controller {
 		$data['login_data'] = $this->session->userdata('login_data');
 		$data['items'] = $this->purchaseorder_model->list_purchase_order_items( $purchase_order_id );
 		$data['purchase_order'] = $this->purchaseorder_model->get_purchase_order_details( $purchase_order_id );
-		$data['script'] = './scripts/approved_purchase_order.js';
+		$data['script'] = array(
+			'./scripts/deletion.js',
+			'./scripts/approved_purchase_order.js'
+		);
 
 		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'approved_purchase_order', $data );
