@@ -13,7 +13,7 @@ class UserAccess {
 
     private $ci;
     private $session_name;
-    private $status = false;
+    private $status = true;
 
     function __construct( $params )
     {
