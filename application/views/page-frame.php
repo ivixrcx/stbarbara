@@ -84,7 +84,7 @@
                 <li class="<?php if(isset($nav_usermodule)) echo $nav_usermodule; ?> system-module" style="display:none"><a href="module-category" data-module="usermodulecategory/list_view">Modules</a></li>
             </ul>
             <ul class="list-unstyled" id="fixed-sidebar">
-                <!-- <li class="mt-5"><a href="logout">Settings</a></li> -->
+                <li class="mt-5 <?php if(isset($nav_changepwd)) echo $nav_changepwd;?>"><a href="account/change_pwd" class="text-secondary">Change Password</a></li>
                 <li><a href="logout" class="text-danger">Logout</a></li>
             </ul>
         </nav>

@@ -162,5 +162,25 @@ class Account_model extends CI_Model {
 		$this->db->update( 'user', $data, $where );
 		return $this->db->affected_rows();
 	}
+
+	public function verify_current_password( $user_id, $current_pwd )
+	{
+		$pcount = $this->db->select( 'COUNT(*) pcount' )
+		->from( 'user' )
+		->where( ['password' => $current_pwd, 'user_id' => $user_id ] )
+		->get()->result()[0]->pcount;
+
+		if($pcount > 0)
+			return true;
+		return false;
+	}
+
+	public function change_pwd( $user_id, $new_pwd )
+	{
+		$data  = array( 'password' => $new_pwd );
+		$where = array( 'user_id' => $user_id );
+		$this->db->update( 'user', $data, $where );
+		return $this->db->affected_rows();
+	}
 	
 }

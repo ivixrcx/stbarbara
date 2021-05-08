@@ -19,6 +19,8 @@ class Account extends CI_Controller {
 		$this->useraccess->set_permission('account/logout');
 		$this->useraccess->set_permission('account/get_session_permissions');
 		$this->useraccess->set_permission('account/list_of_user_types');
+		$this->useraccess->set_permission('account/change_pwd');
+		$this->useraccess->set_permission('account/change_pwd_process');
 		// check permissions onload
 		$this->useraccess->check_permissions();
 	}
@@ -259,5 +261,44 @@ class Account extends CI_Controller {
 	{
 		$list = $this->account_model->list_of_user_types();
 		$this->API->emit_json( $list );
+	}
+
+	public function change_pwd()
+	{
+		$data = array();
+		$data['title'] = 'Change Password';
+		$data['nav_changepwd'] = 'active';
+		$data['login_data'] = $this->session->userdata('login_data');
+		$data['script'] = './scripts/change_pwd.js';
+		
+		$this->load->view( 'page-frame', $data  );
+		$this->load->view( 'change_pwd', $data );
+		$this->load->view( 'page-frame-footer', $data );
+	}
+
+	public function change_pwd_process()
+	{
+		$this->API->ajax_only();
+		
+		$user_id = base64_decode(base64_decode(base64_decode($this->input->post('user_id'))));
+		$current_pwd = $this->input->post('current_pwd');
+		$new_pwd = $this->input->post('new_pwd');
+
+		$pcount = $this->account_model->verify_current_password( $user_id, $current_pwd );
+
+		if($pcount){
+			$update = $this->account_model->change_pwd( $user_id, $new_pwd );
+	
+			if($update){
+				$this->API->emit_json( true );
+			}
+			else{
+				// error logs
+				$this->API->emit_json( 'Error: delete' );
+			}
+		}
+		else{
+			$this->API->emit_json( false );			
+		}
 	}
 }
