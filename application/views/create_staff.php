@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-sm-12 col-lg-6">
         <div class="block">
-          <form id="frm_create_user" method="POST" style="font-size: 16px !important;">
+          <form id="frm_create_staff" method="POST" style="font-size: 16px !important;">
             <div class="modal-body">
               <div class="form-group">
                 <label>Last name </label>
@@ -65,7 +65,7 @@
             </div>
             <div class="modal-footer">
               <button type="reset" class="btn btn-danger">Reset</button>
-              <input type="submit" value="Submit" id="btn_create_staff" class="btn btn-primary">
+              <button type="submit" id="btn_create_staff" class="btn btn-primary">Submit</button>
             </div>
           </form>
         </div>

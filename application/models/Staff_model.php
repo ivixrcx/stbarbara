@@ -26,17 +26,27 @@ class Staff_model extends CI_Model {
 		->get()->result();
 	}
 
-	public function create( $name, $description, $address, $contact_no )
+	public function create( $first_name, $last_name, $full_name, $address, $contact_no, $gender, $birth_date, $start_date, $daily_compensation, $daily_cola, $job_description, $sss, $pagibig, $tin )
 	{
 		$data = array(
-			'name' 		  => $name,
-			'description' => $description,
-			'address' 	  => $address,
-			'contact_no'  => $contact_no,
-			'status_id'   => 1 // active
+			'first_name' 			=> $first_name,
+			'last_name' 			=> $last_name,
+			'full_name' 			=> $full_name,
+			'address' 				=> $address,
+			'contact_no' 			=> $contact_no,
+			'gender' 				=> $gender,
+			'birth_date' 			=> $birth_date,
+			'start_date' 			=> $start_date,
+			'daily_compensation' 	=> $daily_compensation,
+			'daily_cola' 			=> $daily_cola,
+			'job_description' 		=> $job_description,
+			'sss' 					=> $sss,
+			'pagibig' 				=> $pagibig,
+			'tin' 					=> $tin,
+			'status_id'				=> 1 //active 
 		);
 
-		$this->db->insert( 'supplier', $data );
+		$this->db->insert( 'staff', $data );
 		return $this->db->affected_rows();
 	}
 

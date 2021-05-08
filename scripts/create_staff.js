@@ -2,7 +2,7 @@
 
 /* global declarations */
 
-$('#btn_create_staff').validate({
+$('#frm_create_staff').validate({
   rules: {
     last_name: {
       required: true,
@@ -89,7 +89,7 @@ $('#btn_create_staff').validate({
 
   submitHandler: function(form){
     $.ajax({
-      url: 'create/staff',
+      url: 'staff/create_staff_process',
       type: 'post',
       data: {
         last_name: $('#last_name').val(),
