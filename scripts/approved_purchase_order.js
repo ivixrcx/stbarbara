@@ -48,6 +48,13 @@ $(function(){
          else{
            $(items).append('<tr><td colspan="7" align=middle>No Data</td></tr>')
          }
+
+        new deletion({
+          button: 'button.btndelete',
+          action: 'purchaseorder/delete_purchase_order',
+          redirect: 'purchase-orders'
+        })
+        .fire();
        },
     });
   }
