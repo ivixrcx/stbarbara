@@ -192,7 +192,7 @@ class Purchaseorder_model extends CI_Model {
 		$this->db->select( 'status_id' );
 		$this->db->from( 'purchase_order' );
 		$this->db->where( 'purchase_order_id', $purchase_order_id );
-		return $this->get()->result()[0]->status_id;
+		return $this->db->get()->result()[0]->status_id;
 	}
 
 	public function get_po_item_status( $purchase_order_item_id )
