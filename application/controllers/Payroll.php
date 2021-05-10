@@ -43,7 +43,7 @@ class Payroll extends CI_Controller {
 	public function list()
 	{
 		$this->API->ajax_only();
-		
+
 		$staff_id = $_POST['staff_id'];
 
 		$list = $this->payroll_model->list($staff_id);
@@ -196,6 +196,23 @@ class Payroll extends CI_Controller {
 		}
 		else{
 			$this->API->emit_json( false, 'Error: insert');	
+		}
+	}
+
+	public function delete()
+	{		
+		$this->API->ajax_only();
+
+		$payroll_id = $this->input->post('payroll_id');
+
+		$delete = $this->payroll_model->delete_payroll( $payroll_id );
+
+		if($delete){
+			$this->API->emit_json( true );
+		}
+		else{
+			// error logs
+			$this->API->emit_json( 'Error: delete' );
 		}
 	}
     

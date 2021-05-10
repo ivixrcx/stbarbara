@@ -98,6 +98,15 @@ class Payroll_model extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
+	public function delete_payroll($payroll_id)
+	{
+		$data  = array( 'status_id' => 2 );
+		$where = array( 'payroll_id' => $payroll_id);
+
+		$this->db->update( 'payroll', $data, $where );
+		return $this->db->affected_rows();
+	}
+
 	public function delete_additional($additional_id)
 	{
 		$data  = array( 'status_id' => 2 );

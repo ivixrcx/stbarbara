@@ -15,6 +15,14 @@ $('#list_of_payroll').DataTable({
       if(access.code == 101){ // no permission
           $('#list_of_staffs_wrapper').html(access.error_html);
       }
+      else {
+        new deletion({
+          button: 'button.btndelete',
+          action: 'payroll/delete/',
+          redirect: 'view/payroll/' + staff_id
+        })
+        .fire();
+      }
     },
     error: function(error){
       // Swal.fire(error.responseText);
@@ -39,6 +47,7 @@ $('#list_of_payroll').DataTable({
       render: function(data, type, row){
         let buttons = `<div class="d-flex justify-content-end">`;
         buttons += `<a href="view/payroll-details/${row['payroll_id']}" class="btn btn-primary btn-sm mr-2"><i class="fa fa-eye text-dark"></i></a>`;
+        buttons += `<button class="pull-right btn btn-danger btn-sm ml-1 btndelete" data-payroll_id="${row['payroll_id']}"><i class="fa fa-remove text-dark"></i></button>`;
         buttons += `</div>`;
         return buttons;
       }
