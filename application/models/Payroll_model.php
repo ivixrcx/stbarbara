@@ -10,11 +10,12 @@ class Payroll_model extends CI_Model {
 		$this->API = new API();
 	}
 
-	public function list()
+	public function list($staff_id)
 	{
-		return $this->db->select( 'payroll.*, staff.full_name' )
+		return $this->db->select( 'payroll.*, DATE_FORMAT(payroll.paydate, "%Y %M %d") pay_date, staff.full_name' )
 		->from( 'payroll')
 		->join('staff','staff.staff_id=payroll.staff_id','left')
+		->where( 'payroll.staff_id', $staff_id )
 		->where( 'payroll.status_id', 1 )
 		->get()->result();
 	}

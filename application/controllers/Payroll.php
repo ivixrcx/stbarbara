@@ -43,8 +43,10 @@ class Payroll extends CI_Controller {
 	public function list()
 	{
 		$this->API->ajax_only();
+		
+		$staff_id = $_POST['staff_id'];
 
-		$list = $this->payroll_model->list();
+		$list = $this->payroll_model->list($staff_id);
 
 		$this->API->emit_json( $list );
 	}

@@ -1,12 +1,15 @@
 // disables error for user permission
 $.fn.dataTable.ext.errMode = 'none';
 
+let staff_id = $('#staff_id').val();
+
 $('#list_of_payroll').DataTable({
   processing: true,
   serverSide: true,
   ajax: {
     url: 'payroll/list',
     type: 'post',
+    data: { staff_id: staff_id },
     complete: function(res){
       let access = res.responseJSON.data;
       if(access.code == 101){ // no permission
@@ -22,6 +25,7 @@ $('#list_of_payroll').DataTable({
   },
   columns: [
     {data: 'payroll_id'},
+    {data: 'pay_date'},
     {data: 'basepay'},
     {data: 'net_pay'},
     {data: 'no_of_days'},

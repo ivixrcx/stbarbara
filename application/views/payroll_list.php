@@ -9,10 +9,12 @@
           <div class="d-flex pull-right">
           </div>
           <div class="table-responsive pt-3" style="overflow-y: hidden">
+            <input type="hidden" id="staff_id" name="staff_id" value="<?php echo $staff_id; ?>" hidden readonly required/>
             <table id="list_of_payroll" class="table"> 
               <thead> 
                 <tr> 
                   <th>#</th>
+                  <th>Pay Date</th>
                   <th>Base Pay</th>
                   <th>Net Pay</th>
                   <th>No. Of Days</th>
