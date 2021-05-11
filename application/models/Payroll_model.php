@@ -125,23 +125,6 @@ class Payroll_model extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
-	public function update( $payroll_id, $staff_id, $daily_compensation, $no_of_days, $basepay, $net_pay, $note )
-	{
-		$data = array(
-			'staff_id'              => $staff_id,
-			'daily_compensation'    => $daily_compensation,
-			'no_of_days' 	        => $no_of_days,
-			'basepay'               => $basepay,
-			'net_pay'               => $net_pay,
-			'note'                  => $note
-		);
-
-		$where = array( 'payroll_id' => $payroll_id );
-
-		$this->db->update( 'payroll', $data, $where );
-		return $this->db->affected_rows();
-	}
-
 	public function compute_payroll( $payroll_id )
 	{
 		// Get total additionals

@@ -342,20 +342,5 @@ class Payroll extends CI_Controller {
 		// Output the generated PDF to Browser
 		$this->dompdf->stream("Payslip", array("Attachment" => 0));
 	}
-
-	// public function update_payroll_process()
-	// {
-	// 	$this->API->ajax_only();
-
-	// 	$payroll_id = $this->input->post('payroll_id');
-
-	// 	$update = $this->payroll_model->update_payroll( $payroll_id );
-
-	// 	if($update){
-	// 		$this->API->emit_json( true );
-	// 	}
-	// 	else{
-	// 		$this->API->emit_json( 'Nothing changed.' );
-	// 	}
-	// }
+    
 }
