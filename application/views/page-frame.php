@@ -77,6 +77,7 @@
                 <li class="<?php if(isset($nav_materials)) echo $nav_materials; ?> system-module" style="display:none"><a href="materials" data-module="material/list_view">Materials</a></li>
                 <li class="<?php if(isset($nav_warehouses)) echo $nav_warehouses; ?> system-module" style="display:none"><a href="warehouses" data-module="warehouse/list_view">Warehouses</a></li>
                 <li class="<?php if(isset($nav_expense)) echo $nav_expense; ?> system-module" style="display:none"><a href="expenses" data-module="expense/list_view">Expenses</a></li>
+                <li class="<?php if(isset($nav_clients)) echo $nav_clients; ?> system-module" style="display:none"><a href="client" data-module="client/list_view">Clients</a></li>
                 <li class="<?php if(isset($nav_staffs)) echo $nav_staffs; ?> system-module" style="display:none"><a href="staff" data-module="staff/list_view">Staffs</a></li>
                 <li class="<?php if(isset($nav_payroll)) echo $nav_payroll; ?> system-module" style="display:none"><a href="payroll" data-module="payroll/list_view">Payroll</a></li>
                 <li class="<?php if(isset($nav_users)) echo $nav_users; ?> system-module" style="display:none"><a href="users" data-module="account/users">Users</a></li>

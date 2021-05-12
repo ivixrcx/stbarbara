@@ -3,10 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2021 at 08:39 PM
+-- Generation Time: May 12, 2021 at 07:17 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.1.33
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
@@ -21,6 +22,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_stbarbara`
 --
+CREATE DATABASE IF NOT EXISTS `db_stbarbara` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `db_stbarbara`;
 
 -- --------------------------------------------------------
 
@@ -99,6 +102,45 @@ CREATE TABLE `amenity_project` (
 CREATE TABLE `amenity_type` (
   `amenity_type_id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `client`
+--
+
+CREATE TABLE `client` (
+  `client_id` int(11) NOT NULL,
+  `last_name` varchar(45) DEFAULT NULL,
+  `first_name` varchar(45) DEFAULT NULL,
+  `middle_name` varchar(45) DEFAULT NULL,
+  `full_name` varchar(50) DEFAULT NULL,
+  `gender` varchar(45) DEFAULT NULL,
+  `birth_date` date DEFAULT NULL,
+  `birth_place` varchar(45) DEFAULT NULL,
+  `civil_status` varchar(45) DEFAULT NULL,
+  `religion` varchar(45) DEFAULT NULL,
+  `nationality` varchar(45) DEFAULT NULL,
+  `height` varchar(45) DEFAULT NULL,
+  `weight` varchar(45) DEFAULT NULL,
+  `blood_type` varchar(45) DEFAULT NULL,
+  `occupation` varchar(45) DEFAULT NULL,
+  `id_name` varchar(45) DEFAULT NULL,
+  `id_no` varchar(45) DEFAULT NULL,
+  `id_registration_date` date DEFAULT NULL,
+  `id_valid_until` date DEFAULT NULL,
+  `id_place` varchar(45) DEFAULT NULL,
+  `sss` varchar(45) DEFAULT NULL,
+  `pag-ibig` varchar(45) DEFAULT NULL,
+  `tin` varchar(45) DEFAULT NULL,
+  `drivers_license` varchar(45) DEFAULT NULL,
+  `residence_address` text DEFAULT NULL,
+  `provincial_address` text DEFAULT NULL,
+  `landline_no` varchar(45) DEFAULT NULL,
+  `cellphone_no` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `status_id` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -308,6 +350,14 @@ CREATE TABLE `payroll` (
   `status_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `payroll`
+--
+
+INSERT INTO `payroll` (`payroll_id`, `staff_id`, `project_id`, `paydate`, `daily_compensation`, `no_of_days`, `basepay`, `net_pay`, `total_additionals`, `total_deductions`, `note`, `status_id`) VALUES
+(1, 1, 1, '2021-05-10', '500.00', '12.00', '6000.00', '6000.00', '0.00', '0.00', NULL, 2),
+(2, 9, 0, '2021-05-10', '0.00', '12.00', '0.00', '0.00', '0.00', '0.00', NULL, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -392,7 +442,7 @@ CREATE TABLE `project` (
 
 INSERT INTO `project` (`project_id`, `name`, `total_area`, `total_units`, `location`, `status_id`) VALUES
 (1, 'Project A', '10000.00', '25.00', 'talisay city, cebu', 1),
-(2, 'ADS', '10000.00', '99.00', 'cebu', 1);
+(2, 'ADS', '10000.00', '99.00', 'cebu', 2);
 
 -- --------------------------------------------------------
 
@@ -426,7 +476,8 @@ CREATE TABLE `purchase_order` (
 --
 
 INSERT INTO `purchase_order` (`purchase_order_id`, `purchase_order_no`, `invoice_no`, `invoice_img`, `additional_fee`, `grand_total`, `requested_by`, `requested_date`, `prepared_by`, `prepared_date`, `approved_by`, `approved_date`, `user_note`, `deletion_note`, `admin_note`, `warehouse_id`, `supplier_id`, `status_id`) VALUES
-(1, 1910001, NULL, NULL, '0.00', '0.00', 2, '2019-09-30', 1, '2019-09-30', 1, '2019-09-30', '', NULL, NULL, 1, 1, 6);
+(1, 1910001, NULL, NULL, '0.00', '0.00', 2, '2019-09-30', 1, '2019-09-30', 1, '2019-09-30', '', NULL, NULL, 1, 1, 6),
+(2, 2105002, NULL, NULL, '0.00', '0.00', 3, '2021-05-08', 1, '2021-05-08', NULL, NULL, '', NULL, NULL, 1, 1, 9);
 
 -- --------------------------------------------------------
 
@@ -450,7 +501,7 @@ CREATE TABLE `purchase_order_item` (
 
 INSERT INTO `purchase_order_item` (`purchase_order_item_id`, `purchase_order_id`, `quantity`, `description`, `unit_price`, `total`, `status_id`) VALUES
 (1, 1, 50, 'coco lumber', '80.00', '4000.00', 5),
-(2, 2, 50, 'coco lumber', '78.00', '3900.00', 1),
+(2, 2, 50, 'coco lumber', '78.00', '3900.00', 5),
 (3, 1, 50, 'coco lumber', '75.00', '3750.00', 1);
 
 -- --------------------------------------------------------
@@ -485,7 +536,9 @@ CREATE TABLE `staff` (
 --
 
 INSERT INTO `staff` (`staff_id`, `first_name`, `last_name`, `full_name`, `address`, `contact_no`, `gender`, `birth_date`, `employee_id`, `start_date`, `daily_compensation`, `daily_cola`, `job_description`, `sss`, `pagibig`, `tin`, `project_id`, `status_id`) VALUES
-(1, 'mark daryl', 'jerezon', 'mark daryl jerezon', '', '', '', '0000-00-00', NULL, '0000-00-00', '500.00', NULL, 'Systems Administrator', '', '', '', 1, 1);
+(1, 'mark daryl', 'jerezon', 'mark daryl jerezon', '', '', '', '0000-00-00', NULL, '0000-00-00', '500.00', NULL, 'Systems Administrator', '', '', '', 1, 1),
+(9, 'test', 'test', 'test test', '', '', '1', '0000-00-00', NULL, '2021-05-08', '0.00', '0.00', '', '', '', '', 0, 1),
+(10, '12', '12', '12 12', '', '', '1', '0000-00-00', NULL, '2021-05-11', '0.00', '0.00', '', '', '', '', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -560,7 +613,10 @@ CREATE TABLE `supplier` (
 --
 
 INSERT INTO `supplier` (`supplier_id`, `name`, `description`, `address`, `contact_no`, `status_id`) VALUES
-(1, 'ABC Enterprises', '', 'Talisay City, Cebu', '462-5340', 1);
+(1, 'ABC Enterprises', '', 'Talisay City, Cebu', '462-5340', 1),
+(2, 'test', 'test', 'test test', '', 1),
+(3, 'test', 'test', 'test test', '', 1),
+(4, 'test', 'test', 'test test', '', 1);
 
 -- --------------------------------------------------------
 
@@ -585,7 +641,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `first_name`, `last_name`, `full_name`, `user_name`, `password`, `user_modules`, `user_type_id`, `status_id`) VALUES
-(1, 'marco', 'jerezon', 'marco jerezon', 'marco', 'password', '1,2,3,41,44,45,46,47,51,52,53,54,55,56,57,58,31,32,33,35,36,39,4,5,6,40,7,8,9,10,11,37,38,43,48,49,50,12,13,14,42,15,16,17,18,19,20,21,34,22,24,25,26,27,28,29,30,59,60,62,61', 1, 1),
+(1, 'marco', 'jerezon', 'marco jerezon', 'marco', '12345678', '65,66,63,64,1,2,3,41,44,45,46,47,61,51,52,53,54,55,56,57,58,62,67,31,32,33,35,36,39,4,5,6,40,59,60,7,8,9,10,11,37,38,43,48,49,50,12,13,14,42,15,16,17,18,19,20,21,34,22,24,25,26,27,28,29,30,68', 1, 1),
 (2, 'john', 'doe', 'john doe', 'johndoe', 'password', '9,10', 4, 1),
 (3, 'junhnel', 'bastida', 'junhnel bastida', 'jbastida', 'password', '9,10,12,13,14,7,8', 4, 1),
 (4, 'Kendy', 'Peros', 'Kendy Peros', 'kendy', 'password', '52,53,54,48,49,50', 5, 1),
@@ -658,7 +714,7 @@ INSERT INTO `user_module` (`user_module_id`, `user_module_name`, `user_module_li
 (46, '1.2. Update', 'material/update_view,material/update', '', 9, 1),
 (47, 'View', 'material/view', '', 9, 1),
 (48, 'List', 'staff/list_view,staff/list,staff/index', '', 10, 1),
-(49, 'Create', 'staff/create_view,staff/create', '', 10, 1),
+(49, 'Create', 'staff/create_view,staff/create_staff_process', '', 10, 1),
 (50, 'View', 'staff/view', '', 10, 1),
 (51, '3. Create', 'payroll/create_view,payroll/create_payroll_process', '', 11, 1),
 (52, '1. List', 'payroll/list_view,payroll/list_staff,payroll/index', '', 11, 1),
@@ -671,7 +727,13 @@ INSERT INTO `user_module` (`user_module_id`, `user_module_name`, `user_module_li
 (59, '1.2. View Project', 'project/project_view,project/get_staff_in_project', '', 3, 1),
 (60, '1.2.1 Add Staff in a Project', 'staff/search,project/create_staff_in_project_view,project/create_staff_in_project_process', '', 3, 1),
 (61, '1.3 Delete', 'material/delete', '', 9, 1),
-(62, '4.1. Print Payslip', 'payroll/print', '', 11, 1);
+(62, '4.1. Print Payslip', 'payroll/print', '', 11, 1),
+(63, '1. List', 'expense/list_view,expense/index', '', 12, 1),
+(64, '2. View', 'expense/list_view,expense/list', '', 12, 1),
+(65, 'List', 'client/list_view,client/list,client/index', '', 13, 1),
+(66, 'Create', 'client/create_view,client/create_process', '', 13, 1),
+(67, 'Delete Payroll', 'payroll/delete', '', 11, 1),
+(68, 'Update Payroll', 'payroll/update_view,payroll/update_process', '', 11, 1);
 
 -- --------------------------------------------------------
 
@@ -701,7 +763,9 @@ INSERT INTO `user_module_category` (`user_module_category_id`, `user_module_cate
 (8, 'positions', 6, 1),
 (9, 'materials', 5, 1),
 (10, 'staffs', 3, 1),
-(11, 'payroll', 9, 1);
+(11, 'payroll', 11, 1),
+(12, 'Expenses', 2, 1),
+(13, 'Clients', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -792,6 +856,12 @@ ALTER TABLE `amenity_project`
 --
 ALTER TABLE `amenity_type`
   ADD PRIMARY KEY (`amenity_type_id`);
+
+--
+-- Indexes for table `client`
+--
+ALTER TABLE `client`
+  ADD PRIMARY KEY (`client_id`);
 
 --
 -- Indexes for table `deduction`
@@ -1020,6 +1090,12 @@ ALTER TABLE `amenity_type`
   MODIFY `amenity_type_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `client`
+--
+ALTER TABLE `client`
+  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `deduction`
 --
 ALTER TABLE `deduction`
@@ -1077,7 +1153,7 @@ ALTER TABLE `miscellaneous_type`
 -- AUTO_INCREMENT for table `payroll`
 --
 ALTER TABLE `payroll`
-  MODIFY `payroll_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `payroll_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `person`
@@ -1107,7 +1183,7 @@ ALTER TABLE `project`
 -- AUTO_INCREMENT for table `purchase_order`
 --
 ALTER TABLE `purchase_order`
-  MODIFY `purchase_order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `purchase_order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `purchase_order_item`
@@ -1119,7 +1195,7 @@ ALTER TABLE `purchase_order_item`
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `staff_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `staff_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `status`
@@ -1137,7 +1213,7 @@ ALTER TABLE `stock`
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -1149,13 +1225,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user_module`
 --
 ALTER TABLE `user_module`
-  MODIFY `user_module_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `user_module_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `user_module_category`
 --
 ALTER TABLE `user_module_category`
-  MODIFY `user_module_category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `user_module_category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `user_type`
@@ -1349,6 +1425,7 @@ ALTER TABLE `user_type`
 --
 ALTER TABLE `warehouse`
   ADD CONSTRAINT `warehouse_ibfk_1` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`);
+SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
