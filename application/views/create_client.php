@@ -5,7 +5,6 @@
         <div class="block">
           <form id="frm_create_client" class="form-inlines" method="POST" style="font-size: 16px !important;">
 
-
             <!-- Personal Details   -->
               <div class="form-group">
                 <label>Last name </label>
@@ -71,6 +70,66 @@
             <!-- End Personal Details   -->
 
             <!-- Spouse Details -->
+              <div class="form-group">
+                <label>Last Name </label>
+                <input type="text" id="last_name" name="last_name" placeholder="" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>First Name </label>
+                <input type="text" id="first_name" name="first_name" placeholder="" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>Middle Name </label>
+                <input type="text" id="middle_name" name="middle_name" placeholder="" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>Birth Date </label>
+                <input type="date" id="birth_date" name="birth_date" placeholder="" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>Birth Place </label>
+                <input type="text" id="birth_place" name="birth_place" placeholder="" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>Occupation </label>
+                <input type="text" id="occupation" name="occupation" placeholder="" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>Nationality </label>
+                <input type="text" id="nationality" name="nationality" placeholder="" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>SSS </label>
+                <input type="text" id="sss" name="sss" placeholder="" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>TIN </label>
+                <input type="text" id="tin" name="tin" placeholder="" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>PagIbig </label>
+                <input type="text" id="pagibig" name="pagibig" placeholder="" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>Driver's License </label>
+                <input type="text" id="drivers_license" name="drivers_license" placeholder="" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>ID Name </label>
+                <input type="text" id="spouse_id_name" name="spouse_id_name" placeholder="" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>ID No. </label>
+                <input type="text" id="spouse_id_no" name="spouse_id_no" placeholder="" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>Date Issued </label>
+                <input type="text" id="spouse_id_date_issued" name="spouse_id_date_issued" placeholder="" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>Place Issued </label>
+                <input type="text" id="spouse_id_place_issued" name="spouse_id_place_issued" placeholder="" class="form-control">
+              </div>
             <!-- End Spouse Details -->
 
             <!-- Contact Information -->
@@ -92,7 +151,7 @@
               </div>
               <div class="form-group">
                 <label>Email </label>
-                <input type="text" id="cellphone_no" name="cellphone_no" placeholder="" class="form-control">
+                <input type="email" id="email" name="email" placeholder="" class="form-control">
               </div>
             <!-- End Contact Information -->
 
