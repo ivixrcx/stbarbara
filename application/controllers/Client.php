@@ -89,20 +89,47 @@ class Client extends CI_Controller {
 	{
 		$this->API->ajax_only();
 
-		// $staff_id = $this->input->post('staff_id');
-		// $paydate = $this->input->post('paydate');
-		// $no_of_days = $this->input->post('no_of_days');
-		// $note = $this->input->post('note');
-		// $project_id = $this->input->post('project_id');
+        // Personal Details
+		$last_name = $this->input->post('last_name');
+		$first_name = $this->input->post('first_name');
+		$middle_name = $this->input->post('middle_name');
+		$birth_date = $this->input->post('birth_date');
+		$birth_place = $this->input->post('birth_place');
+		$gender = $this->input->post('gender');
+		$civil_status = $this->input->post('civil_status');
+		$religion = $this->input->post('religion');
+		$nationality = $this->input->post('nationality');
+		$tin = $this->input->post('tin');
+		$sss = $this->input->post('sss');
+		$pagibig = $this->input->post('pagibig');
+		$drivers_license = $this->input->post('drivers_license');
+		$occupation = $this->input->post('occupation');
 
-		// $staff = $this->staff_model->get_staff($staff_id);
-		// $daily_compensation = $staff[0]->daily_compensation;
-		// $basepay = $daily_compensation * $no_of_days;
-		// $net_pay = $basepay;
+        // Spouse Details
+		$spouse_last_name = $this->input->post('spouse_last_name');
+		$spouse_first_name = $this->input->post('spouse_first_name');
+		$spouse_middle_name = $this->input->post('spouse_middle_name');
+		$spouse_birth_date = $this->input->post('spouse_birth_date');
+		$spouse_birth_place = $this->input->post('spouse_birth_place');
+		$spouse_occupation = $this->input->post('spouse_occupation');
+		$spouse_nationality = $this->input->post('spouse_nationality');
+		$spouse_sss = $this->input->post('spouse_sss');
+		$spouse_tin = $this->input->post('spouse_tin');
+		$spouse_pagibig = $this->input->post('spouse_pagibig');
+		$spouse_drivers_license = $this->input->post('spouse_drivers_license');
+		$spouse_id_name = $this->input->post('spouse_id_name');
+		$spouse_id_no = $this->input->post('spouse_id_no');
+		$spouse_id_date_issued = $this->input->post('spouse_id_date_issued');
+		$spouse_id_place_issued = $this->input->post('spouse_id_place_issued');
 
-		// $create = $this->client_model->create( $staff_id, $project_id, $paydate, $daily_compensation, $no_of_days, $basepay, $net_pay, $note );
-        $create = '';
+        // Contact Information
+		$residence_address = $this->input->post('residence_address');
+		$provincial_address = $this->input->post('provincial_address');
+		$landline_no = $this->input->post('landline_no');
+		$cellphone_no = $this->input->post('cellphone_no');
+		$email = $this->input->post('email');
 
+		$create = $this->client_model->create( $last_name, $first_name, $middle_name, $birth_date, $birth_place, $gender, $civil_status, $religion, $nationality, $tin, $sss, $pagibig, $drivers_license, $occupation, $spouse_last_name, $spouse_first_name, $spouse_middle_name, $spouse_birth_date, $spouse_birth_place, $spouse_occupation, $spouse_nationality, $spouse_sss, $spouse_tin, $spouse_pagibig, $spouse_drivers_license, $spouse_id_name, $spouse_id_no, $spouse_id_date_issued, $spouse_id_place_issued, $residence_address, $provincial_address, $landline_no, $cellphone_no, $email );
 		if($create){
 			$this->API->emit_json( true );
 		}

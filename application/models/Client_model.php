@@ -27,28 +27,56 @@ class Client_model extends CI_Model {
 		->get()->result();
 	}
 
-	public function create( $first_name, $last_name, $full_name, $address, $contact_no, $gender, $birth_date, $start_date, $daily_compensation, $daily_cola, $job_description, $sss, $pagibig, $tin )
+	public function create( $last_name, $first_name, $middle_name, $birth_date, $birth_place, $gender, $civil_status, $religion, $nationality, $tin, $sss, $pagibig, $drivers_license, $occupation, $spouse_last_name, $spouse_first_name, $spouse_middle_name, $spouse_birth_date, $spouse_birth_place, $spouse_occupation, $spouse_nationality, $spouse_sss, $spouse_tin, $spouse_pagibig, $spouse_drivers_license, $spouse_id_name, $spouse_id_no, $spouse_id_date_issued, $spouse_id_place_issued, $residence_address, $provincial_address, $landline_no, $cellphone_no, $email )
 	{
-		// $data = array(
-		// 	'first_name' 			=> $first_name,
-		// 	'last_name' 			=> $last_name,
-		// 	'full_name' 			=> $full_name,
-		// 	'address' 				=> $address,
-		// 	'contact_no' 			=> $contact_no,
-		// 	'gender' 				=> $gender,
-		// 	'birth_date' 			=> $birth_date,
-		// 	'start_date' 			=> $start_date,
-		// 	'daily_compensation' 	=> $daily_compensation,
-		// 	'daily_cola' 			=> $daily_cola,
-		// 	'job_description' 		=> $job_description,
-		// 	'sss' 					=> $sss,
-		// 	'pagibig' 				=> $pagibig,
-		// 	'tin' 					=> $tin,
-		// 	'status_id'				=> 1 //active 
-		// );
-        $data = [];
+		$data = array(
+        	// Personal Details
+			'last_name'=> $last_name,
+			'first_name'=> $first_name,
+			'middle_name'=> $middle_name,
+			'birth_date'=> $birth_date,
+			'birth_place'=> $birth_place,
+			'gender'=> $gender,
+			'civil_status'=> $civil_status,
+			'religion'=> $religion,
+			'nationality'=> $nationality,
+			'tin'=> $tin,
+			'sss'=> $sss,
+			'pagibig'=> $pagibig,
+			'drivers_license'=> $drivers_license,
+			'occupation'=> $occupation,
+        	// Contact Information
+			'residence_address'=> $residence_address,
+			'provincial_address'=> $provincial_address,
+			'landline_no'=> $landline_no,
+			'cellphone_no'=> $cellphone_no,
+			'email'=> $email
+		);
 
 		$this->db->insert( 'client', $data );
+		$client_id = $this->db->insert_id();
+
+		$data_spouse = array(
+        	// Spouse Details
+			'last_name'=> $spouse_last_name,
+			'first_name'=> $spouse_first_name,
+			'middle_name'=> $spouse_middle_name,
+			'birth_date'=> $spouse_birth_date,
+			'birth_place'=> $spouse_birth_place,
+			'occupation'=> $spouse_occupation,
+			'nationality'=> $spouse_nationality,
+			'sss'=> $spouse_sss,
+			'tin'=> $spouse_tin,
+			'pagibig'=> $spouse_pagibig,
+			'drivers_license'=> $spouse_drivers_license,
+			'spouse_id_name'=> $spouse_id_name,
+			'spouse_id_no'=> $spouse_id_no,
+			'spouse_id_date_issued'=> $spouse_id_date_issued,
+			'spouse_id_place_issued'=> $spouse_id_place_issued,
+			'client_id'=> $client_id,
+		);
+
+		$this->db->insert( 'spouse', $data_spouse );
 		return $this->db->affected_rows();
 	}
 
