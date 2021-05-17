@@ -165,3 +165,9 @@ $route['create/payroll-additional/(:num)'] = 'payroll/create_addition_view/$1';
 $route['create/payroll-deduction/(:num)'] = 'payroll/create_deduction_view/$1';
 $route['create/payroll/(:num)'] = 'payroll/create_view/$1';
 $route['update/payroll/(:num)'] = 'payroll/update_view/$1';
+
+// client
+$route['clients'] = 'client/index';
+$route['view/client/(:num)'] = 'client/view/$1';
+$route['create/client'] = 'client/create_view';
+$route['update/client/(:num)'] = 'client/update_view/$1';
