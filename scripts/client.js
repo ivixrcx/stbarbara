@@ -32,7 +32,7 @@ $('#list_of_clients').DataTable({
                 url: 'client/delete',
                 type: 'post',
                 data: { client_id: id },
-                complete: function(res){
+                success: function(res){
                   // successfully deleted
                   if(res.responseJSON.data){
                     Swal.fire(
@@ -41,20 +41,16 @@ $('#list_of_clients').DataTable({
                       'success'
                     )
                   }
-                  else{
-                    console.log(res);
-                    Swal.fire({
-                      title: 'Error',
-                      text: res.responseJSON.data,
-                      type: 'error',
-                    })
-                  }
                 },
                 error: function(error){
-                  // Swal.fire(error.responseText);
-                  console.log('error');
-                  console.log(error.responseText);
-                  alert(error.responseText);
+                  
+                  res = JSON.parse(error.responseText)
+                  console.log(res)
+                  Swal.fire({
+                    title: 'Error: ' + res.data.code + ' ' + res.error,
+                    html: res.data.error_html,
+                    type: 'error',
+                  })
                 },
               });
             }
@@ -80,8 +76,8 @@ $('#list_of_clients').DataTable({
       targets: 3,
       render: function(data, type, row){
         let buttons = `<div class="d-flex justify-content-end">`;
-        buttons += `<a href="view/client/${data.client_id}" class="btn btn-primary btn-sm mr-2"><i class="fa fa-eye text-dark"></i></a>`;
-        buttons += `<button class="btn btn-danger btn-sm mr-2 btn-delete" data-id="${data.client_id}"><i class="fa fa-remove text-dark"></i></button></div>`;
+        buttons += `<a href="view/client/${row['client_id']}" class="btn btn-primary btn-sm mr-2"><i class="fa fa-eye text-dark"></i></a>`;
+        buttons += `<button class="btn btn-danger btn-sm mr-2 btn-delete" data-id="${row['client_id']}"><i class="fa fa-remove text-dark"></i></button></div>`;
         return buttons;
       }
     },
