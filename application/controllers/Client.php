@@ -54,21 +54,21 @@ class Client extends CI_Controller {
 		$this->load->view( 'page-frame-footer', $data );
 	}
 
-	public function client_view( $client_id )
+	public function view( $client_id )
 	{
 		$data = array();
 		$data['title'] = 'Client Details';
 		$data['nav_clients'] = 'active';
 		$data['login_data'] = $this->session->userdata('login_data');
 		$data['client'] = $this->client_model->get($client_id);
+		$data['spouse'] = $this->client_model->get_spouse($client_id);
 		$data['client_id'] = $client_id;
 		$data['script'] = array(
-			'./scripts/client_view.js',
 			'./scripts/deletion.js'
 		);
 
 		$this->load->view( 'page-frame', $data );
-		$this->load->view( 'client_view', $data );
+		$this->load->view( 'view_client', $data );
 		$this->load->view( 'page-frame-footer', $data );
 	}
 

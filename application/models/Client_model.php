@@ -27,6 +27,14 @@ class Client_model extends CI_Model {
 		->get()->result();
 	}
 
+	public function get_spouse( $client_id )
+	{
+		return $this->db->select( '*' )
+		->from( 'spouse' )
+		->where( 'spouse.client_id', $client_id )
+		->get()->result();
+	}
+
 	public function create( $last_name, $first_name, $middle_name, $birth_date, $birth_place, $gender, $civil_status, $religion, $nationality, $tin, $sss, $pagibig, $drivers_license, $occupation, $spouse_last_name, $spouse_first_name, $spouse_middle_name, $spouse_birth_date, $spouse_birth_place, $spouse_occupation, $spouse_nationality, $spouse_sss, $spouse_tin, $spouse_pagibig, $spouse_drivers_license, $spouse_id_name, $spouse_id_no, $spouse_id_date_issued, $spouse_id_place_issued, $residence_address, $provincial_address, $landline_no, $cellphone_no, $email )
 	{
 		$data = array(
@@ -73,10 +81,15 @@ class Client_model extends CI_Model {
 			'spouse_id_no'=> $spouse_id_no,
 			'spouse_id_date_issued'=> $spouse_id_date_issued,
 			'spouse_id_place_issued'=> $spouse_id_place_issued,
-			'client_id'=> $client_id,
+			'client_id'=> $client_id
 		);
 
-		$this->db->insert( 'spouse', $data_spouse );
+		if(!empty($data_spouse['last_name']))
+		{
+			$this->db->insert( 'spouse', $data_spouse );
+			return $this->db->affected_rows();
+		}
+		
 		return $this->db->affected_rows();
 	}
 
