@@ -57,53 +57,61 @@
           </div>
         </div>
       </div>
+      
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="block">
+                <div class="d-flex pull-left">
+                  <h4 class="title pr-2 pb-2 pt-2 text-success">Addtional</h4>
+                </div>
+                <div class="d-flex pull-right">
+                  <a class="pr-2 pb-2 pt-2" href="create/payroll-additional/<?php echo $payroll_id; ?>"><button class="btn btn-primary btn-sm"><i class="fa fa-plus text-dark"></i></button></a>
+                </div>
+                <div class="d-flex pull-right">
+                </div>
+                <div class="table-responsive pt-3">
+                  <table class="table" id="t_additional" style="width:100%"> 
+                      <th>Date</th>
+                      <th>Type</th>
+                      <th>Amount</th>
+                      <th>Note</th>
+                      <th></th>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="block">
+                <div class="d-flex pull-left">
+                  <h4 class="title pr-2 pb-2 pt-2 text-danger">Deduction</h4>
+                </div>
+                <div class="d-flex pull-right">
+                <a class="pr-2 pb-2 pt-2" href="create/payroll-deduction/<?php echo $payroll_id; ?>"><button class="btn btn-primary btn-sm"><i class="fa fa-plus text-dark"></i></button></a>
+                </div>
+                <div class="d-flex pull-right">
+                </div>
+                <div class="table-responsive pt-3">
+                  <table class="table" id="t_deduction" style="width:100%"> 
+                      <th>Date</th>
+                      <th>Type</th>
+                      <th>Amount</th>
+                      <th>Note</th>
+                      <th></th>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
     </div>
 
     <div class="row">
-      <div class="col-lg-6">
-        <div class="block">
-          <div class="d-flex pull-left">
-            <h4 class="title pr-2 pb-2 pt-2">Addtional</h4>
-          </div>
-          <div class="d-flex pull-right">
-            <a class="pr-2 pb-2 pt-2" href="create/payroll-additional/<?php echo $payroll_id; ?>"><button class="btn btn-primary btn-sm"><i class="fa fa-plus text-dark"></i></button></a>
-          </div>
-          <div class="d-flex pull-right">
-          </div>
-          <div class="table-responsive pt-3">
-            <table class="table" id="t_additional" style="width:100%"> 
-                <th>Date</th>
-                <th>Type</th>
-                <th>Amount</th>
-                <th>Note</th>
-                <th></th>
-            </table>
-          </div>
-        </div>
-      </div>
 
     
-      <div class="col-lg-6">
-        <div class="block">
-          <div class="d-flex pull-left">
-            <h4 class="title pr-2 pb-2 pt-2">Deduction</h4>
-          </div>
-          <div class="d-flex pull-right">
-          <a class="pr-2 pb-2 pt-2" href="create/payroll-deduction/<?php echo $payroll_id; ?>"><button class="btn btn-primary btn-sm"><i class="fa fa-plus text-dark"></i></button></a>
-          </div>
-          <div class="d-flex pull-right">
-          </div>
-          <div class="table-responsive pt-3">
-            <table class="table" id="t_deduction" style="width:100%"> 
-                <th>Date</th>
-                <th>Type</th>
-                <th>Amount</th>
-                <th>Note</th>
-                <th></th>
-            </table>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
