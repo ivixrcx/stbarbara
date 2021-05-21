@@ -73,10 +73,16 @@ class Payroll extends CI_Controller {
 		$data['title'] = 'Payroll';
 		$data['nav_payroll'] = 'active';
 		$data['login_data'] = $this->session->userdata('login_data');
+		$data['cash_advance'] = $this->payroll_model->get_cash_advance( $staff_id );
+		$total_cash_advance = $this->payroll_model->get_total_cash_advance( $staff_id )[0]->total;
+		$ca_paid= $this->payroll_model->get_deducted_cash_advance( $staff_id )[0]->ca_paid;
+		$data['total_cash_advance'] = $total_cash_advance;
+		$data['ca_balance'] = intval($total_cash_advance) - intval($ca_paid);
 		$data['staff_id'] = $staff_id;
 		$data['script'] = array(
 			'./scripts/deletion.js',
-			'./scripts/payroll_list.js'
+			'./scripts/payroll_list.js',
+			'./scripts/payroll_cash_advance_list.js'
 		);
 
 		$this->load->view( 'page-frame', $data );
@@ -343,4 +349,66 @@ class Payroll extends CI_Controller {
 		$this->dompdf->stream("Payslip", array("Attachment" => 0));
 	}
     
+	// CASH ADVANCE
+	public function create_cash_advance_view($staff_id)
+	{
+		$data = array();
+		$data['title'] = 'Add Cash Advance';
+		$data['nav_payroll'] = 'active';
+		$data['login_data'] = $this->session->userdata('login_data');
+		$data['staff_id'] = $staff_id;
+		$data['script'] = './scripts/create_payroll_cash_advance.js';
+		
+		$this->load->view( 'page-frame', $data  );
+		$this->load->view( 'create_payroll_cash_advance', $data );
+		$this->load->view( 'page-frame-footer', $data );
+	}
+
+	public function create_cash_advance_process()
+	{		
+		$this->API->ajax_only();
+
+		$staff_id = $this->input->post('staff_id');
+		$date = $this->input->post('date');
+		$amount = $this->input->post('amount');
+		$note = $this->input->post('note');
+
+		$delete = $this->payroll_model->create_cash_advance( $staff_id, $date, $amount , $note );
+
+		if($delete){
+			$this->API->emit_json( true );
+		}
+		else{
+			// error logs
+			$this->API->emit_json( 'Error: delete' );
+		}
+	}
+
+	public function cash_advance_list()
+	{
+		$this->API->ajax_only();
+
+		$staff_id = $_POST['staff_id'];
+
+		$list = $this->payroll_model->get_cash_advance($staff_id);
+
+		$this->API->emit_json( $list );
+	}
+
+	public function delete_cash_advance()
+	{		
+		$this->API->ajax_only();
+
+		$cash_advance_id = $this->input->post('cash_advance_id');
+
+		$delete = $this->payroll_model->delete_cash_advance( $cash_advance_id );
+
+		if($delete){
+			$this->API->emit_json( true );
+		}
+		else{
+			// error logs
+			$this->API->emit_json( 'Error: delete' );
+		}
+	}
 }

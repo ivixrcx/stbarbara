@@ -165,6 +165,7 @@ $route['create/payroll-additional/(:num)'] = 'payroll/create_addition_view/$1';
 $route['create/payroll-deduction/(:num)'] = 'payroll/create_deduction_view/$1';
 $route['create/payroll/(:num)'] = 'payroll/create_view/$1';
 $route['update/payroll/(:num)'] = 'payroll/update_view/$1';
+$route['create/payroll-cash-advance/(:num)'] = 'payroll/create_cash_advance_view/$1';
 
 // client
 $route['clients'] = 'client/index';

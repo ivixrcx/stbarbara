@@ -171,4 +171,58 @@ class Payroll_model extends CI_Model {
 
 		// return $result;
 	}
+
+	// CASH ADVANCE
+	public function create_cash_advance( $staff_id, $date, $amount , $note )
+	{
+		$data = array(
+			'staff_id'=> $staff_id,
+			'date'=> $date,
+			'amount'=> $amount,
+			'note'=> $note,
+		);
+
+		$this->db->insert( 'cash_advance', $data );		
+		return $this->db->affected_rows();
+	}
+
+	public function get_cash_advance( $staff_id )
+	{
+		return $this->db->select( '*' )
+		->from( 'cash_advance' )
+		->where( 'cash_advance.staff_id', $staff_id )
+		->where( 'cash_advance.status_id', 1 )
+		->get()->result();
+	}
+
+	public function delete_cash_advance($cash_advance_id)
+	{
+		$data  = array( 'status_id' => 2 );
+		$where = array( 'cash_advance.cash_advance_id' => $cash_advance_id);
+
+		$this->db->update( 'cash_advance', $data, $where );
+		return $this->db->affected_rows();
+	}
+
+	public function get_total_cash_advance( $staff_id )
+	{
+		return $this->db->select( 'SUM(`amount`) total' )
+		->from( 'cash_advance' )
+		->where( 'cash_advance.staff_id', $staff_id )
+		->where( 'cash_advance.status_id', 1 )
+		->get()->result();
+	}
+
+	public function get_deducted_cash_advance( $staff_id )
+	{
+		return $this->db->select( 'SUM(deduction.amount) ca_paid' )
+		->from( 'staff' )
+		->join('payroll', 'payroll.staff_id=staff.staff_id', 'left')
+		->join('deduction', 'deduction.payroll_id=payroll.payroll_id', 'left')
+		->where( 'deduction.deduction_type_id', 13 )
+		->where( 'staff.staff_id', $staff_id )
+		->where( 'deduction.status_id', 1 )
+		->get()->result();
+	}
+	
 }
