@@ -12,10 +12,12 @@ class Staff_model extends CI_Model {
 
 	public function list()
 	{
-		return $this->db->select( 'staff.*, status.name AS status_name' )
-		->from( 'staff')
-		->join( 'status', 'status.status_id=staff.status_id', 'left' )
-		->get()->result();
+		return $this->SSP->table( 'staff' )
+		->column( 'staff.*')
+		->column( 'status.name', 'status_name')
+		->join( 'status', 'status_id', 'staff')
+		->where( 'staff.status_id', 1 )
+		->output();
 	}
 
 	public function get_staff( $staff_id )

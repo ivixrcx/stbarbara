@@ -11,16 +11,13 @@ class Project_model extends CI_Model {
 	}
 
 	public function list($status_id="1")
-	{
-		$list = $this->db->select( 'project.*, status.name as status_name' )
-		->from( 'project')
-		->join( 'status', 'status.status_id=project.status_id', 'left');
-
-		if(!empty($status_id)){
-			$list->where( 'project.status_id', $status_id );
-		}
-
-		return $list->get()->result();
+	{	
+		return $this->SSP->table( 'project' )
+		->column( 'project.*')
+		->column( 'status.name', 'status_name')
+		->join( 'status', 'status_id', 'project')
+		->where( 'project.status_id', $status_id )
+		->output();
 	}
 
 	public function create( $name, $total_area, $total_units, $location)

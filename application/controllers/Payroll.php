@@ -46,9 +46,7 @@ class Payroll extends CI_Controller {
 
 		$staff_id = $_POST['staff_id'];
 
-		$list = $this->payroll_model->list($staff_id);
-
-		$this->API->emit_json( $list );
+		$this->payroll_model->list($staff_id);
 	}
 
 	public function list_view()
@@ -389,10 +387,8 @@ class Payroll extends CI_Controller {
 		$this->API->ajax_only();
 
 		$staff_id = $_POST['staff_id'];
-
-		$list = $this->payroll_model->get_cash_advance($staff_id);
-
-		$this->API->emit_json( $list );
+		
+		$this->payroll_model->get_cash_advance_ss($staff_id);
 	}
 
 	public function delete_cash_advance()

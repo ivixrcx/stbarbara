@@ -31,10 +31,7 @@ class Staff extends CI_Controller {
 	public function list()
 	{
 		$this->API->ajax_only();
-
-		$list = $this->staff_model->list();
-
-		$this->API->emit_json( $list );
+		$this->staff_model->list();
 	}
 
 	public function list_view()
@@ -177,7 +174,7 @@ class Staff extends CI_Controller {
 		}
 	}
 
-	public function delete_staff_process()
+	public function delete()
 	{
 		$this->API->ajax_only();
 

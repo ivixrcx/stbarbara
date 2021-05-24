@@ -50,7 +50,7 @@
               </thead> 
             </table>
             <hr/>
-            <table id="list_of_ca" class="table"> 
+            <table class="table"> 
               <thead> 
                 <tr>
                   <td>Total Cash Advance:</td>

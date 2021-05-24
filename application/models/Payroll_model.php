@@ -12,12 +12,13 @@ class Payroll_model extends CI_Model {
 
 	public function list($staff_id)
 	{
-		return $this->db->select( 'payroll.*, DATE_FORMAT(payroll.paydate, "%Y %M %d") pay_date, staff.full_name' )
-		->from( 'payroll')
-		->join('staff','staff.staff_id=payroll.staff_id','left')
-		->where( 'payroll.staff_id', $staff_id )
+		return $this->SSP->table( 'payroll' )
+		->column( 'payroll.*')
+		->column( 'DATE_FORMAT(payroll.paydate, "%Y %M %d")', 'pay_date')
+		->column( 'staff.full_name')
+		->join( 'staff', 'staff_id', 'payroll')
 		->where( 'payroll.status_id', 1 )
-		->get()->result();
+		->output();
 	}
 
 	public function get_payroll( $payroll_id )
@@ -193,6 +194,15 @@ class Payroll_model extends CI_Model {
 		->where( 'cash_advance.staff_id', $staff_id )
 		->where( 'cash_advance.status_id', 1 )
 		->get()->result();
+	}
+
+	public function get_cash_advance_ss( $staff_id )
+	{		
+		return $this->SSP->table( 'cash_advance' )
+		->column( 'cash_advance.*' )
+		->where( 'cash_advance.staff_id', $staff_id )
+		->where( 'cash_advance.status_id', 1 )
+		->output();
 	}
 
 	public function delete_cash_advance($cash_advance_id)

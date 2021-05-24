@@ -7,7 +7,7 @@
             <a class="pr-2 pb-2 pt-2" href="create/house"><button class="btn btn-primary btn-sm">Add House</button></a>
           </div>
           <div class="table-responsive pt-3">
-            <table class="table" style="width:100%"> 
+            <table id="list_houses" class="table"> 
               <thead> 
                 <tr> 
                   <th>#</th>
@@ -18,7 +18,6 @@
                   <th></th>
                 </tr> 
               </thead> 
-              <tbody id="list_houses"></tbody>
             </table>
           </div>
         </div>
