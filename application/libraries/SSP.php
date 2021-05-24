@@ -464,7 +464,13 @@ class SSP
 	{
 		if(empty($alias)){
 			$this->__columns[] = $column_name;
-			$this->__column[] = " `" . str_replace('.', '`.`', $column_name) . "` ";
+
+			if(strpos($column_name, '*') !== false){
+				$this->__column[] = " `" . str_replace('.', '`.', $column_name);
+			}
+			else{
+				$this->__column[] = " `" . str_replace('.', '`.`', $column_name) . "` ";
+			}
 		}
 		else{
 			$this->__alias[] = $alias;
