@@ -18,6 +18,7 @@ class Payroll_model extends CI_Model {
 		->column( 'staff.full_name')
 		->join( 'staff', 'staff_id', 'payroll')
 		->where( 'payroll.status_id', 1 )
+		->order_by('paydate', 'desc')
 		->output();
 	}
 
@@ -193,6 +194,7 @@ class Payroll_model extends CI_Model {
 		->from( 'cash_advance' )
 		->where( 'cash_advance.staff_id', $staff_id )
 		->where( 'cash_advance.status_id', 1 )
+		->order_by('date','desc')
 		->get()->result();
 	}
 
@@ -202,6 +204,7 @@ class Payroll_model extends CI_Model {
 		->column( 'cash_advance.*' )
 		->where( 'cash_advance.staff_id', $staff_id )
 		->where( 'cash_advance.status_id', 1 )
+		->order_by('date','desc')
 		->output();
 	}
 
