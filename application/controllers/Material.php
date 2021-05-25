@@ -23,21 +23,16 @@ class Material extends CI_Controller {
 	{
 		$this->API->ajax_only();
 
-		$this->SSP->table( 'material' )
-		->column( 'material_id' )
-		->column( 'material.particular', 'material_particular' )
-		->column( 'unit' )
-		->column( 'no_of_stocks' )
-		->column( 'last_stock_date' )
-		->column( 'stock_level' )
-		->column( 'material.material_category_id' )
-		->column( 'material.status_id' )
-		->column( 'material_category.particular', 'material_category_particular' )
-		->column( 'status.name', 'status_name' )
-		->join( 'material_category', 'material_category.material_category_id=material.material_category_id','left' )
-		->join( 'status', 'status.status_id=material.status_id', 'left' )
-		->where( 'material.status_id', 1 ) // active
-		->output();
+		$data = $this->material_model->list();
+
+		return $this->API->emit_json( $data );
+	}
+
+	public function list_ss()
+	{
+		$this->API->ajax_only();
+		
+		$this->material_model->list_ss();
 	}
 
 	public function search()

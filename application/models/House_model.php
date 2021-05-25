@@ -19,6 +19,16 @@ class House_model extends CI_Model {
 		->get()->result();
 	}
 
+	public function list_ss()
+	{		
+		return $this->SSP->table( 'house' )
+		->column( 'house.*' ) 
+		->column( 'status.name', 'status_name' )
+		->join( 'status', 'status_id', 'house' )
+		->where( 'house.status_id', '1' )
+		->output();
+	}
+
 	public function create( $name, $lot_area, $floor_area, $suggested_price )
 	{
 		$data = array(

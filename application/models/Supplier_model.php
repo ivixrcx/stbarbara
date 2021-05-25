@@ -19,6 +19,16 @@ class Supplier_model extends CI_Model {
 		->get()->result();
 	}
 
+	public function list_ss()
+	{		
+		return $this->SSP->table( 'supplier' )
+		->column( 'supplier.*' ) 
+		->column( 'status.name', 'status_name' )
+		->join( 'status', 'status_id', 'supplier' )
+		->where( 'supplier.status_id', '1' )
+		->output();
+	}
+
 
 	public function create( $name, $description, $address, $contact_no )
 	{

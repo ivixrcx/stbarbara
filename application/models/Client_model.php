@@ -19,6 +19,16 @@ class Client_model extends CI_Model {
 		->get()->result();
 	}
 
+	public function list_ss()
+	{
+		return $this->SSP->table( 'client' )
+		->column( 'client.*' ) 
+		->column( 'status.name', 'status_name' )
+		->join( 'status', 'status_id', 'client' )
+		->where( 'client.status_id', '1' )
+		->output();
+	}
+
 	public function get( $client_id )
 	{
 		return $this->db->select( '*' )

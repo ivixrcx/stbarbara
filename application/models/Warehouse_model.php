@@ -19,6 +19,16 @@ class Warehouse_model extends CI_Model {
 		->get()->result();
 	}
 
+	public function list_ss()
+	{
+		return $this->SSP->table( 'warehouse' )
+		->column( 'warehouse.*' ) 
+		->column( 'status.name', 'status_name' )
+		->join( 'status', 'status_id', 'warehouse' )
+		->where( 'warehouse.status_id', '1' )
+		->output();
+	}
+
 	public function get( $warehouse_id )
 	{
 		return $this->db->select( 'warehouse.*, status.name as status_name' )

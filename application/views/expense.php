@@ -13,7 +13,7 @@
             <a class="pr-2 pb-2 pt-2" href="create/expense"><button class="btn btn-primary btn-sm">Add</button></a>
           </div>
           <div class="table-responsive pt-3">
-            <table class="table" style="width:100%"> 
+            <table id="list" class="table" style="width:100%"> 
               <thead> 
                 <tr> 
                   <th>#</th>
@@ -24,7 +24,6 @@
                   <th></th>
                 </tr> 
               </thead> 
-              <tbody id="list"></tbody>
             </table>
           </div>
         </div>

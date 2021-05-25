@@ -28,13 +28,23 @@ class Warehouse extends CI_Controller {
 		return $this->API->emit_json( $data );
 	}
 
+	public function list_ss()
+	{
+		$this->API->ajax_only();
+
+		$this->warehouse_model->list_ss();
+	}
+
 	public function list_view()
 	{
 		$data = array();
 		$data['title'] = 'Warehouses';
 		$data['nav_warehouses'] = 'active';
 		$data['login_data'] = $this->session->userdata('login_data');
-		$data['script'] = './scripts/warehouse.js';
+		$data['script'] = array(
+			'./scripts/deletion.js',
+			'./scripts/warehouse.js'
+		);
 
 		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'warehouse', $data );

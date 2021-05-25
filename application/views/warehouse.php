@@ -7,7 +7,7 @@
             <a class="pr-2 pb-2 pt-2" href="create/warehouse"><button class="btn btn-primary btn-sm">Add Warehouse</button></a>
           </div>
           <div class="table-responsive pt-3">
-            <table class="table responsive no-wrap"> 
+            <table id="list_warehouses" class="table responsive no-wrap"> 
               <thead> 
                 <tr> 
                   <th>Name</th>
@@ -16,7 +16,6 @@
                   <th></th>
                 </tr> 
               </thead> 
-              <tbody id="list_warehouses"></tbody>
             </table>
           </div>
         </div>

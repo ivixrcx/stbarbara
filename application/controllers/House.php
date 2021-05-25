@@ -44,6 +44,13 @@ class House extends CI_Controller {
 		return $this->API->emit_json( $data );
 	}
 
+	public function list_ss()
+	{
+		$this->API->ajax_only();
+
+		$this->house_model->list_ss();
+	}
+
 	public function create_view()
 	{
 		$data = array();

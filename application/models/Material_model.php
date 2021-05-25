@@ -35,11 +35,25 @@ class Material_model extends CI_Model {
 
 	public function list()
 	{
-		return $this->db->select( 'material.*, status.name as status_name' )
+		return $this->db->select( 'material.*, material.particular material_particular, material_category.particular material_category_particular, status.name as status_name' )
 		->from( 'material' )
+		->join( 'material_category', 'material_category.material_category_id=material.material_category_id','left' )
 		->join( 'status', 'status.status_id=material.status_id', 'left' )
 		->where( 'material.status_id', 1 )
 		->get()->result();
+	}
+
+	public function list_ss()
+	{
+		return $this->SSP->table( 'material' )
+		->column( 'material.*' )
+		->column( 'material.particular', 'material_particular' )
+		->column( 'material_category.particular', 'material_category_particular' )
+		->column( 'status.name', 'status_name' )
+		->join( 'material_category', 'material_category_id', 'material' )
+		->join( 'status', 'status_id', 'material' )
+		->where( 'material.status_id', 1 ) // active
+		->output();
 	}
 
 	public function get( $material_id )

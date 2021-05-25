@@ -38,6 +38,13 @@ class Client extends CI_Controller {
 		$this->API->emit_json( $list );
 	}
 
+	public function list_ss()
+	{
+		$this->API->ajax_only();
+
+		$list = $this->client_model->list_ss();
+	}
+
 	public function list_view()
 	{
 		$data = array();
