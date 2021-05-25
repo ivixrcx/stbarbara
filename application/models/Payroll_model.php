@@ -10,16 +10,17 @@ class Payroll_model extends CI_Model {
 		$this->API = new API();
 	}
 
-	public function list($staff_id)
+	public function list( $staff_id )
 	{
 		return $this->SSP->table( 'payroll' )
 		->column( 'payroll.*')
 		->column( 'DATE_FORMAT(payroll.paydate, "%Y %M %d")', 'pay_date')
 		->column( 'staff.full_name')
 		->join( 'staff', 'staff_id', 'payroll')
+		->where( 'payroll.staff_id', $staff_id )
 		->where( 'payroll.status_id', 1 )
 		->order_by('paydate', 'desc')
-		->output();
+		->output(1);
 	}
 
 	public function get_payroll( $payroll_id )
