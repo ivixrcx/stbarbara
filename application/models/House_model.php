@@ -22,7 +22,11 @@ class House_model extends CI_Model {
 	public function list_ss()
 	{		
 		return $this->SSP->table( 'house' )
-		->column( 'house.*' ) 
+		->column( 'house.house_id' ) 
+		->column( 'house.name' ) 
+		->column( 'house.lot_area' ) 
+		->column( 'house.floor_area' ) 
+		->column( 'house.suggested_price' ) 
 		->column( 'status.name', 'status_name' )
 		->join( 'status', 'status_id', 'house' )
 		->where( 'house.status_id', '1' )

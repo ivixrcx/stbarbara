@@ -46,7 +46,11 @@ class Material_model extends CI_Model {
 	public function list_ss()
 	{
 		return $this->SSP->table( 'material' )
-		->column( 'material.*' )
+		->column( 'material.material_id' )
+		->column( 'material.unit' )
+		->column( 'material.no_of_stocks' )
+		->column( 'material.last_stock_date' )
+		->column( 'material.stock_level' )
 		->column( 'material.particular', 'material_particular' )
 		->column( 'material_category.particular', 'material_category_particular' )
 		->column( 'status.name', 'status_name' )

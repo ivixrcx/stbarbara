@@ -13,7 +13,11 @@ class Project_model extends CI_Model {
 	public function list($status_id="1")
 	{	
 		return $this->SSP->table( 'project' )
-		->column( 'project.*')
+		->column( 'project.project_id')
+		->column( 'project.name')
+		->column( 'project.total_area')
+		->column( 'project.total_units')
+		->column( 'project.location')
 		->column( 'status.name', 'status_name')
 		->join( 'status', 'status_id', 'project')
 		->where( 'project.status_id', $status_id )

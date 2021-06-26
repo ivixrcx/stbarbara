@@ -22,7 +22,10 @@ class Warehouse_model extends CI_Model {
 	public function list_ss()
 	{
 		return $this->SSP->table( 'warehouse' )
-		->column( 'warehouse.*' ) 
+		->column( 'warehouse.warehouse_id' ) 
+		->column( 'warehouse.name' ) 
+		->column( 'warehouse.location' ) 
+		->column( 'warehouse.contact_no' ) 
 		->column( 'status.name', 'status_name' )
 		->join( 'status', 'status_id', 'warehouse' )
 		->where( 'warehouse.status_id', '1' )

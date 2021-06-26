@@ -22,7 +22,11 @@ class Supplier_model extends CI_Model {
 	public function list_ss()
 	{		
 		return $this->SSP->table( 'supplier' )
-		->column( 'supplier.*' ) 
+		->column( 'supplier.supplier_id' ) 
+		->column( 'supplier.name' ) 
+		->column( 'supplier.description' ) 
+		->column( 'supplier.address' ) 
+		->column( 'supplier.contact_no' ) 
 		->column( 'status.name', 'status_name' )
 		->join( 'status', 'status_id', 'supplier' )
 		->where( 'supplier.status_id', '1' )

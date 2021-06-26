@@ -10,7 +10,6 @@
             <table id="list_suppliers" class="table" style="width:100%"> 
               <thead> 
                 <tr> 
-                  <th>#</th>
                   <th>Name</th>
                   <th>Description</th>
                   <th>Address</th>
