@@ -104,7 +104,7 @@ class Warehouse extends CI_Controller {
 		}
 	}
 
-	public function update_view( /*$warehouse_id*/ )
+	public function update_view( $warehouse_id )
 	{
 		$data = array();
 		$data['title'] = 'Update Warehouse';
@@ -112,6 +112,7 @@ class Warehouse extends CI_Controller {
 		$data['login_data'] = $this->session->userdata('login_data');
 		$data['script'] = './scripts/update_warehouse.js';
 		$data['warehouse_id'] = $warehouse_id;
+		$data['warehouse'] = $this->warehouse_model->get( $warehouse_id );
 
 		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'update_warehouse', $data );
