@@ -34,9 +34,10 @@ class SSP
 	private $records_filtered = 0;
 
 
-	private $__table	= "";
+	private $__table			= "";
 	private $__column	= array();
 	private $__columns	= array();
+	private $__columns_search 	= array();
 	private $__join 	= array();
 	private $__where 	= array();
 	private $__filter 	= array();
@@ -475,6 +476,7 @@ class SSP
 		else{
 			$this->__alias[] = $alias;
 			$this->__columns[] = $alias;
+			$this->__columns_search[] = $column_name;
 			$this->__column[] = " " . str_replace('.', '.', $column_name) . " AS '$alias' ";
 		}
 
@@ -550,7 +552,7 @@ class SSP
 
 		if(empty($search)) return;
 
-		foreach ($this->__columns as $key => $column_name) {
+		foreach ($this->__columns_search as $key => $column_name) {
 			if(in_array($column_name, $this->__alias)){
 				$this->__filter[] = " '" . str_replace('.', '\'.\'', $column_name) . "'  LIKE '%$search%' ";
 			}
