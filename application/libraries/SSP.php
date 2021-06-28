@@ -465,6 +465,7 @@ class SSP
 	{
 		if(empty($alias)){
 			$this->__columns[] = $column_name;
+			$this->__columns_search[] = $column_name;
 
 			if(strpos($column_name, '*') !== false){
 				$this->__column[] = " `" . str_replace('.', '`.', $column_name) . " ";
