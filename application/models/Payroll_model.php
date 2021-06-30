@@ -20,7 +20,30 @@ class Payroll_model extends CI_Model {
 		->where( 'payroll.staff_id', $staff_id )
 		->where( 'payroll.status_id', 1 )
 		->order_by('paydate', 'desc')
-		->output(1);
+		->output();
+	}
+
+	public function list_ss( $staff_id )
+	{
+		return $this->SSP->table( 'payroll' )
+		->column( 'payroll.payroll_id')
+		->column( 'payroll.staff_id')
+		->column( 'payroll.project_id')
+		->column( 'payroll.paydate')
+		->column( 'payroll.daily_compensation')
+		->column( 'payroll.no_of_days')
+		->column( 'payroll.basepay')
+		->column( 'payroll.net_pay')
+		->column( 'payroll.total_additionals')
+		->column( 'payroll.total_deductions')
+		->column( 'payroll.note')
+		// ->column( 'DATE_FORMAT(payroll.paydate, "%Y %M %d")', 'pay_date')
+		->column( 'staff.full_name')
+		->join( 'staff', 'staff_id', 'payroll')
+		->where( 'payroll.staff_id', $staff_id )
+		->where( 'payroll.status_id', 1 )
+		->order_by('paydate', 'desc')
+		->output();
 	}
 
 	public function get_payroll( $payroll_id )
@@ -202,7 +225,10 @@ class Payroll_model extends CI_Model {
 	public function get_cash_advance_ss( $staff_id )
 	{		
 		return $this->SSP->table( 'cash_advance' )
-		->column( 'cash_advance.*' )
+		->column( 'cash_advance.cash_advance_id' )
+		->column( 'cash_advance.date' )
+		->column( 'cash_advance.amount' )
+		->column( 'cash_advance.note' )
 		->where( 'cash_advance.staff_id', $staff_id )
 		->where( 'cash_advance.status_id', 1 )
 		->order_by('date','desc')

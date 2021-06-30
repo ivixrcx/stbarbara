@@ -32,14 +32,13 @@ $('#list_of_ca').DataTable({
     },
   },
   columns: [
-    {data: 'cash_advance_id'},
     {data: 'date'},
     {data: 'amount'},
     {data: 'note'},
   ],
   columnDefs: [
     { 
-      targets: 4,
+      targets: 3,
       render: function(data, type, row){
         let buttons = `<div class="d-flex justify-content-end">`;
         buttons += `<button class="pull-right btn btn-danger btn-sm ml-1 btndelete" data-cash_advance_id="${row['cash_advance_id']}"><i class="fa fa-remove text-dark"></i></button>`;

@@ -11,8 +11,7 @@
             <table id="list_of_payroll" class="table table-condensed table-striped table-hover"> 
               <thead> 
                 <tr> 
-                  <th>#</th>
-                  <th>Pay Date</th>
+                  <th>Pay Date (y-m-d)</th>
                   <th>Base Pay</th>
                   <th>Net Pay</th>
                   <th>No. Of Days</th>
@@ -41,8 +40,7 @@
             <table id="list_of_ca" class="table table-condensed table-striped table-hover"> 
               <thead> 
                 <tr> 
-                  <th>#</th>
-                  <th>Date</th>
+                  <th>Date (y-m-d)</th>
                   <th>Amount</th>
                   <th>Note</th>
                   <th></th>

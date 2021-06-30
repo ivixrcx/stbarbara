@@ -49,6 +49,15 @@ class Payroll extends CI_Controller {
 		$this->payroll_model->list($staff_id);
 	}
 
+	public function list_ss()
+	{
+		$this->API->ajax_only();
+
+		$staff_id = $_POST['staff_id'];
+
+		$this->payroll_model->list_ss($staff_id);
+	}
+
 	public function list_view()
 	{
 		$data = array();

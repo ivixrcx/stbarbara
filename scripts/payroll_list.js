@@ -7,7 +7,7 @@ $('#list_of_payroll').DataTable({
   processing: true,
   serverSide: true,
   ajax: {
-    url: 'payroll/list',
+    url: 'payroll/list_ss',
     type: 'post',
     data: { staff_id: staff_id },
     complete: function(res){
@@ -32,8 +32,7 @@ $('#list_of_payroll').DataTable({
     },
   },
   columns: [
-    {data: 'payroll_id'},
-    {data: 'pay_date'},
+    {data: 'paydate'},
     {data: 'basepay'},
     {data: 'net_pay'},
     {data: 'no_of_days'},
@@ -43,7 +42,7 @@ $('#list_of_payroll').DataTable({
   ],
   columnDefs: [
     { 
-      targets: 7,
+      targets: 6,
       render: function(data, type, row){
         let buttons = `<div class="d-flex justify-content-end">`;
         buttons += `<a href="view/payroll-details/${row['payroll_id']}" class="btn btn-primary btn-sm mr-2"><i class="fa fa-eye text-dark"></i></a>`;
