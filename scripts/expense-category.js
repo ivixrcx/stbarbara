@@ -3,11 +3,11 @@
 
 /* global declarations */
 
-$('table').DataTable({
+$('#list').DataTable({
   processing: true,
   serverSide: true,
   ajax: {
-    url: 'expensecategory/list_ssp',
+    url: 'expensecategory/list',
     type: 'post',
     complete: function(res){
       new deletion({
@@ -23,12 +23,12 @@ $('table').DataTable({
     },
   },
   columns: [
-    {data: 'description'},
-    {data: null}
+    {data: 'expense_category_id'},
+    {data: 'category_name'},
   ],
   columnDefs: [
     { 
-      targets: 1,
+      targets: 2,
       render: function(data, type, row){
         return `
         <div class="d-flex justify-content-end">

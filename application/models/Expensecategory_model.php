@@ -18,6 +18,17 @@ class Expensecategory_model extends CI_Model {
 		->get()->result();
 	}
 
+	public function list_ss()
+	{		
+		return $this->SSP->table( 'expense_category' )
+		->column( 'expense_category.expense_category_id')
+		->column( 'expense_category.category_name')
+		->column( 'expense_category.status_id')
+		->where( 'expense_category.status_id', 1 )
+		->order_by('expense_category.expense_category_id', 'ASC')
+		->output();
+	}
+
 	public function get( $id )
 	{
 		return $this->db->select( '*' )
@@ -29,7 +40,7 @@ class Expensecategory_model extends CI_Model {
 	public function create( $description )
 	{
 		$data = array(
-			'description' 	=> $description,
+			'category_name' => $description,
 			'status_id'	 	=> 1 // active
 		);
 
@@ -40,7 +51,7 @@ class Expensecategory_model extends CI_Model {
 	public function update( $id, $description )
 	{
 		$data = array(
-			'description' 	=> $description
+			'category_name' => $description
 		);
 
 		$where = array( 'expense_category_id' => $id );
@@ -51,9 +62,10 @@ class Expensecategory_model extends CI_Model {
 
 	public function delete( $id )
 	{
+		$data  = array( 'status_id' => 2 );
 		$where = array( 'expense_category_id' => $id);
 
-		$this->db->delete( 'expense_category', $where );
-		return true;
+		$this->db->update( 'expense_category', $data, $where );
+		return $this->db->affected_rows();
 	}
 }

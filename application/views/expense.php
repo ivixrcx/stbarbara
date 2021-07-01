@@ -16,11 +16,12 @@
             <table id="list" class="table" style="width:100%"> 
               <thead> 
                 <tr> 
-                  <th>#</th>
-                  <th>Category</th>
-                  <th>Item</th>
+                  <th>Date</th>
+                  <th>OR#</th>
                   <th>Description</th>
+                  <th>Category</th>
                   <th>Amount</th>
+                  <th>Note</th>
                   <th></th>
                 </tr> 
               </thead> 

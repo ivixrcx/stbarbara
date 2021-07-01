@@ -39,9 +39,7 @@ class Expense extends CI_Controller {
 	{
 		$this->API->ajax_only();
 
-		$data = $this->expense_model->list();
-
-		return $this->API->emit_json( $data );
+		$data = $this->expense_model->list_ss();
 	}
 
 	public function create_view()

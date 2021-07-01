@@ -2,7 +2,7 @@
 
 /* global declarations */
 
-$('form').validate({
+$('form').validate({  
   rules: {
     expense_category_id: {
       required: true,
@@ -10,7 +10,15 @@ $('form').validate({
     description: {
       required: true,
       minlength: 3,
-      maxlength: 100,
+      maxlength: 45,
+    },
+
+    messages: {
+      description: {
+        required: "This field is required",
+        minlength: "Max of 3 characters",
+        maxlength: "Max of 45 characters",
+      },
     },
   },
 

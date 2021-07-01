@@ -39,9 +39,7 @@ class Expensecategory extends CI_Controller {
 	{
 		$this->API->ajax_only();
 
-		$data = $this->Expensecategory_model->list();
-
-		return $this->API->emit_json( $data );
+		$data = $this->Expensecategory_model->list_ss();
 	}
 
 	public function list_ssp()
@@ -58,7 +56,7 @@ class Expensecategory extends CI_Controller {
 	public function create_view()
 	{
 		$data = array();
-		$data['title'] = 'Add Expense';
+		$data['title'] = 'Add Expense Category';
 		$data['nav_expense'] = 'active';
 		$data['login_data'] = $this->session->userdata('login_data');
 		$data['script'] = './scripts/create_expense_category.js';
@@ -96,7 +94,7 @@ class Expensecategory extends CI_Controller {
 		if(empty($get)) exit('No Data.');
 		
 		$data['expense_category_id'] = $get[0]->expense_category_id;
-		$data['description'] = $get[0]->description;
+		$data['description'] = $get[0]->category_name;
 
 		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'update_expense_category', $data );
@@ -107,8 +105,8 @@ class Expensecategory extends CI_Controller {
 	{
 		$this->API->ajax_only();
 
-		$expense_category_id		= $this->input->post( 'expense_category_id' );
-		$description	= $this->input->post( 'description' );
+		$expense_category_id	= $this->input->post( 'expense_category_id' );
+		$description			= $this->input->post( 'description' );
 
 		$update = $this->Expensecategory_model->update( $expense_category_id, $description );
 

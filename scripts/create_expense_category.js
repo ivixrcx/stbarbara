@@ -3,17 +3,19 @@
 /* global declarations */
 
 $('#form').validate({
+  rules: {
     description: {
-    item: {
       required: true,
-      min: 50,
-    }
-  },
+      minlength: 3,
+      maxlength: 45,
+    },
 
-  messages: {
-    description: {
-      required: "This field is required",
-      maxlength: "Max of 50 characters",
+    messages: {
+      description: {
+        required: "This field is required",
+        minlength: "Max of 3 characters",
+        maxlength: "Max of 45 characters",
+      },
     },
   },
 

@@ -10,17 +10,19 @@ class Expense_model extends CI_Model {
 		$this->API = new API();
 	}
 
-	public function list()
+	public function list_ss()
 	{		
 		return $this->SSP->table( 'expense' )
 		->column( 'expense.expense_id')
-		->column( 'expense.amount')
-		->column( 'expense.description')
-		->column( 'expense_category.description', 'cat_desc')
-		->column( 'expense_item.description', 'item_desc')
+		->column( 'expense.date')
+		->column( 'expense.or_no')
+		->column( 'expense.expense_name')
+		->column( 'expense.total')
+		->column( 'expense.note')
+		->column( 'expense_category.category_name')
 		->join( 'expense_category', 'expense_category_id', 'expense' )
-		->join( 'expense_item', 'expense_item_id', 'expense' )
 		->where( 'expense.status_id', 1 )
+		->order_by('expense.date', 'DESC')
 		->output();
 	}
 
@@ -63,9 +65,10 @@ class Expense_model extends CI_Model {
 
 	public function delete( $id )
 	{
+		$data  = array( 'status_id' => 2 );
 		$where = array( 'expense_id' => $id);
 
-		$this->db->delete( 'expense', $where );
-		return true;
+		$this->db->update( 'expense', $data, $where );
+		return $this->db->affected_rows();
 	}
 }

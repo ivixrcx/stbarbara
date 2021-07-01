@@ -29,15 +29,16 @@ $('#list').DataTable({
     },
   },
   columns: [
-    {data: 'expense_id'},
-    {data: 'cat_desc'},
-    {data: 'item_desc'},
-    {data: 'description'},
-    {data: 'amount'},
+    {data: 'date'},
+    {data: 'or_no'},
+    {data: 'expense_name'},
+    {data: 'category_name'},
+    {data: 'total'},
+    {data: 'note'},
   ],
   columnDefs: [
     { 
-      targets: 5,
+      targets: 6,
       render: function(data, type, row){
         let buttons = `<div class="d-flex justify-content-end">`;
         buttons += `<a href="view/expense/${row['expense_id']}" class="btn btn-primary btn-sm mr-2"><i class="fa fa-eye text-dark"></i></a>`;
