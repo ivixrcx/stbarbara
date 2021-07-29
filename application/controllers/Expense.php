@@ -48,7 +48,10 @@ class Expense extends CI_Controller {
 		$data['title'] = 'Add Expense';
 		$data['nav_expense'] = 'active';
 		$data['login_data'] = $this->session->userdata('login_data');
-		$data['script'] = './scripts/create_expense.js';
+		$data['script'] = array(
+			'./scripts/deletion.js',
+			'./scripts/create_expense.js'
+		);
 		
 		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'create_expense' );
