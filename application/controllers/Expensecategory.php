@@ -39,18 +39,16 @@ class Expensecategory extends CI_Controller {
 	{
 		$this->API->ajax_only();
 
-		$data = $this->Expensecategory_model->list_ss();
+		$data = $this->Expensecategory_model->list();
+
+		return $this->API->emit_json( $data );
 	}
 
-	public function list_ssp()
+	public function list_ss()
 	{
 		$this->API->ajax_only();
 
-		$this->SSP->table( 'expense_category' )
-		->column( 'expense_category_id' )
-		->column( 'description' )
-		->where( 'expense_category.status_id', 1 ) // active
-		->output();
+		$this->Expensecategory_model->list_ss();
 	}
 
 	public function create_view()

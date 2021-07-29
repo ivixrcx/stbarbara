@@ -59,12 +59,18 @@ class Expense extends CI_Controller {
 	{
 		$this->API->ajax_only();
 
-		$category_id  	= $this->input->post( 'category_id' );
-		$item_id  		= $this->input->post( 'item_id' );
-		$description 	= $this->input->post( 'description' );
-		$amount			= $this->input->post( 'amount' );
+		print_r($_POST);exit;
 
-		$create = $this->expense_model->create( $category_id, $item_id, $description, $amount );
+		$project_id  	= $this->input->post( 'project_id' );
+		$project_name  	= $this->input->post( 'project' );
+		$category_id  	= $this->input->post( 'category_id' );
+		$category_name	= $this->input->post( 'category' );
+		$item_id  		= $this->input->post( 'item_id' );
+		$item_name		= $this->input->post( 'item' );
+		$description 	= $this->input->post( 'description' );
+		$note 			= $this->input->post( 'note' );
+
+		$create = $this->expense_model->create( $project_id, $project_name, $category_id, $category_name, $item_id, $item_name, $description, $note );
 
 		if($create){
 			$this->API->emit_json( true );

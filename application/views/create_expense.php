@@ -6,6 +6,11 @@
           <form id="form" method="POST" style="font-size: 16px !important;">
             <div class="modal-body">
               <div class="form-group autocomplete">
+                <input type="hidden" id="project_id" name="project_id" placeholder="" autocomplete="off" class="form-control" readonly>
+                <label>Project <small class="text-secondary">(optional)</small></label>
+                <input type="text" id="project" name="project" placeholder="" autocomplete="off" class="form-control" >
+              </div>
+              <div class="form-group autocomplete">
                 <input type="hidden" id="category_id" name="category_id" placeholder="" autocomplete="off" class="form-control" required readonly>
                 <label>Category</label>
                 <input type="text" id="category" name="category" placeholder="" autocomplete="off" class="form-control" required>
@@ -20,8 +25,8 @@
                 <input type="text" id="description" name="description" placeholder="" autocomplete="off" class="form-control">
               </div>
               <div class="form-group">
-                <label>Amount</label>
-                <input type="number" id="amount" name="amount" step="1" placeholder="" autocomplete="off" class="form-control" required>
+                <label>Note</label>
+                <input type="text" id="note" name="note" placeholder="" autocomplete="off" class="form-control" required>
               </div>
               <div class="form-group">
                 <button type="reset" class="btn btn-danger">Reset</button>

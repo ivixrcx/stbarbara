@@ -12,7 +12,7 @@ class Expensecategory_model extends CI_Model {
 
 	public function list()
 	{
-		return $this->db->select( 'expense_category_id, description' )
+		return $this->db->select( 'expense_category_id, category_name' )
 		->from( 'expense_category')
 		->where( 'expense_category.status_id', 1 )
 		->get()->result();

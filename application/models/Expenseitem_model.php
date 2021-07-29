@@ -20,7 +20,7 @@ class Expenseitem_model extends CI_Model {
 
 	public function list_by_category($id)
 	{
-		return $this->db->select( 'expense_item.expense_item_id, expense_category.description AS category, expense_item.description' )
+		return $this->db->select( 'expense_item.expense_item_id, expense_category.category_name AS category, expense_item.item_name' )
 		->from( 'expense_item')
 		->join( 'expense_category', 'expense_category.expense_category_id=expense_item.expense_category_id', 'left' )
 		->where( 'expense_category.expense_category_id', $id )
@@ -41,7 +41,7 @@ class Expenseitem_model extends CI_Model {
 	{
 		$data = array(
 			'expense_category_id' 	=> $categoryId,
-			'description' 			=> $item,
+			'item_name' 			=> $item,
 			'status_id'				=> 1 // active
 		);
 

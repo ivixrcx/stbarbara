@@ -10,7 +10,15 @@ class Project_model extends CI_Model {
 		$this->API = new API();
 	}
 
-	public function list($status_id="1")
+	public function list()
+	{
+		return $this->db->select( 'project_id, name' )
+		->from( 'project')
+		->where( 'project.status_id', 1 )
+		->get()->result();
+	}
+
+	public function list_ss()
 	{	
 		return $this->SSP->table( 'project' )
 		->column( 'project.project_id')
@@ -20,7 +28,7 @@ class Project_model extends CI_Model {
 		->column( 'project.location')
 		->column( 'status.name', 'status_name')
 		->join( 'status', 'status_id', 'project')
-		->where( 'project.status_id', $status_id )
+		->where( 'project.status_id', 1 )
 		->output();
 	}
 

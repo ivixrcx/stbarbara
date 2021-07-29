@@ -36,15 +36,38 @@ class Expense_model extends CI_Model {
 		->get()->result();
 	}
 
-	public function create( $category_id, $item_id, $description, $amount )
+	public function create( $project_id, $project_name, $category_id, $category_name, $item_id, $item_name, $description, $note )
 	{
+
+		// check if item name exists in other category
+		$check = $this->db->select( 'COUNT(expense_item.expense_item_id)' )
+		->from( 'expense_item' );
+		// ->where( 'expense_item' );
+
+		// update item name first
+		$data = array(
+			''
+			
+		);
+		
+
 		$data = array(
 			'expense_category_id' 	=> $category_id,
 			'expense_item_id' 		=> $item_id,
 			'description' 			=> $description,
-			'amount'				=> $amount,
+			'note'					=> $note,
 			'status_id'				=> 1 // active
-		);
+		);		
+
+		if(!empty($project_id)){
+			$data['project_id'] = $project_id;
+		}
+
+		// create category if its empty
+		if(empty($category_id)){
+			// $this->db->insert( 'expense_category',['category_name' => $category_name );
+			// $item_id = item=
+		}
 
 		$this->db->insert( 'expense', $data );
 		return $this->db->affected_rows();

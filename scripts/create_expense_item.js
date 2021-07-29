@@ -60,7 +60,7 @@ $(function(){
       
       list.push({
         id: data.expense_category_id,
-        data: data.description,
+        data: data.category_name,
       });
     });
     // pass list[] to setData() that serves as the items for the dropdown.

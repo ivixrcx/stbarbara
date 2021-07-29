@@ -44,6 +44,13 @@ class Project extends CI_Controller {
 		return $this->API->emit_json( $data );
 	}
 
+	public function list_ss()
+	{
+		$this->API->ajax_only();
+
+		$this->project_model->list_ss();
+	}
+
 	public function create_staff_in_project_view($project_id)
 	{
 		$data = array();

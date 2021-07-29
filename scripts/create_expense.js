@@ -7,9 +7,6 @@ $('#form').validate({
     category_id: {
       required: true,
     },
-    item_id: {
-      required: true,
-    },
     category: {
       required: true,
       minlength: 3,
@@ -19,10 +16,6 @@ $('#form').validate({
       required: true,
       minlength: 3,
       maxlength: 50,
-    },
-    amount: {
-      required: true,
-      min: 0,
     },
   },
 
@@ -34,9 +27,6 @@ $('#form').validate({
     item: {
       required: "This field is required",
       maxlength: "Max of 50 characters",
-    },
-    amount: {
-      required: "This field is required",
     },
   },
 
@@ -74,6 +64,27 @@ $('#form').validate({
 
 
 $(function(){
+
+  // check if category input is null
+  $("#category").on('keyup', function(e){
+    var val = $(this).val()
+
+    if(val === ""){
+      $("#category_id").val('')
+      console.log($("#category_id").val())
+    }
+  })
+
+  // check if item input is null
+  $("#item").on('keyup', function(e){
+    var val = $(this).val()
+
+    if(val === ""){
+      $("#item_id").val('')
+      console.log($("#item_id").val())
+    }
+  })
+
   let ac = new autocomplete($('#category'));
   
   $.post('expensecategory/list')
@@ -84,7 +95,7 @@ $(function(){
       
       list.push({
         id: data.expense_category_id,
-        data: data.description,
+        data: data.category_name,
       });
     });
     // pass list[] to setData() that serves as the items for the dropdown.
@@ -117,3 +128,36 @@ $(function(){
   });
 });
 
+$(function(){
+
+  // check if project input is null
+  $("#project").on('keyup', function(e){
+    var val = $(this).val()
+
+    if(val === ""){
+      $("#project_id").val('')
+    }
+  })
+
+  let ac = new autocomplete($('#project'));
+  
+  $.post('project/list')
+  .then(res=>{
+    var list = [];
+    // populate list[];
+    $.each(res.data, (e, data)=>{
+      
+      list.push({
+        id: data.project_id,
+        data: data.name,
+      });
+    });
+    // pass list[] to setData() that serves as the items for the dropdown.
+    ac.setData(list);
+  });
+
+  // callback when item is selected.
+  ac.itemSelected((id, val, input)=>{
+    $('#project_id').val(id);
+  });
+});
