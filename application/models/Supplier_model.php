@@ -10,7 +10,7 @@ class Supplier_model extends CI_Model {
 		$this->API = new API();
 	}
 
-	public function list( $status_id="1" )
+	public function lists( $status_id="1" )
 	{
 		return $this->db->select( 'supplier.*, status.name as status_name' )
 		->from( 'supplier')

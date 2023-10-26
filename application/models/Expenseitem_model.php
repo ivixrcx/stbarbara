@@ -10,7 +10,7 @@ class Expenseitem_model extends CI_Model {
 		$this->API = new API();
 	}
 
-	public function list()
+	public function lists()
 	{
 		return $this->db->select( 'expense_item_id, description' )
 		->from( 'expense_item')

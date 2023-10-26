@@ -33,7 +33,7 @@ class Material_model extends CI_Model {
 		->get()->result();
 	}
 
-	public function list()
+	public function lists()
 	{
 		return $this->db->select( 'material.*, material.particular material_particular, material_category.particular material_category_particular, status.name as status_name' )
 		->from( 'material' )

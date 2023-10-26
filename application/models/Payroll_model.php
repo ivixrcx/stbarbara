@@ -10,7 +10,7 @@ class Payroll_model extends CI_Model {
 		$this->API = new API();
 	}
 
-	public function list( $staff_id )
+	public function lists( $staff_id )
 	{
 		return $this->SSP->table( 'payroll' )
 		->column( 'payroll.*')

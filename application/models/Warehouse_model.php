@@ -10,7 +10,7 @@ class Warehouse_model extends CI_Model {
 		$this->API = new API();
 	}
 
-	public function list( $status_id=1 )
+	public function lists( $status_id=1 )
 	{
 		return $this->db->select( 'warehouse.*, status.name as status_name' )
 		->from( 'warehouse' )

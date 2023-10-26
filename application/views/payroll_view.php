@@ -7,7 +7,7 @@
             <h4 class="title pr-2 pb-2 pt-2">Summary</h4>
           </div>
           <div class="d-flex pull-right">
-            <a class="pr-2 pb-2 pt-2" href="payroll/print/<?php echo $payroll_id; ?>"><button class="btn btn-primary btn-sm"><i class="fa fa-print text-dark"></i></button></a>
+            <a class="pr-2 pb-2 pt-2" href="payroll/to_print/<?php echo $payroll_id; ?>"><button class="btn btn-primary btn-sm"><i class="fa fa-print text-dark"></i></button></a>
           </div>
           <input type="hidden" id="payroll_id" value="<?php echo $payroll[0]->payroll_id; ?>" hidden readonly/>
           <div class="d-flex pull-right">

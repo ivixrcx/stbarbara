@@ -10,7 +10,7 @@ class Project_model extends CI_Model {
 		$this->API = new API();
 	}
 
-	public function list()
+	public function lists()
 	{
 		return $this->db->select( 'project_id, name' )
 		->from( 'project')

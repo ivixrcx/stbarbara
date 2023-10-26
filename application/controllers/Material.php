@@ -19,11 +19,11 @@ class Material extends CI_Controller {
 		$this->list_view();
 	}
 
-	public function list()
+	public function lists()
 	{
 		$this->API->ajax_only();
 
-		$data = $this->material_model->list();
+		$data = $this->material_model->lists();
 
 		return $this->API->emit_json( $data );
 	}

@@ -35,11 +35,11 @@ class House extends CI_Controller {
 		$this->load->view( 'page-frame-footer', $data );
 	}
 
-	public function list()
+	public function lists()
 	{
 		$this->API->ajax_only();
 
-		$data = $this->house_model->list();
+		$data = $this->house_model->lists();
 
 		return $this->API->emit_json( $data );
 	}

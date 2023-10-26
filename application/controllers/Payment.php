@@ -8,10 +8,7 @@ class Payroll extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model( 'account_model' );
-		$this->load->model( 'payroll_model' );
-		$this->load->model( 'staff_model' );
-		$this->load->model( 'project_model' );
+		$this->load->model( 'payment_model' );
 		$this->load->library( 'API', NULL, 'API' );
 		$this->load->library( 'dompdf/Dompdf_api', '', 'dompdf' );
 		$this->load->library( 'UserAccess', array( $this ) );
@@ -134,42 +131,6 @@ class Payroll extends CI_Controller {
 
 		$this->API->emit_json( $list );
 	}
-
-	// public function view( $staff_id="" )
-	// {
-	// 	// check if user logged in
-	// 	if(!$this->session->has_userdata('login_data')){
-	// 		redirect(base_url() . 'account/login', 'refresh');
-	// 	}
-
-	// 	$data = array();
-	// 	$data['title'] = 'View Payroll';
-	// 	$data['nav_payroll'] = 'active';
-	// 	$data['login_data'] = $this->session->userdata('login_data');
-	// 	$data['staff'] = $this->payroll_model->get_payroll( $staff_id );
-
-	// 	$this->load->view( 'page-frame', $data  );
-	// 	$this->load->view( 'view_payroll', $data );
-	// 	$this->load->view( 'page-frame-footer', $data );
-	// }
-
-	// public function view_details( $payroll_id="" )
-	// {
-	// 	// check if user logged in
-	// 	if(!$this->session->has_userdata('login_data')){
-	// 		redirect(base_url() . 'account/login', 'refresh');
-	// 	}
-
-	// 	$data = array();
-	// 	$data['title'] = 'Payroll Details';
-	// 	$data['nav_payroll'] = 'active';
-	// 	$data['login_data'] = $this->session->userdata('login_data');
-	// 	$data['staff'] = $this->payroll_model->get_payroll_details( $payroll_id );
-
-	// 	$this->load->view( 'page-frame', $data  );
-	// 	$this->load->view( 'view_payroll_details', $data );
-	// 	$this->load->view( 'page-frame-footer', $data );
-    // }
     
 	public function create_view($staff_id)
 	{
@@ -369,51 +330,5 @@ class Payroll extends CI_Controller {
 		$this->load->view( 'page-frame', $data  );
 		$this->load->view( 'create_payroll_cash_advance', $data );
 		$this->load->view( 'page-frame-footer', $data );
-	}
-
-	public function create_cash_advance_process()
-	{		
-		$this->API->ajax_only();
-
-		$staff_id = $this->input->post('staff_id');
-		$date = $this->input->post('date');
-		$amount = $this->input->post('amount');
-		$note = $this->input->post('note');
-
-		$delete = $this->payroll_model->create_cash_advance( $staff_id, $date, $amount , $note );
-
-		if($delete){
-			$this->API->emit_json( true );
-		}
-		else{
-			// error logs
-			$this->API->emit_json( 'Error: delete' );
-		}
-	}
-
-	public function cash_advance_list()
-	{
-		$this->API->ajax_only();
-
-		$staff_id = $_POST['staff_id'];
-		
-		$this->payroll_model->get_cash_advance_ss($staff_id);
-	}
-
-	public function delete_cash_advance()
-	{		
-		$this->API->ajax_only();
-
-		$cash_advance_id = $this->input->post('cash_advance_id');
-
-		$delete = $this->payroll_model->delete_cash_advance( $cash_advance_id );
-
-		if($delete){
-			$this->API->emit_json( true );
-		}
-		else{
-			// error logs
-			$this->API->emit_json( 'Error: delete' );
-		}
 	}
 }

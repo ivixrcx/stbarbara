@@ -7,7 +7,7 @@ $('#list').DataTable({
   processing: true,
   serverSide: true,
   ajax: {
-    url: 'expensecategory/list',
+    url: 'expensecategory/lists',
     type: 'post',
     complete: function(res){
       new deletion({

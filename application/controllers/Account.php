@@ -25,6 +25,10 @@ class Account extends CI_Controller {
 		$this->useraccess->check_permissions();
 	}
 
+	public function error(){
+		echo 'error';
+	}
+
 	public function index()
 	{
 		$loggedin = $this->session->userdata('login_data');
@@ -114,11 +118,11 @@ class Account extends CI_Controller {
 		redirect(base_url() . 'login', 'refresh');
 	}
 
-	public function list( $user_type_id, $status_id, $sort="asc" )
+	public function lists( $user_type_id, $status_id, $sort="asc" )
 	{
 		$this->API->ajax_only();
 
-		$list = $this->account_model->list( $user_type_id, $status_id, $sort );
+		$list = $this->account_model->lists( $user_type_id, $status_id, $sort );
 
 		$this->API->emit_json( $list );
 	}

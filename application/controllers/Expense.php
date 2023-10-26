@@ -35,7 +35,7 @@ class Expense extends CI_Controller {
 		$this->load->view( 'page-frame-footer', $data );
 	}
 
-	public function list()
+	public function lists()
 	{
 		$this->API->ajax_only();
 

@@ -10,7 +10,7 @@ class Position_model extends CI_Model {
 		$this->API = new API();
 	}
 
-	public function list()
+	public function lists()
 	{
 		return $this->db->select( 'user_type.*, status.name as status_name' )
 		->select( '(SELECT COUNT(*) FROM user WHERE user.user_type_id = user_type.user_type_id) as no_of_users' )

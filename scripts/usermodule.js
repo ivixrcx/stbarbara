@@ -6,7 +6,7 @@ let table = $('#list_usermodules');
 let user_module_category_id = $(table).data('id');
 
 $.ajax({
-  url: 'usermodule/list',
+  url: 'usermodule/lists',
   data: { user_module_category_id: user_module_category_id },
   type: 'post',
   success: function(res){

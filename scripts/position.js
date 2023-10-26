@@ -3,7 +3,7 @@ let list = $('#list');
 
 // table lists
 $.ajax({
-  url: 'position/list',
+  url: 'position/lists',
   type: 'post',
   success: function(res){
 

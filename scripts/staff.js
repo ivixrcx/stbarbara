@@ -5,7 +5,7 @@ $('#list_of_staffs').DataTable({
   processing: true,
   serverSide: true,
   ajax: {
-    url: 'staff/list',
+    url: 'staff/lists',
     type: 'post',
     complete: function(res){
       let access = res.responseJSON.data;

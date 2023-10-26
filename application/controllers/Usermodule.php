@@ -23,7 +23,7 @@ class Usermodule extends CI_Controller {
 	public function list_view( $user_module_category_id )
 	{
 		$this->usermodulecategory_model->update_module_count($user_module_category_id);
-		$category = $this->usermodulecategory_model->list( $user_module_category_id );
+		$category = $this->usermodulecategory_model->lists( $user_module_category_id );
 
 		$data = array();
 		$data['title'] = 'User Modules of "' . trim($category[0]->user_module_category_name) . '" category';
@@ -37,20 +37,20 @@ class Usermodule extends CI_Controller {
 		$this->load->view( 'page-frame-footer', $data );
 	}
 
-	public function list()
+	public function lists()
 	{
 		$this->API->ajax_only();
 
 		$user_module_category_id  = $this->input->post( 'user_module_category_id' );
 
-		$data = $this->usermodule_model->list( $user_module_category_id );
+		$data = $this->usermodule_model->lists( $user_module_category_id );
 
 		return $this->API->emit_json( $data );
     }
 
 	public function create_view( $user_module_category_id )
 	{
-		$category = $this->usermodulecategory_model->list( $user_module_category_id );
+		$category = $this->usermodulecategory_model->lists( $user_module_category_id );
 
 		$data = array();
 		$data['title'] = 'Create Module for "' . trim($category[0]->user_module_category_name) . '" category';

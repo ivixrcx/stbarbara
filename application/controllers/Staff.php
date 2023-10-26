@@ -28,10 +28,10 @@ class Staff extends CI_Controller {
 		$this->list_view();
     }
 
-	public function list()
+	public function lists()
 	{
 		$this->API->ajax_only();
-		$this->staff_model->list();
+		$this->staff_model->lists();
 	}
 
 	public function list_view()

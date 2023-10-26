@@ -10,7 +10,7 @@ class Notification_model extends CI_Model {
 		$this->API = new API();
     }
     
-    public function list( $user_id, $limit=15 )
+    public function lists( $user_id, $limit=15 )
     {
         $this->db->select( 'user.full_name' );
         $this->db->select( 'notification.user_id' );

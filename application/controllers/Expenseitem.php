@@ -35,11 +35,11 @@ class Expenseitem extends CI_Controller {
 		$this->load->view( 'page-frame-footer', $data );
 	}
 
-	public function list()
+	public function lists()
 	{
 		$this->API->ajax_only();
 
-		$data = $this->Expenseitem_model->list();
+		$data = $this->Expenseitem_model->lists();
 
 		return $this->API->emit_json( $data );
 	}

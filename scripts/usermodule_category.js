@@ -5,7 +5,7 @@
 let table = $('#list_usermodulecategories');
 
 $.ajax({
-  url: 'usermodulecategory/list',
+  url: 'usermodulecategory/lists',
   type: 'post',
   success: function(res){
     $(table).html('');

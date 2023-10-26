@@ -10,7 +10,7 @@ class Usermodulecategory_model extends CI_Model {
 		$this->API = new API();
 	}
 
-	public function list( $user_module_category_id="", $status_id="1")
+	public function lists( $user_module_category_id="", $status_id="1")
 	{
 		$list = $this->db->select( 'user_module_category.*, status.name as status_name' )
 		->from( 'user_module_category')

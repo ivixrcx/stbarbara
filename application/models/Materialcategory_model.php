@@ -10,7 +10,7 @@ class Materialcategory_model extends CI_Model {
 		$this->API = new API();
     }    
 
-	public function list( $sort="asc" )
+	public function lists( $sort="asc" )
 	{
 		return $this->db->select( 'material_category.*, status.name as status_name' )
 		->from( 'material_category' )

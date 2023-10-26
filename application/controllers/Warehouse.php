@@ -19,11 +19,11 @@ class Warehouse extends CI_Controller {
 		$this->list_view();
 	}
 
-	public function list()
+	public function lists()
 	{
 		$this->API->ajax_only();
 
-		$data = $this->warehouse_model->list();
+		$data = $this->warehouse_model->lists();
 
 		return $this->API->emit_json( $data );
 	}

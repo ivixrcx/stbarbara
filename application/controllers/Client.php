@@ -29,7 +29,7 @@ class Client extends CI_Controller {
 		$this->list_view();
     }
 
-	public function list()
+	public function lists()
 	{
 		$this->API->ajax_only();
 

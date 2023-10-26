@@ -37,7 +37,7 @@ class Notification extends CI_Controller {
         header('Content-Type: text/event-stream');
         header('Cache-Control: no-cache');
 
-		$list = $this->notification_model->list(2);
+		$list = $this->notification_model->lists(2);
 		$this->API->emit_json($list);
         flush();
     }

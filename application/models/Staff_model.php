@@ -10,7 +10,7 @@ class Staff_model extends CI_Model {
 		$this->API = new API();
 	}
 
-	public function list()
+	public function lists()
 	{
 		return $this->SSP->table( 'staff' )
 		->column( 'staff.staff_id')

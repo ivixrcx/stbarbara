@@ -10,7 +10,7 @@ class Stock_model extends CI_Model {
 		$this->API = new API();
 	}
 
-	public function list( $warehouse_id )
+	public function lists( $warehouse_id )
 	{
 		return $this->db->select( 'stock_id, stock_in_id, stock_out_id, stock_in.particular as stock_in_material, stock_out.particular as stock_out_material, quantity, date, remarks, warehouse.warehouse_id, warehouse.name as warehouse_name, status.name as status_name' )
 		->from( 'stock' )

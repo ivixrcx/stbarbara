@@ -10,7 +10,7 @@ class Client_model extends CI_Model {
 		$this->API = new API();
 	}
 
-	public function list()
+	public function lists()
 	{
 		return $this->db->select( 'client.*, status.name AS status_name' )
 		->from( 'client')

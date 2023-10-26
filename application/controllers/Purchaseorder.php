@@ -143,7 +143,7 @@ class Purchaseorder extends CI_Controller {
 	{
 		$this->API->ajax_only();
 
-		$list = $this->warehouse_model->list();
+		$list = $this->warehouse_model->lists();
 
 		$this->API->emit_json( $list );
 	}
@@ -152,7 +152,7 @@ class Purchaseorder extends CI_Controller {
 	{
 		$this->API->ajax_only();
 
-		$list = $this->supplier_model->list(1);
+		$list = $this->supplier_model->lists(1);
 
 		$this->API->emit_json( $list );
 	}
@@ -288,7 +288,7 @@ class Purchaseorder extends CI_Controller {
 		}
 	}
 
-	public function print($purchase_order_id)
+	public function to_print($purchase_order_id)
 	{
 		$data['purchase_order'] = $this->purchaseorder_model->get_purchase_order_details( $purchase_order_id );
 		$data['items'] = $this->purchaseorder_model->list_purchase_order_items( $purchase_order_id );
