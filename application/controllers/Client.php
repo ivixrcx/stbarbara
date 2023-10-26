@@ -33,7 +33,7 @@ class Client extends CI_Controller {
 	{
 		$this->API->ajax_only();
 
-		$list = $this->client_model->list();
+		$list = $this->client_model->lists();
 
 		$this->API->emit_json( $list );
 	}
